@@ -2,7 +2,7 @@
 
 <h1>Todos</h1>
 
-<table>
+<table class="table">
   <thead>
     <tr>
       <th>Content</th>
@@ -18,9 +18,9 @@
         <td><%= todo.content %></td>
         <td><%= todo.due_date %></td>
         <td><%= todo.done %></td>
-        <td><%= link_to 'Show', todo %></td>
-        <td><%= link_to 'Edit', edit_todo_path(todo) %></td>
-        <td><%= link_to 'Destroy', todo, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', todo, class: 'btn btn-default' %></td>
+        <td><%= link_to 'Edit', edit_todo_path(todo), class: 'btn btn-default' %></td>
+        <td><%= link_to 'Destroy', todo, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-default' %></td>
       </tr>
     <% end %>
   </tbody>
@@ -28,4 +28,4 @@
 
 <br>
 
-<%= link_to 'New Todo', new_todo_path %>
+<%= link_to 'New Todo', new_todo_path, class: 'btn btn-default' %>

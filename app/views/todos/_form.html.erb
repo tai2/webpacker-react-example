@@ -11,14 +11,14 @@
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="field form-group">
     <%= form.label :content %>
-    <%= form.text_field :content, id: :todo_content %>
+    <%= form.text_field :content, id: :todo_content, class: 'form-control' %>
   </div>
 
-  <div class="field">
+  <div class="field form-group">
     <%= form.label :due_date %>
-    <%= form.datetime_select :due_date, id: :todo_due_date %>
+    <%= form.datetime_select :due_date, id: :todo_due_date, class: 'form-control' %>
   </div>
 
   <div class="field">
@@ -27,6 +27,6 @@
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit class: 'btn btn-default' %>
   </div>
 <% end %>
