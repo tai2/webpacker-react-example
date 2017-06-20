@@ -27,3 +27,6 @@
 # Ignore text editor artifacts
 *.swp
 *~
+
+# Ignore macOS artificats
+.DS_Store
