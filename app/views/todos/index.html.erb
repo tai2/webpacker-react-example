@@ -7,7 +7,6 @@
     <tr>
       <th>Content</th>
       <th>Due date</th>
-      <th>Done</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -15,9 +14,15 @@
   <tbody>
     <% @todos.each do |todo| %>
       <tr>
-        <td><%= todo.content %></td>
+        <td>
+          <% if todo.done %>
+            <img class="check" src="<%= asset_pack_path 'check-square-o.svg' %>" />
+          <% else %>
+            <img class="check" src="<%= asset_pack_path 'square-o.svg' %>" />
+          <% end %>
+          <%= todo.content %>
+        </td>
         <td><%= todo.due_date %></td>
-        <td><%= todo.done %></td>
         <td><%= link_to 'Show', todo, class: 'btn btn-default' %></td>
         <td><%= link_to 'Edit', edit_todo_path(todo), class: 'btn btn-default' %></td>
         <td><%= link_to 'Destroy', todo, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-default' %></td>

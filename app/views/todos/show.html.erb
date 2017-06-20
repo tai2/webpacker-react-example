@@ -12,7 +12,11 @@
 
 <p>
   <strong>Done:</strong>
-  <%= @todo.done %>
+  <% if @todo.done %>
+    <img class="check" src="<%= asset_pack_path 'check-square-o.svg' %>" />
+  <% else %>
+    <img class="check" src="<%= asset_pack_path 'square-o.svg' %>" />
+  <% end %>
 </p>
 
 <%= link_to 'Edit', edit_todo_path(@todo), class: 'btn btn-default' %> |
