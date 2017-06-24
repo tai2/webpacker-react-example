@@ -2,6 +2,20 @@
 
 <h1>Todos</h1>
 
+<form class="form-inline">
+  <div class="form-group">
+    <label>
+      sort by:
+      <select class="form-control" data-change-query="sort_by">
+        <option value="due_date_asc">due date(asc)</option>
+        <option value="due_date_desc">due date(desc)</option>
+        <option value="created_at_asc">created at(asc)</option>
+        <option value="created_at_desc">created at(desc)</option>
+      </select>
+    </label>
+  </div>
+</form>
+
 <table class="table">
   <thead>
     <tr>

@@ -5,7 +5,16 @@ class TodosController < ApplicationController
   # GET /todos
   # GET /todos.json
   def index
-    @todos = Todo.all
+    @todos = case params[:sort_by]
+             when 'created_at_asc'
+               Todo.order(created_at: :asc)
+             when 'created_at_desc'
+               Todo.order(created_at: :desc)
+             when 'due_date_desc'
+               Todo.order(due_date: :desc)
+             else
+               Todo.order(due_date: :asc)
+             end
   end
 
   # GET /todos/1
