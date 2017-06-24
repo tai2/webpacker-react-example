@@ -1,6 +1,6 @@
 import queryString from 'query-string';
 
-document.addEventListener('DOMContentLoaded', () => {
+function prepereSelectElems() {
   const doms = document.querySelectorAll('select[data-change-query]');
   const query = queryString.parse(location.search);
 
@@ -13,4 +13,22 @@ document.addEventListener('DOMContentLoaded', () => {
       location.search = `?${queryString.stringify(query)}`;
     });
   }
+}
+
+function prepereCheckboxElems() {
+  const doms = document.querySelectorAll('input[type=checkbox][data-change-query]');
+  const query = queryString.parse(location.search);
+
+  for (const checkbox of doms) {
+    checkbox.checked = query.done && query.done !== 'false';
+    checkbox.addEventListener('change', e => {
+      query.done = e.target.checked;
+      location.search = `?${queryString.stringify(query)}`;
+    });
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  prepereSelectElems();
+  prepereCheckboxElems();
 });

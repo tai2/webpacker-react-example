@@ -5,16 +5,7 @@ class TodosController < ApplicationController
   # GET /todos
   # GET /todos.json
   def index
-    @todos = case params[:sort_by]
-             when 'created_at_asc'
-               Todo.order(created_at: :asc)
-             when 'created_at_desc'
-               Todo.order(created_at: :desc)
-             when 'due_date_desc'
-               Todo.order(due_date: :desc)
-             else
-               Todo.order(due_date: :asc)
-             end
+    @todos = Todo.order(index_order).where(index_filter)
   end
 
   # GET /todos/1
@@ -93,5 +84,28 @@ class TodosController < ApplicationController
   # through.
   def todo_params
     params.require(:todo).permit(:content, :due_date, :done)
+  end
+
+  def index_order
+    case params[:sort_by]
+    when 'created_at_asc'
+      { created_at: :asc }
+    when 'created_at_desc'
+      { created_at: :desc }
+    when 'due_date_desc'
+      { due_date: :desc }
+    else
+      { due_date: :asc }
+    end
+  end
+
+  def index_filter
+    cond = { done: false }
+    done_is_truthy && cond.delete(:done)
+    cond
+  end
+
+  def done_is_truthy
+    params.key?(:done) && params[:done] != 'false'
   end
 end
