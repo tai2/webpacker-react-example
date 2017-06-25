@@ -1,0 +1,7 @@
+<%= content_tag :div,
+  id: 'todos-data',
+  data: {
+    todos: @todos
+  }.to_json do %>
+<% end %>
+<%= javascript_pack_tag 'todos' %>
