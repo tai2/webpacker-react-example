@@ -33,6 +33,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   ReactDOM.render(
     <TodoApp todos={data.todos}/>,
-    document.body.appendChild(document.createElement('div')),
+    document.getElementById('todo-app'),
   )
 })
