@@ -1,3 +1,3 @@
 import 'stylesheets/application';
 import 'javascripts/application';
-import 'images/application';
+require.context('images', false, /\.(png|jpg|jpeg|svg)$/);
