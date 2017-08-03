@@ -1,5 +1,7 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
+import React from 'react';
+import ReactDOM from 'react-dom';
+import squareIcon from 'images/square-o.svg';
+import checkSquareIcon from 'images/check-square-o.svg';
 
 function TodoApp({ todos }) {
   return (<div>
@@ -8,15 +10,16 @@ function TodoApp({ todos }) {
         <tr>
           <th>content</th>
           <th>due date</th>
-          <th>done</th>
         </tr>
       </thead>
       <tbody>
         {todos.map(todo => (
           <tr key={todo.id}>
-            <td>{todo.content}</td>
+            <td>
+              <img className="check" src={todo.done ? squareIcon : checkSquareIcon} />
+              {todo.content}
+            </td>
             <td>{todo.created_at}</td>
-            <td>{todo.done.toString()}</td>
           </tr>
         ))}
       </tbody>
