@@ -15,11 +15,8 @@
   ],
   "plugins": [
     "syntax-dynamic-import",
-    [
-      "transform-class-properties",
-      {
-        "spec": true
-      }
-    ]
+    ["transform-class-properties", { "spec": true }],
+    ["transform-object-rest-spread", {"useBuiltIns": true}],
+    "lodash"
   ]
 }

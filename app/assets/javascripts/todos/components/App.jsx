@@ -1,10 +1,18 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import TodoList from './TodoList';
 
-export default function App({ todos }) {
+function App({ todos }) {
   return (
     <div>
       <TodoList todos={todos} />
     </div>
   );
 }
+
+export default connect(
+  (state) => ({
+    todos: state.todos,
+  }),
+  null,
+)(App);

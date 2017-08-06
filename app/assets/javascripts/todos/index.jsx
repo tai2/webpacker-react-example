@@ -1,13 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
 import App from './components/App'
+import createAppStore from './store';
+
+function getPreloadedState() {
+  const node = document.getElementById('todos-data')
+  return JSON.parse(node.getAttribute('data'));
+}
 
 document.addEventListener('DOMContentLoaded', () => {
-  const node = document.getElementById('todos-data')
-  const data = JSON.parse(node.getAttribute('data'))
+  const store = createAppStore(getPreloadedState());
 
   ReactDOM.render(
-    <App todos={data.todos}/>,
+    <Provider store={store}>
+      <App />
+    </Provider>,
     document.getElementById('todo-app'),
   )
 })
