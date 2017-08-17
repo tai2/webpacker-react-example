@@ -6,8 +6,8 @@ export default function TodoList({ todos }) {
     <table className="table">
       <thead>
         <tr>
-          <th>content</th>
-          <th>due date</th>
+          <th>Content</th>
+          <th>Due date</th>
           <th></th>
         </tr>
       </thead>
