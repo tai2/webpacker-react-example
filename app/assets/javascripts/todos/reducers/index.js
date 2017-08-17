@@ -18,7 +18,7 @@ function maxKey(obj) {
 function addTodo(state, action) {
   // Replace id with UUID which is generated in saga.
   const id = maxKey(state.todoById) + 1;
-  const { content, dueDate } = action.payload;
+  const { content, due_date } = action.payload;
   const newTodo = { id, content, payload };
 
   return {
@@ -32,9 +32,9 @@ function addTodo(state, action) {
 }
 
 function updateTodo(state, action) {
-  const { id, content, dueDate } = action.payload;
+  const { id, content, due_date } = action.payload;
   const todo = state.todoById[id];
-  const updatedTodo = { ...todo, content, dueDate };
+  const updatedTodo = { ...todo, content, due_date };
 
   return {
     ...state,

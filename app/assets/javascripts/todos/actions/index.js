@@ -12,10 +12,10 @@ export function addTodo(content, dueDate) {
   };
 }
 
-export function updateTodo(id, content, dueDate) {
+export function updateTodo(id, content, due_date) {
   return {
     type: UPDATE_TODO,
-    payload: { id, content, dueDate },
+    payload: { id, content, due_date },
   };
 }
 
