@@ -76,7 +76,7 @@ function uncheckTodo(state, action) {
 function deleteTodo(state, action) {
   const { id } = action.payload;
   const todoById = _.omit(state.todoById, [id]);
-  const todos = _.remove(state.todos, (item) => item === id);
+  const todos = state.todos.filter(item => item !== id);
 
   return {
     ...state,

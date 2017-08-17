@@ -8,6 +8,7 @@ export default function TodoList({ todos }) {
         <tr>
           <th>content</th>
           <th>due date</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
