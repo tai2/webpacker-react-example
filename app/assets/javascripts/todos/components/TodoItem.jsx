@@ -1,14 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { deleteTodo } from '../actions';
-import squareIcon from 'images/square-o.svg';
-import checkSquareIcon from 'images/check-square-o.svg';
+import { checkTodo, uncheckTodo, deleteTodo } from '../actions';
 
-function TodoItem({ todo, onDestroyClick }) {
+function TodoItem({ todo, onCheckboxChange, onDestroyClick }) {
   return (
     <tr key={todo.id}>
       <td>
-        <img className="check" src={todo.done ? squareIcon : checkSquareIcon} />
+        <input type="checkbox" checked={todo.done} onChange={onCheckboxChange}/>
         {todo.content}
       </td>
       <td>{todo.created_at}</td>
@@ -22,6 +20,13 @@ export default connect(
     todo: state.todoById[ownProps.id],
   }),
   (dispatch, ownProps) => ({
+    onCheckboxChange(event) {
+      if (event.target.checked) {
+        dispatch(checkTodo(ownProps.id));
+      } else {
+        dispatch(uncheckTodo(ownProps.id));
+      }
+    },
     onDestroyClick() {
       if (confirm('Are you sure?')) {
         dispatch(deleteTodo(ownProps.id));
