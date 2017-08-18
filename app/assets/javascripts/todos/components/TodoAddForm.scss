@@ -1,0 +1,19 @@
+.content {
+  font-weight: normal;
+}
+
+.dueDate {
+  display: inline-block;
+  font-weight: normal;
+
+  :global(.form-control) {
+    line-height: inherit;
+    height: inherit;
+    padding: 2px;
+    border-radius: 0;
+  }
+}
+
+.item {
+  margin: 0 0.5rem;
+}

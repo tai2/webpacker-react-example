@@ -5,10 +5,10 @@ export const CHECK_TODO = 'CHECK_TODO';
 export const UNCHECK_TODO = 'UNCHECK_TODO';
 export const DELETE_TODO = 'DELETE_TODO';
 
-export function addTodo(content, dueDate) {
+export function addTodo(content, due_date) {
   return {
     type: ADD_TODO,
-    payload: { content, dueDate },
+    payload: { content, due_date },
   };
 }
 
