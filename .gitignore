@@ -30,3 +30,6 @@
 
 # Ignore macOS artificats
 .DS_Store
+
+# Ignore package-lock.json because this project uses yarn
+.package-lock.json
