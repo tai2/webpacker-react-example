@@ -73,7 +73,7 @@ class TodoItem extends Component {
 
 export default connect(
   (state, ownProps) => ({
-    todo: state.todoById[ownProps.id],
+    todo: state.todos.byId[ownProps.id],
   }),
   (dispatch, ownProps) => ({
     onCheckboxChange() {
