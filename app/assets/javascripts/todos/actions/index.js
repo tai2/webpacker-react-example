@@ -4,11 +4,13 @@ export const UPDATE_TODO = 'UPDATE_TODO';
 export const TOGGLE_TODO_DONE = 'TOGGLE_TODO_DONE';
 export const DELETE_TODO = 'DELETE_TODO';
 export const TOGGLE_DONE_FILTER = 'TOGGLE_DONE_FILTER';
+export const SELECT_ORDER = 'SELECT_ORDER';
 
-export function addTodo(content, due_date) {
+// TODO: remove created_at and retrieve it in saga.
+export function addTodo(content, due_date, created_at) {
   return {
     type: ADD_TODO,
-    payload: { content, due_date },
+    payload: { content, due_date, created_at },
   };
 }
 
@@ -36,5 +38,12 @@ export function deleteTodo(id) {
 export function toggleDoneFilter() {
   return {
     type: TOGGLE_DONE_FILTER,
+  };
+}
+
+export function selectOrder(sortBy) {
+  return {
+    type: SELECT_ORDER,
+    payload: { sortBy },
   };
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import reactIcon from 'images/react.svg';
-import { filteredTodos } from '../reducers/todos';
+import { visibleTodos } from '../reducers/todos';
 import TodoList from './TodoList';
 import TodoConditions from './TodoConditions';
 import TodoAddForm from './TodoAddForm';
@@ -20,7 +20,7 @@ function App({ todos }) {
 
 export default connect(
   (state) => ({
-    todos: filteredTodos(state.todos, state.app.doneFilter),
+    todos: visibleTodos(state.todos, state.app.sortBy, state.app.doneFilter),
   }),
   null,
 )(App);

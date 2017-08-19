@@ -18,8 +18,8 @@ function maxKey(obj) {
 function addTodo(state, action) {
   // Replace id with UUID which is generated in saga.
   const id = maxKey(state.byId) + 1;
-  const { content, due_date } = action.payload;
-  const newTodo = { id, content, due_date };
+  const { content, due_date, created_at } = action.payload;
+  const newTodo = { id, content, due_date, created_at };
 
   return {
     ...state,
@@ -96,12 +96,14 @@ export default function todosReducer(state = initialState, action) {
   }
 }
 
-export function filteredTodos(state, done) {
+export function visibleTodos(state, sortBy, done) {
   // When done is required, return all todos including done.
-  if (done) {
-    return state.ids;
-  }
+  const ids = done
+    ? state.ids
+    : state.ids.filter(id => !state.byId[id].done);
 
-  return state.ids.filter(id => !state.byId[id].done);
+  const [prop, order] = sortBy.split('-');
+  const time = (id) => new Date(state.byId[id][prop]).getTime();
+  return _.orderBy(ids, time, [order]);
 }
 
