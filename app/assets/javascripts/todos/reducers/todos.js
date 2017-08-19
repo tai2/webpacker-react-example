@@ -81,15 +81,6 @@ function toggleDoneFilter(state) {
   };
 }
 
-export function filteredTodos(state, done) {
-  // When done is required, return all todos including done.
-  if (done) {
-    return state.ids;
-  }
-
-  return state.ids.filter(id => !state.byId[id].done);
-}
-
 export default function todosReducer(state = initialState, action) {
   switch(action.type) {
   case actions.ADD_TODO:
@@ -103,5 +94,14 @@ export default function todosReducer(state = initialState, action) {
   default:
     return state;
   }
+}
+
+export function filteredTodos(state, done) {
+  // When done is required, return all todos including done.
+  if (done) {
+    return state.ids;
+  }
+
+  return state.ids.filter(id => !state.byId[id].done);
 }
 

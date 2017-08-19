@@ -2,11 +2,8 @@ import React, { Component }  from 'react';
 import { connect } from 'react-redux';
 import DateTime from 'react-datetime/DateTime';
 import moment from 'moment';
-import {
-  toggleTodoDone,
-  updateTodo,
-  deleteTodo
-} from '../actions';
+import { toggleTodoDone, updateTodo, deleteTodo } from '../actions';
+import EditButton from './EditButton';
 import styles from './TodoItem.scss';
 
 class TodoItem extends Component {
@@ -18,7 +15,7 @@ class TodoItem extends Component {
     };
   }
   renderContent() {
-    const { todo, onContentBlur } = this.props;
+    const { todo, onCheckboxChange, onContentBlur } = this.props;
 
     if (this.state.contentEditing) {
       return (
@@ -34,7 +31,15 @@ class TodoItem extends Component {
       );
     }
 
-    return todo.content;
+    return (
+      <div>
+        <label className={styles.contentLabel}>
+          <input type="checkbox" checked={todo.done} onChange={onCheckboxChange}/>
+          {todo.content}
+        </label>
+        <EditButton className={styles.editButton} onClick={() => this.setState({ contentEditing: true })} />
+      </div>
+    );
   }
   renderDueDate() {
     const { todo, onDueDateBlur } = this.props;
@@ -52,19 +57,19 @@ class TodoItem extends Component {
       );
     }
 
-    return moment(todo.due_date).local().toString();
+    return (
+      <div>
+        {moment(todo.due_date).local().toString()}
+        <EditButton className={styles.editButton} onClick={() => this.setState({ dueDateEditing: true })} />
+      </div>
+    );
   }
   render() {
-    const { todo, onCheckboxChange, onDestroyClick } = this.props;
+    const { todo, onDestroyClick } = this.props;
     return (
       <tr key={todo.id}>
-        <td className={styles.contentCol} onClick={() => this.setState({ contentEditing: true })}>
-          <input type="checkbox" checked={todo.done} onChange={onCheckboxChange}/>
-          {this.renderContent()}
-        </td>
-        <td className={styles.dueDateCol} onClick={() => this.setState({ dueDateEditing: true })}>
-          {this.renderDueDate()}
-        </td>
+        <td className={styles.contentCol}>{this.renderContent()}</td>
+        <td className={styles.dueDateCol}>{this.renderDueDate()}</td>
         <td><button className="btn btn-default" onClick={onDestroyClick}>Destroy</button></td>
       </tr>
     );
