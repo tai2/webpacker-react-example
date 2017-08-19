@@ -3,8 +3,7 @@ import { connect } from 'react-redux';
 import DateTime from 'react-datetime/DateTime';
 import moment from 'moment';
 import {
-  checkTodo,
-  uncheckTodo,
+  toggleTodoDone,
   updateTodo,
   deleteTodo
 } from '../actions';
@@ -77,12 +76,8 @@ export default connect(
     todo: state.todoById[ownProps.id],
   }),
   (dispatch, ownProps) => ({
-    onCheckboxChange(event) {
-      if (event.target.checked) {
-        dispatch(checkTodo(ownProps.id));
-      } else {
-        dispatch(uncheckTodo(ownProps.id));
-      }
+    onCheckboxChange() {
+      dispatch(toggleTodoDone(ownProps.id));
     },
     onContentBlur(event, todo) {
         dispatch(updateTodo(ownProps.id, event.target.value, todo.dueDate));

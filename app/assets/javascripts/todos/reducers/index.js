@@ -45,24 +45,10 @@ function updateTodo(state, action) {
   };
 }
 
-function checkTodo(state, action) {
+function toggleTodoDone(state, action) {
   const { id } = action.payload;
   const todo = state.todoById[id];
-  const updatedTodo = { ...todo, done: true };
-
-  return {
-    ...state,
-    todoById: {
-      ...state.todoById,
-      [updatedTodo.id]: updatedTodo,
-    }
-  };
-}
-
-function uncheckTodo(state, action) {
-  const { id } = action.payload;
-  const todo = state.todoById[id];
-  const updatedTodo = { ...todo, done: false };
+  const updatedTodo = { ...todo, done: !todo.done };
 
   return {
     ...state,
@@ -91,10 +77,8 @@ export default function reducer(state = initialState, action) {
     return addTodo(state, action);
   case actions.UPDATE_TODO:
     return updateTodo(state, action);
-  case actions.CHECK_TODO:
-    return checkTodo(state, action);
-  case actions.UNCHECK_TODO:
-    return uncheckTodo(state, action);
+  case actions.TOGGLE_TODO_DONE:
+    return toggleTodoDone(state, action);
   case actions.DELETE_TODO:
     return deleteTodo(state, action);
   default:
