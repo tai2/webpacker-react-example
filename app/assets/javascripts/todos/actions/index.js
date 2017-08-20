@@ -1,23 +1,31 @@
 
-export const ADD_TODO = 'ADD_TODO';
+export const ADD_TODO_REQUESTED = 'ADD_TODO:REQUESTED';
+export const ADD_TODO_RECEIVED = 'ADD_TODO:RECEIVED';
 export const UPDATE_TODO = 'UPDATE_TODO';
 export const TOGGLE_TODO_DONE = 'TOGGLE_TODO_DONE';
 export const DELETE_TODO = 'DELETE_TODO';
 export const TOGGLE_DONE_FILTER = 'TOGGLE_DONE_FILTER';
 export const SELECT_ORDER = 'SELECT_ORDER';
 
-// TODO: remove created_at and retrieve it in saga.
-export function addTodo(content, due_date, created_at) {
+export function addTodoRequested(content, dueDate) {
   return {
-    type: ADD_TODO,
-    payload: { content, due_date, created_at },
+    type: ADD_TODO_REQUESTED,
+    payload: { content, dueDate },
   };
 }
 
-export function updateTodo(id, content, due_date) {
+export function addTodoReceived(payload) {
+  return {
+    type: ADD_TODO_RECEIVED,
+    payload: payload,
+    error: payload instanceof Error,
+  };
+}
+
+export function updateTodo(id, content, dueDate) {
   return {
     type: UPDATE_TODO,
-    payload: { id, content, due_date },
+    payload: { id, content, dueDate },
   };
 }
 

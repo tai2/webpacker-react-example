@@ -47,7 +47,7 @@ class TodoItem extends Component {
     if (this.state.dueDateEditing) {
       return (
         <DateTime
-          defaultValue={new Date(todo.due_date)}
+          defaultValue={new Date(todo.dueDate)}
           onBlur={(dt) => {
             this.setState({ dueDateEditing: false });
             onDueDateBlur(dt, todo);
@@ -59,7 +59,7 @@ class TodoItem extends Component {
 
     return (
       <div>
-        {moment(todo.due_date).local().toString()}
+        {moment(todo.dueDate).local().toString()}
         <EditButton className={styles.editButton} onClick={() => this.setState({ dueDateEditing: true })} />
       </div>
     );

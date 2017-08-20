@@ -6,20 +6,8 @@ const initialState = {
   ids: [],
 };
 
-function maxKey(obj) {
-  const keys = Object.keys(obj);
-  if (keys.length === 0) {
-    return 1;
-  }
-
-  return Math.max.apply(null, keys.map(n => parseInt(n, 10)));
-};
-
-function addTodo(state, action) {
-  // Replace id with UUID which is generated in saga.
-  const id = maxKey(state.byId) + 1;
-  const { content, due_date, created_at } = action.payload;
-  const newTodo = { id, content, due_date, created_at };
+function addTodoReceived(state, action) {
+  const newTodo = action.payload;
 
   return {
     ...state,
@@ -32,9 +20,9 @@ function addTodo(state, action) {
 }
 
 function updateTodo(state, action) {
-  const { id, content, due_date } = action.payload;
+  const { id, content, dueDate } = action.payload;
   const todo = state.byId[id];
-  const updatedTodo = { ...todo, content, due_date };
+  const updatedTodo = { ...todo, content, dueDate };
 
   return {
     ...state,
@@ -83,8 +71,8 @@ function toggleDoneFilter(state) {
 
 export default function todosReducer(state = initialState, action) {
   switch(action.type) {
-  case actions.ADD_TODO:
-    return addTodo(state, action);
+  case actions.ADD_TODO_RECEIVED:
+    return addTodoReceived(state, action);
   case actions.UPDATE_TODO:
     return updateTodo(state, action);
   case actions.TOGGLE_TODO_DONE:

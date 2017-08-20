@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import DateTime from 'react-datetime/DateTime';
 import moment from 'moment';
 import classNames from 'classnames';
-import { addTodo } from '../actions';
+import { addTodo, addTodoRequested } from '../actions';
 import styles from './TodoAddForm.scss';
 
 class TodoAddForm extends Component {
@@ -52,7 +52,7 @@ export default connect(
   null,
   (dispatch, ownProps) => ({
     onAddTodo(content, dueDate) {
-        dispatch(addTodo(content, dueDate, moment().toISOString()));
+      dispatch(addTodoRequested(content, dueDate));
     },
   }),
 )(TodoAddForm);
