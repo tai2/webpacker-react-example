@@ -1,7 +1,8 @@
 
 export const ADD_TODO_REQUESTED = 'ADD_TODO:REQUESTED';
 export const ADD_TODO_RECEIVED = 'ADD_TODO:RECEIVED';
-export const UPDATE_TODO = 'UPDATE_TODO';
+export const UPDATE_TODO_REQUESTED = 'UPDATE_TODO_REQUESTED';
+export const UPDATE_TODO_RECEIVED = 'UPDATE_TODO_RECEIVED';
 export const TOGGLE_TODO_DONE = 'TOGGLE_TODO_DONE';
 export const DELETE_TODO = 'DELETE_TODO';
 export const TOGGLE_DONE_FILTER = 'TOGGLE_DONE_FILTER';
@@ -22,10 +23,18 @@ export function addTodoReceived(payload) {
   };
 }
 
-export function updateTodo(id, content, dueDate) {
+export function updateTodoRequested(id, content, dueDate) {
   return {
-    type: UPDATE_TODO,
+    type: UPDATE_TODO_REQUESTED,
     payload: { id, content, dueDate },
+  };
+}
+
+export function updateTodoReceived(payload) {
+  return {
+    type: UPDATE_TODO_RECEIVED,
+    payload: payload,
+    error: payload instanceof Error,
   };
 }
 

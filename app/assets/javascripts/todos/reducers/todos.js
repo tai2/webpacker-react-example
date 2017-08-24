@@ -19,10 +19,8 @@ function addTodoReceived(state, action) {
   };
 }
 
-function updateTodo(state, action) {
-  const { id, content, dueDate } = action.payload;
-  const todo = state.byId[id];
-  const updatedTodo = { ...todo, content, dueDate };
+function updateTodoReceived(state, action) {
+  const updatedTodo = action.payload;
 
   return {
     ...state,
@@ -73,8 +71,8 @@ export default function todosReducer(state = initialState, action) {
   switch(action.type) {
   case actions.ADD_TODO_RECEIVED:
     return addTodoReceived(state, action);
-  case actions.UPDATE_TODO:
-    return updateTodo(state, action);
+  case actions.UPDATE_TODO_RECEIVED:
+    return updateTodoReceived(state, action);
   case actions.TOGGLE_TODO_DONE:
     return toggleTodoDone(state, action);
   case actions.DELETE_TODO:

@@ -2,7 +2,7 @@ import React, { Component }  from 'react';
 import { connect } from 'react-redux';
 import DateTime from 'react-datetime/DateTime';
 import moment from 'moment';
-import { toggleTodoDone, updateTodo, deleteTodo } from '../actions';
+import { toggleTodoDone, updateTodoRequested, deleteTodo } from '../actions';
 import EditButton from './EditButton';
 import styles from './TodoItem.scss';
 
@@ -85,10 +85,10 @@ export default connect(
       dispatch(toggleTodoDone(ownProps.id));
     },
     onContentBlur(event, todo) {
-        dispatch(updateTodo(ownProps.id, event.target.value, todo.dueDate));
+      dispatch(updateTodoRequested(ownProps.id, event.target.value, todo.dueDate));
     },
     onDueDateBlur(dt, todo) {
-        dispatch(updateTodo(ownProps.id, todo.content, dt.toISOString()));
+      dispatch(updateTodoRequested(ownProps.id, todo.content, dt.toISOString()));
     },
     onDestroyClick() {
       if (confirm('Are you sure?')) {
