@@ -3,7 +3,8 @@ export const ADD_TODO_REQUESTED = 'ADD_TODO:REQUESTED';
 export const ADD_TODO_RECEIVED = 'ADD_TODO:RECEIVED';
 export const UPDATE_TODO_REQUESTED = 'UPDATE_TODO_REQUESTED';
 export const UPDATE_TODO_RECEIVED = 'UPDATE_TODO_RECEIVED';
-export const TOGGLE_TODO_DONE = 'TOGGLE_TODO_DONE';
+export const TOGGLE_TODO_DONE_REQUESTED = 'TOGGLE_TODO_DONE_REQUESTED';
+export const TOGGLE_TODO_DONE_RECEIVED = 'TOGGLE_TODO_DONE_RECEIVED';
 export const DELETE_TODO = 'DELETE_TODO';
 export const TOGGLE_DONE_FILTER = 'TOGGLE_DONE_FILTER';
 export const SELECT_ORDER = 'SELECT_ORDER';
@@ -38,10 +39,18 @@ export function updateTodoReceived(payload) {
   };
 }
 
-export function toggleTodoDone(id) {
+export function toggleTodoDoneRequested(id) {
   return {
-    type: TOGGLE_TODO_DONE,
+    type: TOGGLE_TODO_DONE_REQUESTED,
     payload: { id },
+  };
+}
+
+export function toggleTodoDoneReceived(payload) {
+  return {
+    type: TOGGLE_TODO_DONE_RECEIVED,
+    payload: payload,
+    error: payload instanceof Error,
   };
 }
 

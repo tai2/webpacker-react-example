@@ -1,4 +1,4 @@
-import { takeEvery, takeLatest, call, put } from 'redux-saga/effects';
+import { takeEvery, takeLatest, call, put, select } from 'redux-saga/effects';
 import * as actions from '../actions';
 import * as webApi from '../webApi';
 
@@ -22,8 +22,20 @@ function* updateTodoRequested(action) {
   }
 }
 
+function* toggleTodoDoneRequested(action) {
+  try {
+    const { id } = action.payload;
+    const done = yield select(state => state.todos.byId[id].done);
+    const response = yield call(webApi.updateTodo, id, undefined, undefined, !done);
+    yield put(actions.toggleTodoDoneReceived(response));
+  } catch (error) {
+    yield put(actions.toggleTodoDoneReceived(error));
+  }
+}
+
 export default function* rootSaga() {
   yield takeLatest(actions.ADD_TODO_REQUESTED, addTodoRequested);
-  yield takeLatest(actions.UPDATE_TODO_REQUESTED, updateTodoRequested);
+  yield takeEvery(actions.UPDATE_TODO_REQUESTED, updateTodoRequested);
+  yield takeEvery(actions.TOGGLE_TODO_DONE_REQUESTED, toggleTodoDoneRequested);
 }
 

@@ -2,7 +2,7 @@ import React, { Component }  from 'react';
 import { connect } from 'react-redux';
 import DateTime from 'react-datetime/DateTime';
 import moment from 'moment';
-import { toggleTodoDone, updateTodoRequested, deleteTodo } from '../actions';
+import { toggleTodoDoneRequested, updateTodoRequested, deleteTodo } from '../actions';
 import EditButton from './EditButton';
 import styles from './TodoItem.scss';
 
@@ -82,7 +82,7 @@ export default connect(
   }),
   (dispatch, ownProps) => ({
     onCheckboxChange() {
-      dispatch(toggleTodoDone(ownProps.id));
+      dispatch(toggleTodoDoneRequested(ownProps.id));
     },
     onContentBlur(event, todo) {
       dispatch(updateTodoRequested(ownProps.id, event.target.value, todo.dueDate));
