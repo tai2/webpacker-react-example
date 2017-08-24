@@ -2,7 +2,13 @@ import React, { Component }  from 'react';
 import { connect } from 'react-redux';
 import DateTime from 'react-datetime/DateTime';
 import moment from 'moment';
-import { toggleTodoDoneRequested, updateTodoRequested, deleteTodo } from '../actions';
+
+import {
+  toggleTodoDoneRequested,
+  updateTodoRequested,
+  deleteTodoRequested
+} from '../actions';
+
 import EditButton from './EditButton';
 import styles from './TodoItem.scss';
 
@@ -92,7 +98,7 @@ export default connect(
     },
     onDestroyClick() {
       if (confirm('Are you sure?')) {
-        dispatch(deleteTodo(ownProps.id));
+        dispatch(deleteTodoRequested(ownProps.id));
       }
     },
   }),

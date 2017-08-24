@@ -43,7 +43,7 @@ function toggleTodoDoneReceived(state, action) {
   };
 }
 
-function deleteTodo(state, action) {
+function deleteTodoReceived(state, action) {
   const { id } = action.payload;
   const byId = _.omit(state.byId, [id]);
   const ids = state.ids.filter(item => item !== id);
@@ -73,8 +73,8 @@ export default function todosReducer(state = initialState, action) {
     return updateTodoReceived(state, action);
   case actions.TOGGLE_TODO_DONE_RECEIVED:
     return toggleTodoDoneReceived(state, action);
-  case actions.DELETE_TODO:
-    return deleteTodo(state, action);
+  case actions.DELETE_TODO_RECEIVED:
+    return deleteTodoReceived(state, action);
   default:
     return state;
   }

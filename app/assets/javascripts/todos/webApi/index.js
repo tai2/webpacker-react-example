@@ -43,3 +43,16 @@ export function updateTodo(id, content, due_date, done) {
   });
 }
 
+export function deleteTodo(id) {
+  return new Promise((resolve, reject) => {
+    request.delete(`/todos/${id}.json`)
+      .set('X-CSRF-Token', csrfToken())
+      .end((err, res) => {
+        if (err) {
+          reject(error(res));
+        } else {
+          resolve();
+        }
+      });
+  });
+}

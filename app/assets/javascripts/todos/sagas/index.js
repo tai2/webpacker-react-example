@@ -33,9 +33,20 @@ function* toggleTodoDoneRequested(action) {
   }
 }
 
+function* deleteTodoRequested(action) {
+  try {
+    const { id } = action.payload;
+    yield call(webApi.deleteTodo, id);
+    yield put(actions.deleteTodoReceived(action.payload));
+  } catch (error) {
+    yield put(actions.deleteTodoReceived(error));
+  }
+}
+
 export default function* rootSaga() {
   yield takeLatest(actions.ADD_TODO_REQUESTED, addTodoRequested);
   yield takeEvery(actions.UPDATE_TODO_REQUESTED, updateTodoRequested);
   yield takeEvery(actions.TOGGLE_TODO_DONE_REQUESTED, toggleTodoDoneRequested);
+  yield takeEvery(actions.DELETE_TODO_REQUESTED, deleteTodoRequested);
 }
 
