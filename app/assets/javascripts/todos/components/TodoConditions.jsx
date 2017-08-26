@@ -1,13 +1,13 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { selectOrder, toggleDoneFilter } from '../actions';
+import React from 'react'
+import { connect } from 'react-redux'
+import { selectOrder, toggleDoneFilter } from '../actions'
 
-function TodoConditions({ sortBy, doneFilter, onOrderChange, onDoneFilterChange }) {
+function TodoConditions ({ sortBy, doneFilter, onOrderChange, onDoneFilterChange }) {
   return (
     <div className="form-inline">
       <div className="form-group">
         <label>sort by:&nbsp;
-          <select className="form-control" value={sortBy} onChange={onOrderChange}>
+          <select className="form-control" value={sortBy} onChange={onOrderChange} onBlur={onOrderChange}>
             <option value="due_date-asc">due date(asc)</option>
             <option value="due_date-desc">due date(desc)</option>
             <option value="created_at-asc">created at(asc)</option>
@@ -21,20 +21,20 @@ function TodoConditions({ sortBy, doneFilter, onOrderChange, onDoneFilterChange 
         </label>
       </div>
     </div>
-  );
+  )
 }
 
 export default connect(
   (state) => ({
     sortBy: state.app.sortBy,
-    doneFilter: state.app.doneFilter,
+    doneFilter: state.app.doneFilter
   }),
   (dispatch, ownProps) => ({
-    onOrderChange(event) {
-      dispatch(selectOrder(event.target.value));
+    onOrderChange (event) {
+      dispatch(selectOrder(event.target.value))
     },
-    onDoneFilterChange() {
-      dispatch(toggleDoneFilter());
-    },
-  }),
-)(TodoConditions);
+    onDoneFilterChange () {
+      dispatch(toggleDoneFilter())
+    }
+  })
+)(TodoConditions)

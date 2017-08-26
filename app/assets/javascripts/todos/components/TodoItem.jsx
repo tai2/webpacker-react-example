@@ -1,40 +1,44 @@
-import React, { Component }  from 'react';
-import { connect } from 'react-redux';
-import DateTime from 'react-datetime/DateTime';
-import moment from 'moment';
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import DateTime from 'react-datetime/DateTime'
+import moment from 'moment'
 
 import {
   toggleTodoDoneRequested,
   updateTodoRequested,
   deleteTodoRequested
-} from '../actions';
+} from '../actions'
 
-import EditButton from './EditButton';
-import styles from './TodoItem.scss';
+import EditButton from './EditButton'
+import styles from './TodoItem.scss'
 
 class TodoItem extends Component {
-  constructor() {
-    super();
+  constructor () {
+    super()
     this.state = {
       contentEditing: false,
-      dueDateEditing: false,
-    };
+      dueDateEditing: false
+    }
   }
-  renderContent() {
-    const { todo, onCheckboxChange, onContentBlur } = this.props;
+  renderContent () {
+    const { todo, onCheckboxChange, onContentBlur } = this.props
 
     if (this.state.contentEditing) {
+      // see https://w3c.github.io/html/sec-forms.html#autofocusing-a-form-control-the-autofocus-attribute
+      // I think, this use of autofocuse is not applied to explained situation.
+      /* eslint-disable jsx-a11y/no-autofocus */
       return (
         <input
           type="text"
           defaultValue={todo.content}
           autoFocus
           onBlur={(ev) => {
-            this.setState({ contentEditing: false });
-            onContentBlur(ev, todo);
+            this.setState({ contentEditing: false })
+            onContentBlur(ev, todo)
           }}
         />
-      );
+      )
+      /* eslint-enable jsx-a11y/no-autofocus */
     }
 
     return (
@@ -45,22 +49,22 @@ class TodoItem extends Component {
         </label>
         <EditButton className={styles.editButton} onClick={() => this.setState({ contentEditing: true })} />
       </div>
-    );
+    )
   }
-  renderDueDate() {
-    const { todo, onDueDateBlur } = this.props;
+  renderDueDate () {
+    const { todo, onDueDateBlur } = this.props
 
     if (this.state.dueDateEditing) {
       return (
         <DateTime
           defaultValue={new Date(todo.dueDate)}
           onBlur={(dt) => {
-            this.setState({ dueDateEditing: false });
-            onDueDateBlur(dt, todo);
+            this.setState({ dueDateEditing: false })
+            onDueDateBlur(dt, todo)
           }}
           inputProps={{ autoFocus: true }}
         />
-      );
+      )
     }
 
     return (
@@ -68,38 +72,38 @@ class TodoItem extends Component {
         {moment(todo.dueDate).local().toString()}
         <EditButton className={styles.editButton} onClick={() => this.setState({ dueDateEditing: true })} />
       </div>
-    );
+    )
   }
-  render() {
-    const { todo, onDestroyClick } = this.props;
+  render () {
+    const { todo, onDestroyClick } = this.props
     return (
       <tr key={todo.id}>
         <td className={styles.contentCol}>{this.renderContent()}</td>
         <td className={styles.dueDateCol}>{this.renderDueDate()}</td>
         <td><button className="btn btn-default" onClick={onDestroyClick}>Destroy</button></td>
       </tr>
-    );
+    )
   }
 }
 
 export default connect(
   (state, ownProps) => ({
-    todo: state.todos.byId[ownProps.id],
+    todo: state.todos.byId[ownProps.id]
   }),
   (dispatch, ownProps) => ({
-    onCheckboxChange() {
-      dispatch(toggleTodoDoneRequested(ownProps.id));
+    onCheckboxChange () {
+      dispatch(toggleTodoDoneRequested(ownProps.id))
     },
-    onContentBlur(event, todo) {
-      dispatch(updateTodoRequested(ownProps.id, event.target.value, todo.dueDate));
+    onContentBlur (event, todo) {
+      dispatch(updateTodoRequested(ownProps.id, event.target.value, todo.dueDate))
     },
-    onDueDateBlur(dt, todo) {
-      dispatch(updateTodoRequested(ownProps.id, todo.content, dt.toISOString()));
+    onDueDateBlur (dt, todo) {
+      dispatch(updateTodoRequested(ownProps.id, todo.content, dt.toISOString()))
     },
-    onDestroyClick() {
+    onDestroyClick () {
       if (confirm('Are you sure?')) {
-        dispatch(deleteTodoRequested(ownProps.id));
+        dispatch(deleteTodoRequested(ownProps.id))
       }
-    },
-  }),
-)(TodoItem);
+    }
+  })
+)(TodoItem)

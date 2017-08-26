@@ -1,39 +1,38 @@
-import { createStore, applyMiddleware } from 'redux';
-import createSagaMiddleware from 'redux-saga';
-import { composeWithDevTools } from 'redux-devtools-extension/logOnlyInProduction';
-import camelcaseKeys from 'camelcase-keys';
-import reducers from '../reducers';
-import rootSaga from '../sagas';
+import { createStore, applyMiddleware } from 'redux'
+import createSagaMiddleware from 'redux-saga'
+import { composeWithDevTools } from 'redux-devtools-extension/logOnlyInProduction'
+import camelcaseKeys from 'camelcase-keys'
+import reducers from '../reducers'
+import rootSaga from '../sagas'
 
-function convert(state) {
+function convert (state) {
   const byId = state.todos.reduce((prev, curr) => {
-    prev[curr.id] = camelcaseKeys(curr, { deep: true });
-    return prev;
-  }, {});
-  const ids = state.todos.map(todo => todo.id);
+    prev[curr.id] = camelcaseKeys(curr, { deep: true })
+    return prev
+  }, {})
+  const ids = state.todos.map(todo => todo.id)
 
   return {
     todos: {
       byId,
-      ids,
-    },
-  };
+      ids
+    }
+  }
 }
 
-export default function createAppStore(preloadedState) {
-	const sagaMiddleware = createSagaMiddleware();
-	const enhancer = composeWithDevTools(
-		applyMiddleware(sagaMiddleware)
-	);
+export default function createAppStore (preloadedState) {
+  const sagaMiddleware = createSagaMiddleware()
+  const enhancer = composeWithDevTools(
+    applyMiddleware(sagaMiddleware)
+  )
 
   const store = createStore(
     reducers,
     convert(preloadedState),
-    enhancer,
-  );
+    enhancer
+  )
 
-  sagaMiddleware.run(rootSaga);
+  sagaMiddleware.run(rootSaga)
 
-	return store
+  return store
 }
-

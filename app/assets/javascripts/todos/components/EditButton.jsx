@@ -1,7 +1,7 @@
-import React from 'react';
-import classNames from 'classnames';
+import React from 'react'
+import classNames from 'classnames'
 
-export default function EditButton({ className, onClick }) {
+export default function EditButton ({ className, onClick }) {
   return (
     <button
       type="button"
@@ -11,5 +11,5 @@ export default function EditButton({ className, onClick }) {
     >
       <span className="glyphicon glyphicon-edit" aria-hidden="true"></span>
     </button>
-  );
+  )
 }

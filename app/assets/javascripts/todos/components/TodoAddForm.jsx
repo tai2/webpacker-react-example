@@ -1,24 +1,23 @@
-import React, { Component }  from 'react';
-import { connect } from 'react-redux';
-import DateTime from 'react-datetime/DateTime';
-import moment from 'moment';
-import classNames from 'classnames';
-import { addTodo, addTodoRequested } from '../actions';
-import styles from './TodoAddForm.scss';
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import DateTime from 'react-datetime/DateTime'
+import classNames from 'classnames'
+import { addTodoRequested } from '../actions'
+import styles from './TodoAddForm.scss'
 
 class TodoAddForm extends Component {
-  constructor() {
-    super();
+  constructor () {
+    super()
     this.state = {
       content: '',
-      dueDate: new Date(),
-    };
+      dueDate: new Date()
+    }
   }
-  handleAddTodo() {
-    this.setState({ content: '', dueDate: new Date() });
-    this.props.onAddTodo(this.state.content, this.state.dueDate);
+  handleAddTodo () {
+    this.setState({ content: '', dueDate: new Date() })
+    this.props.onAddTodo(this.state.content, this.state.dueDate)
   }
-  render() {
+  render () {
     return (
       <div className="form-inline">
         <div className={classNames('form-group', styles.item)}>
@@ -44,15 +43,15 @@ class TodoAddForm extends Component {
           onClick={() => this.handleAddTodo()}
         >Create Todo</button>
       </div>
-    );
+    )
   }
 }
 
 export default connect(
   null,
   (dispatch, ownProps) => ({
-    onAddTodo(content, dueDate) {
-      dispatch(addTodoRequested(content, dueDate));
-    },
-  }),
-)(TodoAddForm);
+    onAddTodo (content, dueDate) {
+      dispatch(addTodoRequested(content, dueDate))
+    }
+  })
+)(TodoAddForm)

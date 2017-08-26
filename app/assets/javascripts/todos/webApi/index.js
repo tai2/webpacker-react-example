@@ -1,58 +1,63 @@
-import request from 'superagent';
-import { csrfToken } from 'rails-ujs';
-import _ from 'lodash';
-import camelcaseKeys from 'camelcase-keys';
+import request from 'superagent'
+import snakeCaseKeys from 'snakecase-keys'
+import { csrfToken } from 'rails-ujs'
+import _ from 'lodash'
+import camelcaseKeys from 'camelcase-keys'
 
-export function addTodo(content, due_date, done) {
+function error (res) {
+  return new Error((res && res.body && res.body.data && res.body.data.message) || 'unexpected error')
+}
+
+export function addTodo (content, dueDate, done) {
   return new Promise((resolve, reject) => {
     const data = {
       content,
-      due_date,
-      done,
-    };
+      dueDate,
+      done
+    }
     request.post('/todos.json')
-      .send(data)
+      .send(snakeCaseKeys(data))
       .set('X-CSRF-Token', csrfToken())
       .end((err, res) => {
         if (err) {
-          reject(error(res));
+          reject(error(res))
         } else {
-          resolve(camelcaseKeys(res.body));
+          resolve(camelcaseKeys(res.body))
         }
-      });
-  });
+      })
+  })
 }
 
-export function updateTodo(id, content, due_date, done) {
+export function updateTodo (id, content, dueDate, done) {
   return new Promise((resolve, reject) => {
     const data = _.omitBy({
       content,
-      due_date,
-      done,
-    }, _.isUndefined);
+      dueDate,
+      done
+    }, _.isUndefined)
     request.put(`/todos/${id}.json`)
-      .send(data)
+      .send(snakeCaseKeys(data))
       .set('X-CSRF-Token', csrfToken())
       .end((err, res) => {
         if (err) {
-          reject(error(res));
+          reject(error(res))
         } else {
-          resolve(camelcaseKeys(res.body));
+          resolve(camelcaseKeys(res.body))
         }
-      });
-  });
+      })
+  })
 }
 
-export function deleteTodo(id) {
+export function deleteTodo (id) {
   return new Promise((resolve, reject) => {
     request.delete(`/todos/${id}.json`)
       .set('X-CSRF-Token', csrfToken())
       .end((err, res) => {
         if (err) {
-          reject(error(res));
+          reject(error(res))
         } else {
-          resolve();
+          resolve()
         }
-      });
-  });
+      })
+  })
 }

@@ -1,7 +1,7 @@
-import React from 'react';
-import TodoItem from './TodoItem';
+import React from 'react'
+import TodoItem from './TodoItem'
 
-export default function TodoList({ todos }) {
+export default function TodoList ({ todos }) {
   return (
     <table className="table">
       <thead>
@@ -15,5 +15,5 @@ export default function TodoList({ todos }) {
         {todos.map(id => <TodoItem key={id} id={id} />)}
       </tbody>
     </table>
-  );
+  )
 }

@@ -1,1 +1,1 @@
-import 'javascripts/todos';
+import 'javascripts/todos'
