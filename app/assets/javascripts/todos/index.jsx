@@ -10,13 +10,23 @@ function getPreloadedState () {
   return JSON.parse(node.getAttribute('data'))
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-  const store = createAppStore(getPreloadedState())
+const store = createAppStore(getPreloadedState())
 
-  ReactDOM.render(
-    <Provider store={store}>
-      <App />
-    </Provider>,
-    document.getElementById('todo-app')
-  )
-})
+ReactDOM.render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById('todo-app')
+)
+
+if (module.hot) {
+  module.hot.accept('./components/App', function() {
+    console.log('Accepting the updated printMe module!');
+    ReactDOM.render(
+      <Provider store={store}>
+        <App />
+      </Provider>,
+      document.getElementById('todo-app')
+    )
+  })
+}

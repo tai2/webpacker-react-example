@@ -16,6 +16,7 @@ module.exports = merge(sharedConfig, {
   },
 
   devServer: {
+    hot: true,
     clientLogLevel: 'none',
     https: settings.dev_server.https,
     host: settings.dev_server.host,

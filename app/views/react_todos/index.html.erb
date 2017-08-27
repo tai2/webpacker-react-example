@@ -1,6 +1,4 @@
 <% content_for :head do %>
-  <%= javascript_pack_tag 'todos' %>
-  <%= stylesheet_pack_tag 'todos' %>
 <% end %>
 
 <%= content_tag :div,
@@ -10,3 +8,4 @@
   }.to_json do %>
 <% end %>
 <div id="todo-app"></div>
+<%= javascript_pack_tag 'todos' %>
