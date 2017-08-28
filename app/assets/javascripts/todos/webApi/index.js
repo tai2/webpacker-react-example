@@ -1,11 +1,23 @@
 import request from 'superagent'
-import snakeCaseKeys from 'snakecase-keys'
 import { csrfToken } from 'rails-ujs'
 import _ from 'lodash'
-import camelcaseKeys from 'camelcase-keys'
 
 function error (res) {
   return new Error((res && res.body && res.body.data && res.body.data.message) || 'unexpected error')
+}
+
+function snakeCaseKeys (obj) {
+  const tr = obj => _.transform(obj, (result, value, key) => {
+    result[_.snakeCase(key)] = _.isPlainObject(value) ? tr(value) : value
+  })
+  return tr(obj)
+}
+
+function camelCaseKeys (obj) {
+  const tr = obj => _.transform(obj, (result, value, key) => {
+    result[_.camelCase(key)] = _.isPlainObject(value) ? tr(value) : value
+  })
+  return tr(obj)
 }
 
 export function addTodo (content, dueDate, done) {
@@ -22,7 +34,7 @@ export function addTodo (content, dueDate, done) {
         if (err) {
           reject(error(res))
         } else {
-          resolve(camelcaseKeys(res.body))
+          resolve(camelCaseKeys(res.body))
         }
       })
   })
@@ -42,7 +54,7 @@ export function updateTodo (id, content, dueDate, done) {
         if (err) {
           reject(error(res))
         } else {
-          resolve(camelcaseKeys(res.body))
+          resolve(camelCaseKeys(res.body))
         }
       })
   })
