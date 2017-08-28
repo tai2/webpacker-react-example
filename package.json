@@ -49,6 +49,7 @@
     "snakecase-keys": "^1.1.0",
     "style-loader": "^0.18.2",
     "superagent": "^3.5.2",
+    "uglifyjs-webpack-plugin": "1.0.0-beta.2",
     "webpack": "^2.6.1",
     "webpack-manifest-plugin": "^1.1.0",
     "webpack-merge": "^4.1.0"
