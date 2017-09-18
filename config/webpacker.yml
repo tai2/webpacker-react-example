@@ -11,6 +11,7 @@ default: &default
     - .js
     - .jsx
     - .ts
+    - .tsx
     - .vue
     - .sass
     - .scss

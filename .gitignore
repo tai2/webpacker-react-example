@@ -33,3 +33,6 @@
 
 # Ignore package-lock.json because this project uses yarn
 package-lock.json
+
+# Ignore awesome-typescript-loader cache
+.awcache
