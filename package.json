@@ -5,7 +5,9 @@
     "lint": "eslint --ext .jsx --ext .js app"
   },
   "dependencies": {
+    "@types/lodash": "^4.14.74",
     "@types/query-string": "^5.0.0",
+    "@types/superagent": "^3.5.5",
     "autoprefixer": "^7.1.1",
     "awesome-typescript-loader": "^3.2.3",
     "babel-core": "^6.25.0",

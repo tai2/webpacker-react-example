@@ -1,26 +1,30 @@
-import request from 'superagent'
+import * as request from 'superagent'
+import * as _ from 'lodash'
 import { csrfToken } from 'rails-ujs'
-import _ from 'lodash'
 
-function error (res) {
+interface DictToDict {
+  (obj: _.Dictionary<any>): _.Dictionary<any>
+}
+
+function error (res: request.Response): Error {
   return new Error((res && res.body && res.body.data && res.body.data.message) || 'unexpected error')
 }
 
-function snakeCaseKeys (obj) {
-  const tr = obj => _.transform(obj, (result, value, key) => {
-    result[_.snakeCase(key)] = _.isPlainObject(value) ? tr(value) : value
+function snakeCaseKeys (obj: object): object {
+  const tr:DictToDict = obj => _.transform(obj, (result, value, key) => {
+    result[_.snakeCase(key)] = (_.isPlainObject(value) ? tr(value) : value)
   })
   return tr(obj)
 }
 
-function camelCaseKeys (obj) {
-  const tr = obj => _.transform(obj, (result, value, key) => {
+function camelCaseKeys (obj: object): object {
+  const tr:DictToDict = obj => _.transform(obj, (result, value, key) => {
     result[_.camelCase(key)] = _.isPlainObject(value) ? tr(value) : value
   })
   return tr(obj)
 }
 
-export function addTodo (content, dueDate, done) {
+export function addTodo (content: string, dueDate: string, done: boolean): Promise<any> {
   return new Promise((resolve, reject) => {
     const data = {
       content,
@@ -29,7 +33,7 @@ export function addTodo (content, dueDate, done) {
     }
     request.post('/todos.json')
       .send(snakeCaseKeys(data))
-      .set('X-CSRF-Token', csrfToken())
+      .set('X-CSRF-Token', csrfToken()!)
       .end((err, res) => {
         if (err) {
           reject(error(res))
@@ -40,7 +44,7 @@ export function addTodo (content, dueDate, done) {
   })
 }
 
-export function updateTodo (id, content, dueDate, done) {
+export function updateTodo (id: number, content?: string, dueDate?: string, done?: boolean): Promise<any> {
   return new Promise((resolve, reject) => {
     const data = _.omitBy({
       content,
@@ -49,7 +53,7 @@ export function updateTodo (id, content, dueDate, done) {
     }, _.isUndefined)
     request.put(`/todos/${id}.json`)
       .send(snakeCaseKeys(data))
-      .set('X-CSRF-Token', csrfToken())
+      .set('X-CSRF-Token', csrfToken()!)
       .end((err, res) => {
         if (err) {
           reject(error(res))
@@ -60,10 +64,10 @@ export function updateTodo (id, content, dueDate, done) {
   })
 }
 
-export function deleteTodo (id) {
+export function deleteTodo (id: number): Promise<any> {
   return new Promise((resolve, reject) => {
     request.delete(`/todos/${id}.json`)
-      .set('X-CSRF-Token', csrfToken())
+      .set('X-CSRF-Token', csrfToken()!)
       .end((err, res) => {
         if (err) {
           reject(error(res))

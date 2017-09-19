@@ -2,6 +2,14 @@
 # yarn lockfile v1
 
 
+"@types/lodash@^4.14.74":
+  version "4.14.74"
+  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.74.tgz#ac3bd8db988e7f7038e5d22bd76a7ba13f876168"
+
+"@types/node@*":
+  version "8.0.28"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-8.0.28.tgz#86206716f8d9251cf41692e384264cbd7058ad60"
+
 "@types/query-string@^5.0.0":
   version "5.0.0"
   resolved "https://registry.yarnpkg.com/@types/query-string/-/query-string-5.0.0.tgz#5dbebd24d0abeb555d0dd9704c33462d84a45e69"
@@ -9,6 +17,12 @@
 "@types/react@>=15":
   version "16.0.2"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-16.0.2.tgz#0b31a73cdde6272b719e5b05a7df6d1e2654a804"
+
+"@types/superagent@^3.5.5":
+  version "3.5.5"
+  resolved "https://registry.yarnpkg.com/@types/superagent/-/superagent-3.5.5.tgz#f4378cec9105dce5f74979c8e4a1ff3fe18a5aca"
+  dependencies:
+    "@types/node" "*"
 
 abbrev@1:
   version "1.1.0"
