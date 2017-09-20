@@ -1,5 +1,3 @@
-import * as actions from '../actions'
-
 const initialState = {
   doneFilter: false,
   sortBy: 'due_date-desc'
@@ -21,9 +19,9 @@ function selectOrder (state, action) {
 
 export default function appReducer (state = initialState, action) {
   switch (action.type) {
-    case actions.TOGGLE_DONE_FILTER:
+    case 'TOGGLE_DONE_FILTER':
       return toggleDoneFilter(state)
-    case actions.SELECT_ORDER:
+    case 'SELECT_ORDER':
       return selectOrder(state, action)
     default:
       return state

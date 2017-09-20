@@ -1,4 +1,3 @@
-import * as actions from '../actions'
 import _ from 'lodash'
 
 const initialState = {
@@ -57,13 +56,13 @@ function deleteTodoReceived (state, action) {
 
 export default function todosReducer (state = initialState, action) {
   switch (action.type) {
-    case actions.ADD_TODO_RECEIVED:
+    case 'ADD_TODO:RECEIVED':
       return addTodoReceived(state, action)
-    case actions.UPDATE_TODO_RECEIVED:
+    case 'UPDATE_TODO:RECEIVED':
       return updateTodoReceived(state, action)
-    case actions.TOGGLE_TODO_DONE_RECEIVED:
+    case 'TOGGLE_TODO_DONE:RECEIVED':
       return toggleTodoDoneReceived(state, action)
-    case actions.DELETE_TODO_RECEIVED:
+    case 'DELETE_TODO:RECEIVED':
       return deleteTodoReceived(state, action)
     default:
       return state

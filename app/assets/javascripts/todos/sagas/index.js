@@ -44,8 +44,8 @@ function * deleteTodoRequested (action) {
 }
 
 export default function * rootSaga () {
-  yield takeLatest(actions.ADD_TODO_REQUESTED, addTodoRequested)
-  yield takeEvery(actions.UPDATE_TODO_REQUESTED, updateTodoRequested)
-  yield takeEvery(actions.TOGGLE_TODO_DONE_REQUESTED, toggleTodoDoneRequested)
-  yield takeEvery(actions.DELETE_TODO_REQUESTED, deleteTodoRequested)
+  yield takeLatest('ADD_TODO:REQUESTED', addTodoRequested)
+  yield takeEvery('UPDATE_TODO:REQUESTED', updateTodoRequested)
+  yield takeEvery('TOGGLE_TODO_DONE:REQUESTED', toggleTodoDoneRequested)
+  yield takeEvery('DELETE_TODO:REQUESTED', deleteTodoRequested)
 }
