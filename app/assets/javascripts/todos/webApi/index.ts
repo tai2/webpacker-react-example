@@ -24,7 +24,16 @@ function camelCaseKeys (obj: object): object {
   return tr(obj)
 }
 
-export function addTodo (content: string, dueDate: string, done: boolean): Promise<any> {
+export interface Todo {
+  id: number,
+  content: string,
+  done: boolean,
+  due_date: string,
+  created_at: string,
+  updated_at: string,
+}
+
+export function addTodo (content: string, dueDate: string, done: boolean): Promise<Todo> {
   return new Promise((resolve, reject) => {
     const data = {
       content,
@@ -38,13 +47,13 @@ export function addTodo (content: string, dueDate: string, done: boolean): Promi
         if (err) {
           reject(error(res))
         } else {
-          resolve(camelCaseKeys(res.body))
+          resolve(camelCaseKeys(res.body) as Todo)
         }
       })
   })
 }
 
-export function updateTodo (id: number, content?: string, dueDate?: string, done?: boolean): Promise<any> {
+export function updateTodo (id: number, content?: string, dueDate?: string, done?: boolean): Promise<Todo> {
   return new Promise((resolve, reject) => {
     const data = _.omitBy({
       content,
@@ -58,13 +67,13 @@ export function updateTodo (id: number, content?: string, dueDate?: string, done
         if (err) {
           reject(error(res))
         } else {
-          resolve(camelCaseKeys(res.body))
+          resolve(camelCaseKeys(res.body) as Todo)
         }
       })
   })
 }
 
-export function deleteTodo (id: number): Promise<any> {
+export function deleteTodo (id: number): Promise<void> {
   return new Promise((resolve, reject) => {
     request.delete(`/todos/${id}.json`)
       .set('X-CSRF-Token', csrfToken()!)
