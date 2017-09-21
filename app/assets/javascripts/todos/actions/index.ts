@@ -1,16 +1,18 @@
 import { Todo } from '../webApi'
+import { SortBy, SortOrder } from '../reducers/app'
 
-type FluxActionMinimal<T> = {
+interface FluxActionMinimal<T> {
   type: T,
 }
 
-type FluxActionWithPayload<T, P> = FluxActionMinimal<T> & {
+interface FluxActionWithPayload<T, P> {
+  type: T,
   payload: P,
 }
 
-type FluxActionResult<T, P> = FluxActionMinimal<T> & {
+interface FluxActionResult<T, P> {
+  type: T,
   payload: P | Error,
-  error: boolean,
 }
 
 export type AddTodoRequested = FluxActionWithPayload<'ADD_TODO:REQUESTED', {
@@ -38,7 +40,7 @@ export type DeleteTodoReceived = FluxActionResult<'DELETE_TODO:RECEIVED', { id: 
 
 export type ToggleDoneFilter = FluxActionMinimal<'TOGGLE_DONE_FILTER'>
 
-export type SelectOrder = FluxActionWithPayload<'SELECT_ORDER', { sortBy: string }>
+export type SelectOrder = FluxActionWithPayload<'SELECT_ORDER', { sortBy: SortBy, sortOrder: SortOrder }>
 
 export type Action =
     AddTodoRequested
@@ -63,7 +65,6 @@ export function addTodoReceived (payload: Todo | Error): AddTodoReceived {
   return {
     type: 'ADD_TODO:RECEIVED',
     payload: payload,
-    error: payload instanceof Error
   }
 }
 
@@ -78,7 +79,6 @@ export function updateTodoReceived (payload: Todo | Error): UpdateTodoReceived {
   return {
     type: 'UPDATE_TODO:RECEIVED',
     payload: payload,
-    error: payload instanceof Error
   }
 }
 
@@ -93,7 +93,6 @@ export function toggleTodoDoneReceived (payload: Todo | Error): ToggleTodoDoneRe
   return {
     type: 'TOGGLE_TODO_DONE:RECEIVED',
     payload: payload,
-    error: payload instanceof Error
   }
 }
 
@@ -108,7 +107,6 @@ export function deleteTodoReceived (payload: { id: number } | Error): DeleteTodo
   return {
     type: 'DELETE_TODO:RECEIVED',
     payload: payload,
-    error: payload instanceof Error
   }
 }
 
@@ -118,9 +116,9 @@ export function toggleDoneFilter (): ToggleDoneFilter {
   }
 }
 
-export function selectOrder (sortBy: string): SelectOrder {
+export function selectOrder (sortBy: SortBy, sortOrder: SortOrder): SelectOrder {
   return {
     type: 'SELECT_ORDER',
-    payload: { sortBy }
+    payload: { sortBy, sortOrder }
   }
 }

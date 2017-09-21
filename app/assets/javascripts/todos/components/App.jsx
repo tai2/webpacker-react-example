@@ -20,7 +20,7 @@ function App ({ todos }) {
 
 export default connect(
   (state) => ({
-    todos: visibleTodos(state.todos, state.app.sortBy, state.app.doneFilter)
+    todos: visibleTodos(state.todos, state.app.sortBy, state.app.sortOrder, state.app.doneFilter)
   }),
   null
 )(App)
