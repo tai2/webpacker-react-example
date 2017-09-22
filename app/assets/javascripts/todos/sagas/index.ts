@@ -1,8 +1,9 @@
 import { takeEvery, takeLatest, call, put, select } from 'redux-saga/effects'
 import * as actions from '../actions'
+import { StoreState } from '../reducers'
 import * as webApi from '../webApi'
 
-function * addTodoRequested (action) {
+function * addTodoRequested (action: actions.AddTodoRequested) {
   try {
     const { content, dueDate } = action.payload
     const response = yield call(webApi.addTodo, content, dueDate, false)
@@ -12,7 +13,7 @@ function * addTodoRequested (action) {
   }
 }
 
-function * updateTodoRequested (action) {
+function * updateTodoRequested (action: actions.UpdateTodoRequested) {
   try {
     const { id, content, dueDate } = action.payload
     const response = yield call(webApi.updateTodo, id, content, dueDate)
@@ -22,10 +23,10 @@ function * updateTodoRequested (action) {
   }
 }
 
-function * toggleTodoDoneRequested (action) {
+function * toggleTodoDoneRequested (action: actions.ToggleTodoDoneRequested) {
   try {
     const { id } = action.payload
-    const done = yield select(state => state.todos.byId[id].done)
+    const done = yield select((state: StoreState) => state.todos.byId[id].done)
     const response = yield call(webApi.updateTodo, id, undefined, undefined, !done)
     yield put(actions.toggleTodoDoneReceived(response))
   } catch (error) {
@@ -33,7 +34,7 @@ function * toggleTodoDoneRequested (action) {
   }
 }
 
-function * deleteTodoRequested (action) {
+function * deleteTodoRequested (action: actions.DeleteTodoRequested) {
   try {
     const { id } = action.payload
     yield call(webApi.deleteTodo, id)
