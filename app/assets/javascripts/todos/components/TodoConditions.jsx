@@ -8,10 +8,10 @@ function TodoConditions ({ sortBy, sortOrder, doneFilter, onOrderChange, onDoneF
       <div className="form-group">
         <label>sort by:&nbsp;
           <select className="form-control" value={`${sortBy}-${sortOrder}`} onChange={onOrderChange} onBlur={onOrderChange}>
-            <option value="due_date-asc">due date(asc)</option>
-            <option value="due_date-desc">due date(desc)</option>
-            <option value="created_at-asc">created at(asc)</option>
-            <option value="created_at-desc">created at(desc)</option>
+            <option value="dueDate-asc">due date(asc)</option>
+            <option value="dueDate-desc">due date(desc)</option>
+            <option value="createdAt-asc">created at(asc)</option>
+            <option value="createdAt-desc">created at(desc)</option>
           </select>
         </label>
       </div>&nbsp;

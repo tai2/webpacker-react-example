@@ -1,36 +1,19 @@
 import * as request from 'superagent'
 import * as _ from 'lodash'
 import { csrfToken } from 'rails-ujs'
-
-interface DictToDict {
-  (obj: _.Dictionary<any>): _.Dictionary<any>
-}
+import { camelCaseKeys, snakeCaseKeys } from '../../lib/case-util'
 
 function error (res: request.Response): Error {
   return new Error((res && res.body && res.body.data && res.body.data.message) || 'unexpected error')
 }
 
-function snakeCaseKeys (obj: object): object {
-  const tr:DictToDict = obj => _.transform(obj, (result, value, key) => {
-    result[_.snakeCase(key)] = (_.isPlainObject(value) ? tr(value) : value)
-  })
-  return tr(obj)
-}
-
-function camelCaseKeys (obj: object): object {
-  const tr:DictToDict = obj => _.transform(obj, (result, value, key) => {
-    result[_.camelCase(key)] = _.isPlainObject(value) ? tr(value) : value
-  })
-  return tr(obj)
-}
-
 export interface Todo {
-  id: number,
-  content: string,
-  done: boolean,
-  due_date: string,
-  created_at: string,
-  updated_at: string,
+  readonly id: number,
+  readonly content: string,
+  readonly done: boolean,
+  readonly dueDate: string,
+  readonly createdAt: string,
+  readonly updatedAt: string,
 }
 
 export function addTodo (content: string, dueDate: string, done: boolean): Promise<Todo> {

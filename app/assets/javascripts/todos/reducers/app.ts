@@ -1,17 +1,17 @@
 import { Action, SelectOrder } from '../actions'
 
-export type SortBy = 'due_date' | 'created_at'
+export type SortBy = 'dueDate' | 'createdAt'
 export type SortOrder = 'asc' | 'desc'
 
 export interface AppState {
-  doneFilter: boolean,
-  sortBy: SortBy,
-  sortOrder: SortOrder,
+  readonly doneFilter: boolean,
+  readonly sortBy: SortBy,
+  readonly sortOrder: SortOrder,
 }
 
 const initialState: AppState = {
   doneFilter: false,
-  sortBy: 'due_date',
+  sortBy: 'dueDate',
   sortOrder: 'desc'
 }
 

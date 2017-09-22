@@ -10,13 +10,13 @@ import { SortBy, SortOrder } from '../reducers/app'
 import { Todo } from '../webApi'
 import * as _ from 'lodash'
 
-interface TodoMap {
-  [id: number]: Todo,
+export interface TodoMap {
+  readonly [id: number]: Todo,
 }
 
 export interface TodosState {
-  byId: TodoMap,
-  ids: number[],
+  readonly byId: TodoMap,
+  readonly ids: number[],
 }
 
 const initialState: TodosState = {
