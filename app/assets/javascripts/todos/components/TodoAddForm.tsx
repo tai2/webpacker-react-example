@@ -1,11 +1,22 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import DateTime from 'react-datetime/DateTime'
-import classNames from 'classnames'
+import * as React from 'react'
+import { connect, Dispatch } from 'react-redux'
+import * as DateTime from 'react-datetime'
+import * as classNames from 'classnames'
+import * as moment from "moment";
 import { addTodoRequested } from '../actions'
+import { Action } from '../actions'
 import styles from './TodoAddForm.scss'
 
-class TodoAddForm extends Component {
+interface Props {
+  onAddTodo: (content: string, dueDate: Date) => void,
+}
+
+interface State {
+  content: string,
+  dueDate: Date,
+}
+
+class TodoAddForm extends React.Component<Props, State> {
   constructor () {
     super()
     this.state = {
@@ -16,6 +27,11 @@ class TodoAddForm extends Component {
   handleAddTodo () {
     this.setState({ content: '', dueDate: new Date() })
     this.props.onAddTodo(this.state.content, this.state.dueDate)
+  }
+  handleChangeDueDate (dt: React.ChangeEvent<any> | moment.Moment | string) {
+    if (moment.isMoment(dt)) {
+      this.setState({ dueDate: dt.toDate() })
+    }
   }
   render () {
     return (
@@ -34,7 +50,7 @@ class TodoAddForm extends Component {
             <DateTime
               className={styles.dueDate}
               value={this.state.dueDate}
-              onChange={(dt) => this.setState({ dueDate: dt.toDate() })}
+              onChange={(dt) => this.handleChangeDueDate(dt)}
             />
           </label>
         </div>
@@ -49,9 +65,9 @@ class TodoAddForm extends Component {
 
 export default connect(
   null,
-  (dispatch, ownProps) => ({
-    onAddTodo (content, dueDate) {
-      dispatch(addTodoRequested(content, dueDate))
+  (dispatch: Dispatch<Action>) => ({
+    onAddTodo (content: string, dueDate: Date) {
+      dispatch(addTodoRequested(content, dueDate.toISOString()))
     }
   })
 )(TodoAddForm)
