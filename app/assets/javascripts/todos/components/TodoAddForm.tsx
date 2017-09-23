@@ -12,8 +12,8 @@ interface Props {
 }
 
 interface State {
-  content: string,
-  dueDate: Date,
+  readonly content: string,
+  readonly dueDate: Date,
 }
 
 class TodoAddForm extends React.Component<Props, State> {

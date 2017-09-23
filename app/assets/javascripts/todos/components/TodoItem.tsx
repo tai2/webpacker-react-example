@@ -16,18 +16,18 @@ import EditButton from './EditButton'
 import styles from './TodoItem.scss'
 
 interface StateProps {
-  readonly todo: Todo,
+  todo: Todo,
 }
 
 interface DispatchProps {
-  readonly onCheckboxChange: () => void,
-  readonly onContentBlur: (ev: React.FocusEvent<HTMLInputElement>, todo: Todo) => void,
-  readonly onDueDateBlur: (ev: React.FocusEvent<any> | moment.Moment | string, todo: Todo) => void,
-  readonly onDestroyClick: () => void,
+  onCheckboxChange: () => void,
+  onContentBlur: (ev: React.FocusEvent<HTMLInputElement>, todo: Todo) => void,
+  onDueDateBlur: (ev: React.FocusEvent<any> | moment.Moment | string, todo: Todo) => void,
+  onDestroyClick: () => void,
 }
 
 type Props = {
-  readonly id: number,
+  id: number,
 } & StateProps & DispatchProps
 
 interface State {
