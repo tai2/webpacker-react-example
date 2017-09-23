@@ -1,13 +1,17 @@
-import React from 'react'
+import * as React from 'react'
 import { connect } from 'react-redux'
 import reactIcon from 'images/react.svg'
-import { visibleTodos } from '../reducers/todos'
+import { visibleTodos, StoreState } from '../reducers'
 import TodoList from './TodoList'
 import TodoConditions from './TodoConditions'
 import TodoAddForm from './TodoAddForm'
 import styles from './App.scss'
 
-function App ({ todos }) {
+export interface Props {
+  todos: number[],
+}
+
+function App ({ todos }: Props) {
   return (
     <div>
       <img className={styles.logo} src={reactIcon} alt="react icon" />
@@ -19,8 +23,8 @@ function App ({ todos }) {
 }
 
 export default connect(
-  (state) => ({
-    todos: visibleTodos(state.todos, state.app.sortBy, state.app.sortOrder, state.app.doneFilter)
+  ({ todos, app }: StoreState) => ({
+    todos: visibleTodos(todos, app.sortBy, app.sortOrder, app.doneFilter)
   }),
   null
 )(App)
