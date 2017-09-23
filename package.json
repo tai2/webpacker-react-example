@@ -2,7 +2,7 @@
   "name": "webpakcer-react-exampl",
   "private": true,
   "scripts": {
-    "lint": "eslint --ext .jsx --ext .js app"
+    "lint": ""
   },
   "dependencies": {
     "@types/classnames": "^2.2.3",
@@ -61,14 +61,6 @@
     "webpack-merge": "^4.1.0"
   },
   "devDependencies": {
-    "eslint": "^4.5.0",
-    "eslint-config-standard": "^10.2.1",
-    "eslint-plugin-import": "^2.7.0",
-    "eslint-plugin-jsx-a11y": "^6.0.2",
-    "eslint-plugin-node": "^5.1.1",
-    "eslint-plugin-promise": "^3.5.0",
-    "eslint-plugin-react": "^7.3.0",
-    "eslint-plugin-standard": "^3.0.1",
     "webpack-dev-server": "^2.4.5"
   }
 }
