@@ -1,7 +1,11 @@
-import React from 'react'
+import * as React from 'react'
 import TodoItem from './TodoItem'
 
-export default function TodoList ({ todos }) {
+export interface Props {
+  todos: number[],
+}
+
+export default function TodoList ({ todos }: Props) {
   return (
     <table className="table">
       <thead>
