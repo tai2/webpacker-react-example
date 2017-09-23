@@ -1,9 +1,9 @@
-import { takeEvery, takeLatest, call, put, select } from 'redux-saga/effects'
+import { call, put, select, takeEvery, takeLatest } from 'redux-saga/effects'
 import * as actions from '../actions'
 import { StoreState } from '../reducers'
 import * as webApi from '../webApi'
 
-function * addTodoRequested (action: actions.AddTodoRequested) {
+function * addTodoRequested(action: actions.AddTodoRequested) {
   try {
     const { content, dueDate } = action.payload
     const response = yield call(webApi.addTodo, content, dueDate, false)
@@ -13,7 +13,7 @@ function * addTodoRequested (action: actions.AddTodoRequested) {
   }
 }
 
-function * updateTodoRequested (action: actions.UpdateTodoRequested) {
+function * updateTodoRequested(action: actions.UpdateTodoRequested) {
   try {
     const { id, content, dueDate } = action.payload
     const response = yield call(webApi.updateTodo, id, content, dueDate)
@@ -23,7 +23,7 @@ function * updateTodoRequested (action: actions.UpdateTodoRequested) {
   }
 }
 
-function * toggleTodoDoneRequested (action: actions.ToggleTodoDoneRequested) {
+function * toggleTodoDoneRequested(action: actions.ToggleTodoDoneRequested) {
   try {
     const { id } = action.payload
     const done = yield select((state: StoreState) => state.todos.byId[id].done)
@@ -34,7 +34,7 @@ function * toggleTodoDoneRequested (action: actions.ToggleTodoDoneRequested) {
   }
 }
 
-function * deleteTodoRequested (action: actions.DeleteTodoRequested) {
+function * deleteTodoRequested(action: actions.DeleteTodoRequested) {
   try {
     const { id } = action.payload
     yield call(webApi.deleteTodo, id)
@@ -44,7 +44,7 @@ function * deleteTodoRequested (action: actions.DeleteTodoRequested) {
   }
 }
 
-export default function * rootSaga () {
+export default function * rootSaga() {
   yield takeLatest('ADD_TODO:REQUESTED', addTodoRequested)
   yield takeEvery('UPDATE_TODO:REQUESTED', updateTodoRequested)
   yield takeEvery('TOGGLE_TODO_DONE:REQUESTED', toggleTodoDoneRequested)

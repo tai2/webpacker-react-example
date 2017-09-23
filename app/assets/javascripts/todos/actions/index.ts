@@ -1,18 +1,18 @@
-import { Todo } from '../webApi'
 import { SortBy, SortOrder } from '../reducers/app'
+import { Todo } from '../webApi'
 
 interface FluxActionMinimal<T> {
-  type: T,
+  type: T
 }
 
 interface FluxActionWithPayload<T, P> {
-  type: T,
-  payload: P,
+  type: T
+  payload: P
 }
 
 interface FluxActionResult<T, P> {
-  type: T,
-  payload: P | Error,
+  type: T
+  payload: P | Error
 }
 
 export type AddTodoRequested = FluxActionWithPayload<'ADD_TODO:REQUESTED', {
@@ -26,12 +26,12 @@ export type UpdateTodoRequested = FluxActionWithPayload<'UPDATE_TODO:REQUESTED',
   content: string,
   dueDate: string,
 }>
-export type UpdateTodoReceived = FluxActionResult<'UPDATE_TODO:RECEIVED', Todo>;
+export type UpdateTodoReceived = FluxActionResult<'UPDATE_TODO:RECEIVED', Todo>
 
 export type ToggleTodoDoneRequested = FluxActionWithPayload<'TOGGLE_TODO_DONE:REQUESTED', {
   id: number,
 }>
-export type ToggleTodoDoneReceived = FluxActionResult<'TOGGLE_TODO_DONE:RECEIVED', Todo>;
+export type ToggleTodoDoneReceived = FluxActionResult<'TOGGLE_TODO_DONE:RECEIVED', Todo>
 
 export type DeleteTodoRequested = FluxActionWithPayload<'DELETE_TODO:REQUESTED', {
   id: number,
@@ -54,71 +54,71 @@ export type Action =
   | ToggleDoneFilter
   | SelectOrder
 
-export function addTodoRequested (content: string, dueDate: string): AddTodoRequested {
+export function addTodoRequested(content: string, dueDate: string): AddTodoRequested {
   return {
     type: 'ADD_TODO:REQUESTED',
-    payload: { content, dueDate }
+    payload: { content, dueDate },
   }
 }
 
-export function addTodoReceived (payload: Todo | Error): AddTodoReceived {
+export function addTodoReceived(payload: Todo | Error): AddTodoReceived {
   return {
     type: 'ADD_TODO:RECEIVED',
-    payload: payload,
+    payload,
   }
 }
 
-export function updateTodoRequested (id: number, content: string, dueDate: string): UpdateTodoRequested {
+export function updateTodoRequested(id: number, content: string, dueDate: string): UpdateTodoRequested {
   return {
     type: 'UPDATE_TODO:REQUESTED',
-    payload: { id, content, dueDate }
+    payload: { id, content, dueDate },
   }
 }
 
-export function updateTodoReceived (payload: Todo | Error): UpdateTodoReceived {
+export function updateTodoReceived(payload: Todo | Error): UpdateTodoReceived {
   return {
     type: 'UPDATE_TODO:RECEIVED',
-    payload: payload,
+    payload,
   }
 }
 
-export function toggleTodoDoneRequested (id: number): ToggleTodoDoneRequested {
+export function toggleTodoDoneRequested(id: number): ToggleTodoDoneRequested {
   return {
     type: 'TOGGLE_TODO_DONE:REQUESTED',
-    payload: { id }
+    payload: { id },
   }
 }
 
-export function toggleTodoDoneReceived (payload: Todo | Error): ToggleTodoDoneReceived {
+export function toggleTodoDoneReceived(payload: Todo | Error): ToggleTodoDoneReceived {
   return {
     type: 'TOGGLE_TODO_DONE:RECEIVED',
-    payload: payload,
+    payload,
   }
 }
 
-export function deleteTodoRequested (id: number): DeleteTodoRequested {
+export function deleteTodoRequested(id: number): DeleteTodoRequested {
   return {
     type: 'DELETE_TODO:REQUESTED',
-    payload: { id }
+    payload: { id },
   }
 }
 
-export function deleteTodoReceived (payload: { id: number } | Error): DeleteTodoReceived {
+export function deleteTodoReceived(payload: { id: number } | Error): DeleteTodoReceived {
   return {
     type: 'DELETE_TODO:RECEIVED',
-    payload: payload,
+    payload,
   }
 }
 
-export function toggleDoneFilter (): ToggleDoneFilter {
+export function toggleDoneFilter(): ToggleDoneFilter {
   return {
     type: 'TOGGLE_DONE_FILTER',
   }
 }
 
-export function selectOrder (sortBy: SortBy, sortOrder: SortOrder): SelectOrder {
+export function selectOrder(sortBy: SortBy, sortOrder: SortOrder): SelectOrder {
   return {
     type: 'SELECT_ORDER',
-    payload: { sortBy, sortOrder }
+    payload: { sortBy, sortOrder },
   }
 }

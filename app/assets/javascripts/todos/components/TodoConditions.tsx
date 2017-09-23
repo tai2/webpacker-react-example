@@ -1,23 +1,23 @@
 import * as React from 'react'
 import { connect, Dispatch } from 'react-redux'
 import { selectOrder, toggleDoneFilter } from '../actions'
-import { StoreState, SortBy, SortOrder} from '../reducers'
 import { Action } from '../actions'
+import { SortBy, SortOrder, StoreState} from '../reducers'
 
 interface StateProps {
-  sortBy: SortBy,
-  sortOrder: SortOrder,
-  doneFilter: boolean,
+  sortBy: SortBy
+  sortOrder: SortOrder
+  doneFilter: boolean
 }
 
 interface DispatchProps {
-  onOrderChange: (ev: React.ChangeEvent<HTMLSelectElement> | React.FocusEvent<HTMLSelectElement> ) => void,
-  onDoneFilterChange: () => void,
+  onOrderChange: (ev: React.ChangeEvent<HTMLSelectElement> | React.FocusEvent<HTMLSelectElement>) => void
+  onDoneFilterChange: () => void
 }
 
 type Props = StateProps & DispatchProps
 
-function TodoConditions ({ sortBy, sortOrder, doneFilter, onOrderChange, onDoneFilterChange }: Props) {
+function TodoConditions({ sortBy, sortOrder, doneFilter, onOrderChange, onDoneFilterChange }: Props) {
   return (
     <div className="form-inline">
       <div className="form-group">
@@ -43,15 +43,15 @@ export default connect<StateProps, DispatchProps>(
   (state: StoreState) => ({
     sortBy: state.app.sortBy,
     sortOrder: state.app.sortOrder,
-    doneFilter: state.app.doneFilter
+    doneFilter: state.app.doneFilter,
   }),
   (dispatch: Dispatch<Action>, ownProps: Props) => ({
-    onOrderChange (ev: React.ChangeEvent<HTMLSelectElement> | React.FocusEvent<HTMLSelectElement> ) {
+    onOrderChange(ev: React.ChangeEvent<HTMLSelectElement> | React.FocusEvent<HTMLSelectElement>) {
       const [prop, order] = ev.currentTarget.value.split('-')
       dispatch(selectOrder(prop as SortBy, order as SortOrder))
     },
-    onDoneFilterChange () {
+    onDoneFilterChange() {
       dispatch(toggleDoneFilter())
-    }
-  })
+    },
+  }),
 )(TodoConditions)

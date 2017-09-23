@@ -3,8 +3,8 @@ import * as ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import { camelCaseKeys, snakeCaseKeys } from '../lib/case-util'
 import App from './components/App'
-import createAppStore from './store'
 import { StoreState } from './reducers'
+import createAppStore from './store'
 import { Todo } from './webApi'
 
 interface ServerState {
@@ -18,22 +18,22 @@ interface ServerState {
   }>
 }
 
-function convert (state: ServerState): Partial<StoreState> {
+function convert(state: ServerState): Partial<StoreState> {
   const byId = state.todos.reduce((prev, curr) => {
     prev[curr.id] = camelCaseKeys(curr) as Todo
     return prev
   }, {} as { [id: number]: Todo })
-  const ids = state.todos.map(todo => todo.id)
+  const ids = state.todos.map((todo) => todo.id)
 
   return {
     todos: {
       byId,
-      ids
-    }
+      ids,
+    },
   }
 }
 
-function getPreloadedState () {
+function getPreloadedState() {
   const node = document.getElementById('todos-data')!
   return convert(JSON.parse(node.getAttribute('data')!) as ServerState)
 }
@@ -45,6 +45,6 @@ document.addEventListener('DOMContentLoaded', () => {
     <Provider store={store}>
       <App />
     </Provider>,
-    document.getElementById('todo-app')
+    document.getElementById('todo-app'),
   )
 })

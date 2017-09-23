@@ -1,29 +1,29 @@
-import * as React from 'react'
-import { connect, Dispatch } from 'react-redux'
-import * as DateTime from 'react-datetime/DateTime'
 import * as moment from 'moment'
-import { StoreState } from '../reducers'
+import * as React from 'react'
+import * as DateTime from 'react-datetime/DateTime'
+import { connect, Dispatch } from 'react-redux'
 import { Action } from '../actions'
+import { StoreState } from '../reducers'
 import { Todo } from '../webApi'
 
 import {
+  deleteTodoRequested,
   toggleTodoDoneRequested,
   updateTodoRequested,
-  deleteTodoRequested
 } from '../actions'
 
 import EditButton from './EditButton'
 import styles from './TodoItem.scss'
 
 interface StateProps {
-  todo: Todo,
+  todo: Todo
 }
 
 interface DispatchProps {
-  onCheckboxChange: () => void,
-  onContentBlur: (ev: React.FocusEvent<HTMLInputElement>, todo: Todo) => void,
-  onDueDateBlur: (ev: React.FocusEvent<any> | moment.Moment | string, todo: Todo) => void,
-  onDestroyClick: () => void,
+  onCheckboxChange: () => void
+  onContentBlur: (ev: React.FocusEvent<HTMLInputElement>, todo: Todo) => void
+  onDueDateBlur: (ev: React.FocusEvent<any> | moment.Moment | string, todo: Todo) => void
+  onDestroyClick: () => void
 }
 
 type Props = {
@@ -31,19 +31,19 @@ type Props = {
 } & StateProps & DispatchProps
 
 interface State {
-  readonly contentEditing: boolean,
-  readonly dueDateEditing: boolean,
+  readonly contentEditing: boolean
+  readonly dueDateEditing: boolean
 }
 
 class TodoItem extends React.Component<Props, State> {
-  constructor () {
+  constructor() {
     super()
     this.state = {
       contentEditing: false,
-      dueDateEditing: false
+      dueDateEditing: false,
     }
   }
-  renderContent () {
+  public renderContent() {
     const { todo, onCheckboxChange, onContentBlur } = this.props
 
     if (this.state.contentEditing) {
@@ -74,7 +74,7 @@ class TodoItem extends React.Component<Props, State> {
       </div>
     )
   }
-  renderDueDate () {
+  public renderDueDate() {
     const { todo, onDueDateBlur } = this.props
 
     if (this.state.dueDateEditing) {
@@ -97,7 +97,7 @@ class TodoItem extends React.Component<Props, State> {
       </div>
     )
   }
-  render () {
+  public render() {
     const { todo, onDestroyClick } = this.props
     return (
       <tr key={todo.id}>
@@ -111,24 +111,24 @@ class TodoItem extends React.Component<Props, State> {
 
 export default connect<StateProps, DispatchProps>(
   (state: StoreState, ownProps: Props) => ({
-    todo: state.todos.byId[ownProps.id]
+    todo: state.todos.byId[ownProps.id],
   }),
   (dispatch: Dispatch<Action>, ownProps: Props) => ({
-    onCheckboxChange () {
+    onCheckboxChange() {
       dispatch(toggleTodoDoneRequested(ownProps.id))
     },
-    onContentBlur (ev: React.FocusEvent<HTMLInputElement>, todo: Todo) {
+    onContentBlur(ev: React.FocusEvent<HTMLInputElement>, todo: Todo) {
       dispatch(updateTodoRequested(ownProps.id, ev.currentTarget.value, todo.dueDate))
     },
-    onDueDateBlur (ev: React.FocusEvent<any> | moment.Moment | string, todo: Todo) {
+    onDueDateBlur(ev: React.FocusEvent<any> | moment.Moment | string, todo: Todo) {
       if (moment.isMoment(ev)) {
         dispatch(updateTodoRequested(ownProps.id, todo.content, ev.toISOString()))
       }
     },
-    onDestroyClick () {
+    onDestroyClick() {
       if (confirm('Are you sure?')) {
         dispatch(deleteTodoRequested(ownProps.id))
       }
-    }
-  })
+    },
+  }),
 )(TodoItem)

@@ -1,27 +1,27 @@
-import * as request from 'superagent'
 import * as _ from 'lodash'
 import { csrfToken } from 'rails-ujs'
+import * as request from 'superagent'
 import { camelCaseKeys, snakeCaseKeys } from '../../lib/case-util'
 
-function error (res: request.Response): Error {
+function error(res: request.Response): Error {
   return new Error((res && res.body && res.body.data && res.body.data.message) || 'unexpected error')
 }
 
 export interface Todo {
-  readonly id: number,
-  readonly content: string,
-  readonly done: boolean,
-  readonly dueDate: string,
-  readonly createdAt: string,
-  readonly updatedAt: string,
+  readonly id: number
+  readonly content: string
+  readonly done: boolean
+  readonly dueDate: string
+  readonly createdAt: string
+  readonly updatedAt: string
 }
 
-export function addTodo (content: string, dueDate: string, done: boolean): Promise<Todo> {
+export function addTodo(content: string, dueDate: string, done: boolean): Promise<Todo> {
   return new Promise((resolve, reject) => {
     const data = {
       content,
       dueDate,
-      done
+      done,
     }
     request.post('/todos.json')
       .send(snakeCaseKeys(data))
@@ -36,12 +36,12 @@ export function addTodo (content: string, dueDate: string, done: boolean): Promi
   })
 }
 
-export function updateTodo (id: number, content?: string, dueDate?: string, done?: boolean): Promise<Todo> {
+export function updateTodo(id: number, content?: string, dueDate?: string, done?: boolean): Promise<Todo> {
   return new Promise((resolve, reject) => {
     const data = _.omitBy({
       content,
       dueDate,
-      done
+      done,
     }, _.isUndefined)
     request.put(`/todos/${id}.json`)
       .send(snakeCaseKeys(data))
@@ -56,7 +56,7 @@ export function updateTodo (id: number, content?: string, dueDate?: string, done
   })
 }
 
-export function deleteTodo (id: number): Promise<void> {
+export function deleteTodo(id: number): Promise<void> {
   return new Promise((resolve, reject) => {
     request.delete(`/todos/${id}.json`)
       .set('X-CSRF-Token', csrfToken()!)

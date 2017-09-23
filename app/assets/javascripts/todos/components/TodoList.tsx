@@ -2,10 +2,10 @@ import * as React from 'react'
 import TodoItem from './TodoItem'
 
 export interface Props {
-  todos: number[],
+  todos: number[]
 }
 
-export default function TodoList ({ todos }: Props) {
+export default function TodoList({ todos }: Props) {
   return (
     <table className="table">
       <thead>
@@ -16,7 +16,7 @@ export default function TodoList ({ todos }: Props) {
         </tr>
       </thead>
       <tbody>
-        {todos.map(id => <TodoItem key={id} id={id} />)}
+        {todos.map((id) => <TodoItem key={id} id={id} />)}
       </tbody>
     </table>
   )

@@ -1,0 +1,8 @@
+{
+    "defaultSeverity": "error",
+    "extends": ["tslint:latest", "tslint-react", "tslint-eslint-rules"],
+    "rules": {
+      "quotemark": [true, "single", "jsx-double"],
+      "semicolon": [true, "never"]
+    }
+}

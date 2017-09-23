@@ -1,12 +1,12 @@
-import * as React from 'react'
 import * as classNames from 'classnames'
+import * as React from 'react'
 
 export interface Props {
-  className: string,
-  onClick: (e: React.MouseEvent<HTMLInputElement>) => void,
+  className: string
+  onClick: (e: React.MouseEvent<HTMLInputElement>) => void
 }
 
-export default function EditButton ({ className, onClick }: Props) {
+export default function EditButton({ className, onClick }: Props) {
   return (
     <button
       type="button"

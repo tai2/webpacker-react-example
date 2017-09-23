@@ -2,7 +2,7 @@
   "name": "webpakcer-react-exampl",
   "private": true,
   "scripts": {
-    "lint": ""
+    "lint": "tslint -c tslint.json 'app/**/*.ts' 'app/**/*.tsx'"
   },
   "dependencies": {
     "@types/classnames": "^2.2.3",
@@ -61,6 +61,9 @@
     "webpack-merge": "^4.1.0"
   },
   "devDependencies": {
+    "tslint": "^5.7.0",
+    "tslint-eslint-rules": "^4.1.1",
+    "tslint-react": "^3.2.0",
     "webpack-dev-server": "^2.4.5"
   }
 }
