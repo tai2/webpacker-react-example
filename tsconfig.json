@@ -5,8 +5,7 @@
     "strictNullChecks": true,
     "target": "es2017",
     "moduleResolution": "node",
-    "jsx": "preserve",
-    "allowJs": true, // To be removed
+    "jsx": "preserve"
   },
   "include": [
     "./app/assets/javascripts/**/*",
