@@ -1,7 +1,10 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import DateTime from 'react-datetime/DateTime'
-import moment from 'moment'
+import * as React from 'react'
+import { connect, Dispatch } from 'react-redux'
+import * as DateTime from 'react-datetime/DateTime'
+import * as moment from 'moment'
+import { StoreState } from '../reducers'
+import { Action } from '../actions'
+import { Todo } from '../webApi'
 
 import {
   toggleTodoDoneRequested,
@@ -12,7 +15,27 @@ import {
 import EditButton from './EditButton'
 import styles from './TodoItem.scss'
 
-class TodoItem extends Component {
+interface StateProps {
+  readonly todo: Todo,
+}
+
+interface DispatchProps {
+  readonly onCheckboxChange: () => void,
+  readonly onContentBlur: (ev: React.FocusEvent<HTMLInputElement>, todo: Todo) => void,
+  readonly onDueDateBlur: (ev: React.FocusEvent<any> | moment.Moment | string, todo: Todo) => void,
+  readonly onDestroyClick: () => void,
+}
+
+type Props = {
+  readonly id: number,
+} & StateProps & DispatchProps
+
+interface State {
+  readonly contentEditing: boolean,
+  readonly dueDateEditing: boolean,
+}
+
+class TodoItem extends React.Component<Props, State> {
   constructor () {
     super()
     this.state = {
@@ -86,19 +109,21 @@ class TodoItem extends Component {
   }
 }
 
-export default connect(
-  (state, ownProps) => ({
+export default connect<StateProps, DispatchProps>(
+  (state: StoreState, ownProps: Props) => ({
     todo: state.todos.byId[ownProps.id]
   }),
-  (dispatch, ownProps) => ({
+  (dispatch: Dispatch<Action>, ownProps: Props) => ({
     onCheckboxChange () {
       dispatch(toggleTodoDoneRequested(ownProps.id))
     },
-    onContentBlur (event, todo) {
-      dispatch(updateTodoRequested(ownProps.id, event.target.value, todo.dueDate))
+    onContentBlur (ev: React.FocusEvent<HTMLInputElement>, todo: Todo) {
+      dispatch(updateTodoRequested(ownProps.id, ev.currentTarget.value, todo.dueDate))
     },
-    onDueDateBlur (dt, todo) {
-      dispatch(updateTodoRequested(ownProps.id, todo.content, dt.toISOString()))
+    onDueDateBlur (ev: React.FocusEvent<any> | moment.Moment | string, todo: Todo) {
+      if (moment.isMoment(ev)) {
+        dispatch(updateTodoRequested(ownProps.id, todo.content, ev.toISOString()))
+      }
     },
     onDestroyClick () {
       if (confirm('Are you sure?')) {
