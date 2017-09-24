@@ -63,7 +63,7 @@ class TodoAddForm extends React.Component<Props, State> {
   }
 }
 
-export default connect(
+export default connect<void, Props>(
   null,
   (dispatch: Dispatch<Action>) => ({
     onAddTodo(content: string, dueDate: Date) {
