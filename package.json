@@ -2,7 +2,8 @@
   "name": "webpakcer-react-exampl",
   "private": true,
   "scripts": {
-    "lint": "tslint -c tslint.json 'app/**/*.ts' 'app/**/*.tsx'"
+    "lint": "tslint -c tslint.json 'app/**/*.ts' 'app/**/*.tsx'",
+    "lint:fix": "tslint -c tslint.json 'app/**/*.ts' 'app/**/*.tsx' --fix"
   },
   "dependencies": {
     "@types/classnames": "^2.2.3",
