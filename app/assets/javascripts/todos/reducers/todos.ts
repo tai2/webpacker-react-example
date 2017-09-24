@@ -11,7 +11,7 @@ import { SortBy, SortOrder } from '../reducers/app'
 import { Todo } from '../webApi'
 
 export interface TodoMap {
-  readonly [id: number]: Todo
+  readonly [id: number]: Readonly<Todo>
 }
 
 export interface TodosState {

@@ -8,12 +8,12 @@ function error(res: request.Response): Error {
 }
 
 export interface Todo {
-  readonly id: number
-  readonly content: string
-  readonly done: boolean
-  readonly dueDate: string
-  readonly createdAt: string
-  readonly updatedAt: string
+  id: number
+  content: string
+  done: boolean
+  dueDate: string
+  createdAt: string
+  updatedAt: string
 }
 
 export function addTodo(content: string, dueDate: string, done: boolean): Promise<Todo> {
