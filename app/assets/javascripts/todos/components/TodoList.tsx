@@ -12,7 +12,7 @@ export default function TodoList({ todos }: Props) {
         <tr>
           <th>Content</th>
           <th>Due date</th>
-          <th></th>
+          <th/>
         </tr>
       </thead>
       <tbody>
