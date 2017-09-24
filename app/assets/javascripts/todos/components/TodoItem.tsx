@@ -2,11 +2,11 @@ import * as moment from 'moment'
 import * as React from 'react'
 import * as DateTime from 'react-datetime/DateTime'
 import { connect, Dispatch } from 'react-redux'
-import { Action } from '../actions'
 import { StoreState } from '../reducers'
 import { Todo } from '../webApi'
 
 import {
+  Action,
   deleteTodoRequested,
   toggleTodoDoneRequested,
   updateTodoRequested,
@@ -43,8 +43,22 @@ class TodoItem extends React.Component<Props, State> {
       dueDateEditing: false,
     }
   }
+  handleContentClick = () => {
+    this.setState({ contentEditing: true })
+  }
+  handleContentBlur = (ev: React.FocusEvent<HTMLInputElement>) => {
+    this.setState({ contentEditing: false })
+    this.props.onContentBlur(ev, this.props.todo)
+  }
+  handleDueDateClick = () => {
+    this.setState({ dueDateEditing: true })
+  }
+  handleDueDateBlur = (ev: React.FocusEvent<any> | moment.Moment | string) => {
+    this.setState({ dueDateEditing: false })
+    this.props.onDueDateBlur(ev, this.props.todo)
+  }
   renderContent() {
-    const { todo, onCheckboxChange, onContentBlur } = this.props
+    const { todo, onCheckboxChange } = this.props
 
     if (this.state.contentEditing) {
       // see https://w3c.github.io/html/sec-forms.html#autofocusing-a-form-control-the-autofocus-attribute
@@ -55,10 +69,7 @@ class TodoItem extends React.Component<Props, State> {
           type="text"
           defaultValue={todo.content}
           autoFocus
-          onBlur={(ev) => {
-            this.setState({ contentEditing: false })
-            onContentBlur(ev, todo)
-          }}
+          onBlur={this.handleContentBlur}
         />
       )
       /* eslint-enable jsx-a11y/no-autofocus */
@@ -70,21 +81,18 @@ class TodoItem extends React.Component<Props, State> {
           <input type="checkbox" checked={todo.done} onChange={onCheckboxChange}/>
           {todo.content}
         </label>
-        <EditButton className={styles.editButton} onClick={() => this.setState({ contentEditing: true })} />
+        <EditButton className={styles.editButton} onClick={this.handleContentClick} />
       </div>
     )
   }
   renderDueDate() {
-    const { todo, onDueDateBlur } = this.props
+    const { todo } = this.props
 
     if (this.state.dueDateEditing) {
       return (
         <DateTime
           defaultValue={new Date(todo.dueDate)}
-          onBlur={(dt) => {
-            this.setState({ dueDateEditing: false })
-            onDueDateBlur(dt, todo)
-          }}
+          onBlur={this.handleDueDateBlur}
           inputProps={{ autoFocus: true }}
         />
       )
@@ -93,7 +101,7 @@ class TodoItem extends React.Component<Props, State> {
     return (
       <div>
         {moment(todo.dueDate).local().toString()}
-        <EditButton className={styles.editButton} onClick={() => this.setState({ dueDateEditing: true })} />
+        <EditButton className={styles.editButton} onClick={this.handleDueDateClick} />
       </div>
     )
   }
