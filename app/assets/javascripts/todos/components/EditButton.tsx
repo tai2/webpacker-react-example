@@ -14,7 +14,7 @@ export default function EditButton({ className, onClick }: Props) {
       aria-label="Edit"
       onClick={onClick}
     >
-      <span className="glyphicon glyphicon-edit" aria-hidden="true"></span>
+      <span className="glyphicon glyphicon-edit" aria-hidden="true" />
     </button>
   )
 }
