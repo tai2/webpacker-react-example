@@ -19,10 +19,11 @@ interface ServerState {
 }
 
 function convert(state: ServerState): Partial<StoreState> {
+  const accumulator: { [id: number]: Todo } = {}
   const byId = state.todos.reduce((prev, curr) => {
     prev[curr.id] = camelCaseKeys(curr) as Todo
     return prev
-  }, {} as { [id: number]: Todo })
+  }, accumulator)
   const ids = state.todos.map((todo) => todo.id)
 
   return {
