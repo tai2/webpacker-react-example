@@ -1,7 +1,6 @@
 import * as React from 'react'
 import { connect, Dispatch } from 'react-redux'
-import { selectOrder, toggleDoneFilter } from '../actions'
-import { Action } from '../actions'
+import { Action, selectOrder, toggleDoneFilter } from '../actions'
 import { SortBy, SortOrder, StoreState} from '../reducers'
 
 interface StateProps {
@@ -22,7 +21,12 @@ function TodoConditions({ sortBy, sortOrder, doneFilter, onOrderChange, onDoneFi
     <div className="form-inline">
       <div className="form-group">
         <label>sort by:&nbsp;
-          <select className="form-control" value={`${sortBy}-${sortOrder}`} onChange={onOrderChange} onBlur={onOrderChange}>
+          <select
+            className="form-control"
+            value={`${sortBy}-${sortOrder}`}
+            onChange={onOrderChange}
+            onBlur={onOrderChange}
+          >
             <option value="dueDate-asc">due date(asc)</option>
             <option value="dueDate-desc">due date(desc)</option>
             <option value="createdAt-asc">created at(asc)</option>
