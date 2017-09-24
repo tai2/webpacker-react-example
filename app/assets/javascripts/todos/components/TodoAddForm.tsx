@@ -23,19 +23,19 @@ class TodoAddForm extends React.Component<Props, State> {
       dueDate: new Date(),
     }
   }
-  public handleAddTodo = () => {
+  handleAddTodo = () => {
     this.setState({ content: '', dueDate: new Date() })
     this.props.onAddTodo(this.state.content, this.state.dueDate)
   }
-  public handleChangeContent = (ev: React.ChangeEvent<HTMLInputElement>) => {
+  handleChangeContent = (ev: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({ content: ev.currentTarget.value })
   }
-  public handleChangeDueDate = (dt: React.ChangeEvent<any> | moment.Moment | string) => {
+  handleChangeDueDate = (dt: React.ChangeEvent<any> | moment.Moment | string) => {
     if (moment.isMoment(dt)) {
       this.setState({ dueDate: dt.toDate() })
     }
   }
-  public render() {
+  render() {
     return (
       <div className="form-inline">
         <div className={classNames('form-group', styles.item)}>

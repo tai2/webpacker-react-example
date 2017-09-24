@@ -43,7 +43,7 @@ class TodoItem extends React.Component<Props, State> {
       dueDateEditing: false,
     }
   }
-  public renderContent() {
+  renderContent() {
     const { todo, onCheckboxChange, onContentBlur } = this.props
 
     if (this.state.contentEditing) {
@@ -74,7 +74,7 @@ class TodoItem extends React.Component<Props, State> {
       </div>
     )
   }
-  public renderDueDate() {
+  renderDueDate() {
     const { todo, onDueDateBlur } = this.props
 
     if (this.state.dueDateEditing) {
@@ -97,7 +97,7 @@ class TodoItem extends React.Component<Props, State> {
       </div>
     )
   }
-  public render() {
+  render() {
     const { todo, onDestroyClick } = this.props
     return (
       <tr key={todo.id}>
