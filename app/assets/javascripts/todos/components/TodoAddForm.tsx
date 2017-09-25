@@ -4,11 +4,18 @@ import * as React from 'react'
 import * as DateTime from 'react-datetime'
 import { connect, Dispatch } from 'react-redux'
 import { Action, addTodoRequested } from '../actions'
+import { Request, StoreState } from '../reducers'
 import styles from './TodoAddForm.scss'
 
-interface Props {
+interface StateProps {
+  addTodoRequest: Request
+}
+
+interface DispatchProps {
   onAddTodo: (content: string, dueDate: Date) => void
 }
+
+type Props = StateProps & DispatchProps
 
 interface State {
   readonly content: string
@@ -36,6 +43,8 @@ class TodoAddForm extends React.Component<Props, State> {
     }
   }
   render() {
+    const { addTodoRequest } = this.props
+
     return (
       <div className="form-inline">
         <div className={classNames('form-group', styles.item)}>
@@ -63,13 +72,16 @@ class TodoAddForm extends React.Component<Props, State> {
         >
           Create Todo
         </button>
+        {addTodoRequest.error && <span className={styles.error}>Create Todo Failed</span>}
       </div>
     )
   }
 }
 
-export default connect<void, Props>(
-  null,
+export default connect<StateProps, DispatchProps>(
+  ({ app: { requests } }: StoreState) => ({
+    addTodoRequest: requests.addTodo,
+  }),
   (dispatch: Dispatch<Action>) => ({
     onAddTodo(content: string, dueDate: Date) {
       dispatch(addTodoRequested(content, dueDate.toISOString()))

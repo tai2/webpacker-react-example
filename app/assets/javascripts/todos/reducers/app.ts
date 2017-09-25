@@ -1,18 +1,32 @@
-import { Action, SelectOrder } from '../actions'
+import * as actions from '../actions'
 
 export type SortBy = 'dueDate' | 'createdAt'
 export type SortOrder = 'asc' | 'desc'
+
+export interface Request {
+  requesting: boolean
+  error: Error | null
+}
 
 export interface AppState {
   readonly doneFilter: boolean
   readonly sortBy: SortBy
   readonly sortOrder: SortOrder
+  readonly requests: {
+    addTodo: Request,
+  }
 }
 
 const initialState: AppState = {
   doneFilter: false,
   sortBy: 'dueDate',
   sortOrder: 'desc',
+  requests: {
+    addTodo: {
+      requesting: false,
+      error: null,
+    },
+  },
 }
 
 function toggleDoneFilter(state: AppState) {
@@ -22,7 +36,7 @@ function toggleDoneFilter(state: AppState) {
   }
 }
 
-function selectOrder(state: AppState, action: SelectOrder) {
+function selectOrder(state: AppState, action: actions.SelectOrder) {
   return {
     ...state,
     sortBy: action.payload.sortBy,
@@ -30,12 +44,42 @@ function selectOrder(state: AppState, action: SelectOrder) {
   }
 }
 
-export default function appReducer(state: AppState = initialState, action: Action): AppState {
+function addTodoRequested(state: AppState, action: actions.AddTodoRequested) {
+  return {
+    ...state,
+    requests: {
+      ...state.requests,
+      addTodo: {
+        requesting: true,
+        error: null,
+      },
+    },
+  }
+}
+
+function addTodoReceived(state: AppState, action: actions.AddTodoReceived) {
+  return {
+    ...state,
+    requests: {
+      ...state.requests,
+      addTodo: {
+        requesting: false,
+        error: action.payload instanceof Error ? action.payload : null,
+      },
+    },
+  }
+}
+
+export default function appReducer(state: AppState = initialState, action: actions.Action): AppState {
   switch (action.type) {
     case 'TOGGLE_DONE_FILTER':
       return toggleDoneFilter(state)
     case 'SELECT_ORDER':
       return selectOrder(state, action)
+    case 'ADD_TODO:REQUESTED':
+      return addTodoRequested(state, action)
+    case 'ADD_TODO:RECEIVED':
+      return addTodoReceived(state, action)
     default:
       return state
   }
