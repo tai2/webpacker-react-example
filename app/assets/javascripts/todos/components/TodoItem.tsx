@@ -61,9 +61,6 @@ class TodoItem extends React.Component<Props, State> {
     const { todo, onCheckboxChange } = this.props
 
     if (this.state.contentEditing) {
-      // see https://w3c.github.io/html/sec-forms.html#autofocusing-a-form-control-the-autofocus-attribute
-      // I think, this use of autofocuse is not applied to explained situation.
-      /* eslint-disable jsx-a11y/no-autofocus */
       return (
         <input
           type="text"
@@ -72,7 +69,6 @@ class TodoItem extends React.Component<Props, State> {
           onBlur={this.handleContentBlur}
         />
       )
-      /* eslint-enable jsx-a11y/no-autofocus */
     }
 
     return (
