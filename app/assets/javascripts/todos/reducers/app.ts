@@ -21,6 +21,9 @@ export interface AppState {
     toggleTodoDone: {
       [id: number]: Request | undefined,
     },
+    deleteTodo: {
+      [id: number]: Request | undefined,
+    },
   }
 }
 
@@ -35,6 +38,7 @@ const initialState: AppState = {
     },
     updateTodo: {},
     toggleTodoDone: {},
+    deleteTodo: {},
   },
 }
 
@@ -157,6 +161,45 @@ function toggleTodoDoneReceived(state: AppState, action: actions.ToggleTodoDoneR
   }
 }
 
+function deleteTodoRequested(state: AppState, action: actions.DeleteTodoRequested) {
+  return {
+    ...state,
+    requests: {
+      ...state.requests,
+      deleteTodo: {
+        ...state.requests.deleteTodo,
+        [action.payload.id]: {
+          requesting: true,
+          error: null,
+        },
+      },
+    },
+  }
+}
+
+function deleteTodoReceived(state: AppState, action: actions.DeleteTodoReceived) {
+  let deleteTodo
+  if (action.payload instanceof actions.IdentifiableError) {
+    deleteTodo = {
+      ...state.requests.deleteTodo,
+      [action.payload.targetId]: {
+        requesting: false,
+        error: action.payload,
+      },
+    }
+  } else {
+    deleteTodo = _.omit(state.requests.updateTodo, [action.payload.id])
+  }
+
+  return {
+    ...state,
+    requests: {
+      ...state.requests,
+      deleteTodo,
+    },
+  }
+}
+
 export default function appReducer(state: AppState = initialState, action: actions.Action): AppState {
   switch (action.type) {
     case 'TOGGLE_DONE_FILTER':
@@ -175,6 +218,10 @@ export default function appReducer(state: AppState = initialState, action: actio
       return toggleTodoDoneRequested(state, action)
     case 'TOGGLE_TODO_DONE:RECEIVED':
       return toggleTodoDoneReceived(state, action)
+    case 'DELETE_TODO:REQUESTED':
+      return deleteTodoRequested(state, action)
+    case 'DELETE_TODO:RECEIVED':
+      return deleteTodoReceived(state, action)
     default:
       return state
   }

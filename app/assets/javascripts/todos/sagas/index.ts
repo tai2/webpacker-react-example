@@ -24,8 +24,8 @@ function * updateTodoRequested(action: actions.UpdateTodoRequested) {
 }
 
 function * toggleTodoDoneRequested(action: actions.ToggleTodoDoneRequested) {
+  const { id } = action.payload
   try {
-    const { id } = action.payload
     const done = yield select((state: StoreState) => state.todos.byId[id].done)
     const response = yield call(webApi.updateTodo, id, undefined, undefined, !done)
     yield put(actions.toggleTodoDoneReceived(response))
@@ -35,12 +35,12 @@ function * toggleTodoDoneRequested(action: actions.ToggleTodoDoneRequested) {
 }
 
 function * deleteTodoRequested(action: actions.DeleteTodoRequested) {
+  const { id } = action.payload
   try {
-    const { id } = action.payload
     yield call(webApi.deleteTodo, id)
     yield put(actions.deleteTodoReceived(action.payload))
   } catch (error) {
-    yield put(actions.deleteTodoReceived(error))
+    yield put(actions.deleteTodoReceived(new actions.IdentifiableError(id, error.message)))
   }
 }
 
