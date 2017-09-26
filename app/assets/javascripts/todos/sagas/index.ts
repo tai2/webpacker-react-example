@@ -14,12 +14,12 @@ function * addTodoRequested(action: actions.AddTodoRequested) {
 }
 
 function * updateTodoRequested(action: actions.UpdateTodoRequested) {
+  const { id, content, dueDate } = action.payload
   try {
-    const { id, content, dueDate } = action.payload
     const response = yield call(webApi.updateTodo, id, content, dueDate)
     yield put(actions.updateTodoReceived(response))
   } catch (error) {
-    yield put(actions.updateTodoReceived(error))
+    yield put(actions.updateTodoReceived(new actions.IdentifiableError(id, error.message)))
   }
 }
 

@@ -2,7 +2,7 @@ import * as moment from 'moment'
 import * as React from 'react'
 import * as DateTime from 'react-datetime/DateTime'
 import { connect, Dispatch } from 'react-redux'
-import { StoreState } from '../reducers'
+import { Request, StoreState } from '../reducers'
 import { Todo } from '../webApi'
 
 import {
@@ -17,6 +17,7 @@ import styles from './TodoItem.scss'
 
 interface StateProps {
   todo: Todo
+  updateTodoRequest: Request
 }
 
 interface DispatchProps {
@@ -102,12 +103,15 @@ class TodoItem extends React.Component<Props, State> {
     )
   }
   render() {
-    const { todo, onDestroyClick } = this.props
+    const { todo, updateTodoRequest, onDestroyClick } = this.props
     return (
       <tr key={todo.id}>
         <td className={styles.contentCol}>{this.renderContent()}</td>
         <td className={styles.dueDateCol}>{this.renderDueDate()}</td>
-        <td><button className="btn btn-default" onClick={onDestroyClick}>Destroy</button></td>
+        <td>
+          <button className="btn btn-default" onClick={onDestroyClick}>Destroy</button>
+          {updateTodoRequest.error && <span className={styles.error}>Update todo failed</span>}
+        </td>
       </tr>
     )
   }
@@ -116,6 +120,7 @@ class TodoItem extends React.Component<Props, State> {
 export default connect<StateProps, DispatchProps>(
   (state: StoreState, ownProps: Props) => ({
     todo: state.todos.byId[ownProps.id],
+    updateTodoRequest: state.app.requests.updateTodo[ownProps.id] || { requesting: false, error: null },
   }),
   (dispatch: Dispatch<Action>, ownProps: Props) => ({
     onCheckboxChange() {

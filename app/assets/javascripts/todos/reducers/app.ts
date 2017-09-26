@@ -1,3 +1,4 @@
+import * as _ from 'lodash'
 import * as actions from '../actions'
 
 export type SortBy = 'dueDate' | 'createdAt'
@@ -14,6 +15,9 @@ export interface AppState {
   readonly sortOrder: SortOrder
   readonly requests: {
     addTodo: Request,
+    updateTodo: {
+      [id: number]: Request | undefined,
+    },
   }
 }
 
@@ -26,6 +30,7 @@ const initialState: AppState = {
       requesting: false,
       error: null,
     },
+    updateTodo: {},
   },
 }
 
@@ -70,6 +75,45 @@ function addTodoReceived(state: AppState, action: actions.AddTodoReceived) {
   }
 }
 
+function updateTodoRequested(state: AppState, action: actions.UpdateTodoRequested) {
+  return {
+    ...state,
+    requests: {
+      ...state.requests,
+      updateTodo: {
+        ...state.requests.updateTodo,
+        [action.payload.id]: {
+          requesting: true,
+          error: null,
+        },
+      },
+    },
+  }
+}
+
+function updateTodoReceived(state: AppState, action: actions.UpdateTodoReceived) {
+  let updateTodo
+  if (action.payload instanceof actions.IdentifiableError) {
+    updateTodo = {
+      ...state.requests.updateTodo,
+      [action.payload.targetId]: {
+        requesting: false,
+        error: action.payload,
+      },
+    }
+  } else {
+    updateTodo = _.omit(state.requests.updateTodo, [action.payload.id])
+  }
+
+  return {
+    ...state,
+    requests: {
+      ...state.requests,
+      updateTodo,
+    },
+  }
+}
+
 export default function appReducer(state: AppState = initialState, action: actions.Action): AppState {
   switch (action.type) {
     case 'TOGGLE_DONE_FILTER':
@@ -80,6 +124,10 @@ export default function appReducer(state: AppState = initialState, action: actio
       return addTodoRequested(state, action)
     case 'ADD_TODO:RECEIVED':
       return addTodoReceived(state, action)
+    case 'UPDATE_TODO:REQUESTED':
+      return updateTodoRequested(state, action)
+    case 'UPDATE_TODO:RECEIVED':
+      return updateTodoReceived(state, action)
     default:
       return state
   }
