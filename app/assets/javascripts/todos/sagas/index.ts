@@ -30,7 +30,7 @@ function * toggleTodoDoneRequested(action: actions.ToggleTodoDoneRequested) {
     const response = yield call(webApi.updateTodo, id, undefined, undefined, !done)
     yield put(actions.toggleTodoDoneReceived(response))
   } catch (error) {
-    yield put(actions.toggleTodoDoneReceived(error))
+    yield put(actions.toggleTodoDoneReceived(new actions.IdentifiableError(id, error.message)))
   }
 }
 

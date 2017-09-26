@@ -17,7 +17,7 @@ import styles from './TodoItem.scss'
 
 interface StateProps {
   todo: Todo
-  updateTodoRequest: Request
+  request: Request
 }
 
 interface DispatchProps {
@@ -103,14 +103,14 @@ class TodoItem extends React.Component<Props, State> {
     )
   }
   render() {
-    const { todo, updateTodoRequest, onDestroyClick } = this.props
+    const { todo, request, onDestroyClick } = this.props
     return (
       <tr key={todo.id}>
         <td className={styles.contentCol}>{this.renderContent()}</td>
         <td className={styles.dueDateCol}>{this.renderDueDate()}</td>
         <td>
           <button className="btn btn-default" onClick={onDestroyClick}>Destroy</button>
-          {updateTodoRequest.error && <span className={styles.error}>Update todo failed</span>}
+          {request.error && <span className={styles.error}>Update todo failed</span>}
         </td>
       </tr>
     )
@@ -120,7 +120,9 @@ class TodoItem extends React.Component<Props, State> {
 export default connect<StateProps, DispatchProps>(
   (state: StoreState, ownProps: Props) => ({
     todo: state.todos.byId[ownProps.id],
-    updateTodoRequest: state.app.requests.updateTodo[ownProps.id] || { requesting: false, error: null },
+    request: state.app.requests.updateTodo[ownProps.id]
+      || state.app.requests.toggleTodoDone[ownProps.id]
+      || { requesting: false, error: null },
   }),
   (dispatch: Dispatch<Action>, ownProps: Props) => ({
     onCheckboxChange() {
