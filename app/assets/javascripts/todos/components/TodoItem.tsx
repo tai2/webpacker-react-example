@@ -60,7 +60,7 @@ class TodoItem extends React.Component<Props, State> {
     this.props.onDueDateBlur(ev, this.props.todo)
   }
   renderContent() {
-    const { todo, onCheckboxChange } = this.props
+    const { todo, updateRequest, onCheckboxChange } = this.props
 
     if (this.state.contentEditing) {
       return (
@@ -76,22 +76,22 @@ class TodoItem extends React.Component<Props, State> {
     return (
       <div>
         <label className={styles.contentLabel}>
-          <input type="checkbox" checked={todo.done} onChange={onCheckboxChange}/>
+          <input type="checkbox" checked={todo.done} disabled={updateRequest.requesting} onChange={onCheckboxChange}/>
           {todo.content}
         </label>
-        <EditButton className={styles.editButton} onClick={this.handleContentClick} />
+        <EditButton className={styles.editButton} disabled={updateRequest.requesting} onClick={this.handleContentClick} />
       </div>
     )
   }
   renderDueDate() {
-    const { todo } = this.props
+    const { todo, updateRequest } = this.props
 
     if (this.state.dueDateEditing) {
       return (
         <DateTime
           defaultValue={new Date(todo.dueDate)}
-          onBlur={this.handleDueDateBlur}
           inputProps={{ autoFocus: true }}
+          onBlur={this.handleDueDateBlur}
         />
       )
     }
@@ -99,7 +99,7 @@ class TodoItem extends React.Component<Props, State> {
     return (
       <div>
         {moment(todo.dueDate).local().toString()}
-        <EditButton className={styles.editButton} onClick={this.handleDueDateClick} />
+        <EditButton className={styles.editButton} disabled={updateRequest.requesting} onClick={this.handleDueDateClick} />
       </div>
     )
   }
@@ -110,7 +110,7 @@ class TodoItem extends React.Component<Props, State> {
         <td className={styles.contentCol}>{this.renderContent()}</td>
         <td className={styles.dueDateCol}>{this.renderDueDate()}</td>
         <td>
-          <button className="btn btn-default" onClick={onDestroyClick}>Destroy</button>
+          <button className="btn btn-default" disabled={deleteRequest.requesting} onClick={onDestroyClick}>Destroy</button>
           {updateRequest.error && <span className={styles.error}>Update todo failed</span>}
           {deleteRequest.error && <span className={styles.error}>Delete todo failed</span>}
         </td>
