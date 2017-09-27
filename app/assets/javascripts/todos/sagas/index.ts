@@ -1,46 +1,46 @@
 import { call, put, select, takeEvery, takeLatest } from 'redux-saga/effects'
 import * as actions from '../actions'
-import { StoreState } from '../reducers'
+import { SINGLETON_ID, StoreState } from '../reducers'
 import * as webApi from '../webApi'
 
 function * addTodoRequested(action: actions.AddTodoRequested) {
   try {
-    const { content, dueDate } = action.payload
-    const response = yield call(webApi.addTodo, content, dueDate, false)
-    yield put(actions.addTodoReceived(response))
+    const { requestId, item: { content, dueDate } } = action.payload
+    const item = yield call(webApi.addTodo, content, dueDate, false)
+    yield put(actions.addTodoReceived({ requestId, item }))
   } catch (error) {
-    yield put(actions.addTodoReceived(error))
+    yield put(actions.addTodoReceived(new actions.IdentifiableError(SINGLETON_ID, error.message)))
   }
 }
 
 function * updateTodoRequested(action: actions.UpdateTodoRequested) {
-  const { id, content, dueDate } = action.payload
+  const { requestId, item: { id, content, dueDate } } = action.payload
   try {
-    const response = yield call(webApi.updateTodo, id, content, dueDate)
-    yield put(actions.updateTodoReceived(response))
+    const item = yield call(webApi.updateTodo, id, content, dueDate)
+    yield put(actions.updateTodoReceived({ requestId, item }))
   } catch (error) {
-    yield put(actions.updateTodoReceived(new actions.IdentifiableError(id, error.message)))
+    yield put(actions.updateTodoReceived(new actions.IdentifiableError(requestId, error.message)))
   }
 }
 
 function * toggleTodoDoneRequested(action: actions.ToggleTodoDoneRequested) {
-  const { id } = action.payload
+  const { requestId, item: { id } } = action.payload
   try {
     const done = yield select((state: StoreState) => state.todos.byId[id].done)
-    const response = yield call(webApi.updateTodo, id, undefined, undefined, !done)
-    yield put(actions.toggleTodoDoneReceived(response))
+    const item = yield call(webApi.updateTodo, id, undefined, undefined, !done)
+    yield put(actions.toggleTodoDoneReceived({ requestId, item }))
   } catch (error) {
-    yield put(actions.toggleTodoDoneReceived(new actions.IdentifiableError(id, error.message)))
+    yield put(actions.toggleTodoDoneReceived(new actions.IdentifiableError(requestId, error.message)))
   }
 }
 
 function * deleteTodoRequested(action: actions.DeleteTodoRequested) {
-  const { id } = action.payload
+  const { requestId, item: { id } } = action.payload
   try {
     yield call(webApi.deleteTodo, id)
     yield put(actions.deleteTodoReceived(action.payload))
   } catch (error) {
-    yield put(actions.deleteTodoReceived(new actions.IdentifiableError(id, error.message)))
+    yield put(actions.deleteTodoReceived(new actions.IdentifiableError(requestId, error.message)))
   }
 }
 

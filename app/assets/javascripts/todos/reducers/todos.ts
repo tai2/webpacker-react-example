@@ -29,7 +29,7 @@ function addTodoReceived(state: TodosState, action: AddTodoReceived) {
     return state
   }
 
-  const newTodo = action.payload
+  const newTodo = action.payload.item
 
   return {
     ...state,
@@ -46,7 +46,7 @@ function updateTodoReceived(state: TodosState, action: UpdateTodoReceived) {
     return state
   }
 
-  const updatedTodo = action.payload
+  const updatedTodo = action.payload.item
 
   return {
     ...state,
@@ -62,7 +62,7 @@ function toggleTodoDoneReceived(state: TodosState, action: ToggleTodoDoneReceive
     return state
   }
 
-  const updatedTodo = action.payload
+  const updatedTodo = action.payload.item
 
   return {
     ...state,
@@ -78,7 +78,7 @@ function deleteTodoReceived(state: TodosState, action: DeleteTodoReceived) {
     return state
   }
 
-  const { id } = action.payload
+  const { id } = action.payload.item
   const byId: TodoMap = _.omit(state.byId, [id])
   const ids = state.ids.filter((item) => item !== id)
 

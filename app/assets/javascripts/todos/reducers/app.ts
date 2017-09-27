@@ -9,21 +9,23 @@ export interface Request {
   error: Error | null
 }
 
+interface RequestTable {
+  [id: number]: Request | undefined,
+}
+
+export const SINGLETON_ID = 0
 export interface AppState {
   readonly doneFilter: boolean
   readonly sortBy: SortBy
   readonly sortOrder: SortOrder
   readonly requests: {
-    addTodo: Request,
-    updateTodo: {
-      [id: number]: Request | undefined,
-    },
-    toggleTodoDone: {
-      [id: number]: Request | undefined,
-    },
-    deleteTodo: {
-      [id: number]: Request | undefined,
-    },
+    // If a request is for creation, which means id doesn't exist yet, the index of table should be 0.
+    // In this case, RequestTable would be a singleton.
+    // This convention increases code reuse between reducers below requests.
+    addTodo: RequestTable,
+    updateTodo: RequestTable,
+    toggleTodoDone: RequestTable,
+    deleteTodo: RequestTable,
   }
 }
 
@@ -32,10 +34,7 @@ const initialState: AppState = {
   sortBy: 'dueDate',
   sortOrder: 'desc',
   requests: {
-    addTodo: {
-      requesting: false,
-      error: null,
-    },
+    addTodo: {},
     updateTodo: {},
     toggleTodoDone: {},
     deleteTodo: {},
@@ -57,40 +56,17 @@ function selectOrder(state: AppState, action: actions.SelectOrder) {
   }
 }
 
-function addTodoRequested(state: AppState, action: actions.AddTodoRequested) {
-  return {
-    ...state,
-    requests: {
-      ...state.requests,
-      addTodo: {
-        requesting: true,
-        error: null,
-      },
-    },
-  }
+interface RequestedAction {
+  payload: { requestId: number }
 }
-
-function addTodoReceived(state: AppState, action: actions.AddTodoReceived) {
+function handleRequested(target: keyof AppState['requests'], state: AppState, action: RequestedAction) {
   return {
     ...state,
     requests: {
       ...state.requests,
-      addTodo: {
-        requesting: false,
-        error: action.payload instanceof Error ? action.payload : null,
-      },
-    },
-  }
-}
-
-function updateTodoRequested(state: AppState, action: actions.UpdateTodoRequested) {
-  return {
-    ...state,
-    requests: {
-      ...state.requests,
-      updateTodo: {
-        ...state.requests.updateTodo,
-        [action.payload.id]: {
+      [target]: {
+        ...state.requests[target],
+        [action.payload.requestId]: {
           requesting: true,
           error: null,
         },
@@ -99,103 +75,28 @@ function updateTodoRequested(state: AppState, action: actions.UpdateTodoRequeste
   }
 }
 
-function updateTodoReceived(state: AppState, action: actions.UpdateTodoReceived) {
-  let updateTodo
+interface ReceivedAction {
+  payload: { requestId: number } | actions.IdentifiableError
+}
+function handleReceived(target: keyof AppState['requests'], state: AppState, action: ReceivedAction) {
+  let table
   if (action.payload instanceof actions.IdentifiableError) {
-    updateTodo = {
-      ...state.requests.updateTodo,
+    table = {
+      ...state.requests[target],
       [action.payload.targetId]: {
         requesting: false,
         error: action.payload,
       },
     }
   } else {
-    updateTodo = _.omit(state.requests.updateTodo, [action.payload.id])
+    table = _.omit(state.requests[target], [action.payload.requestId])
   }
 
   return {
     ...state,
     requests: {
       ...state.requests,
-      updateTodo,
-    },
-  }
-}
-
-function toggleTodoDoneRequested(state: AppState, action: actions.ToggleTodoDoneRequested) {
-  return {
-    ...state,
-    requests: {
-      ...state.requests,
-      toggleTodoDone: {
-        ...state.requests.toggleTodoDone,
-        [action.payload.id]: {
-          requesting: true,
-          error: null,
-        },
-      },
-    },
-  }
-}
-
-function toggleTodoDoneReceived(state: AppState, action: actions.ToggleTodoDoneReceived) {
-  let toggleTodoDone
-  if (action.payload instanceof actions.IdentifiableError) {
-    toggleTodoDone = {
-      ...state.requests.toggleTodoDone,
-      [action.payload.targetId]: {
-        requesting: false,
-        error: action.payload,
-      },
-    }
-  } else {
-    toggleTodoDone = _.omit(state.requests.toggleTodoDone, [action.payload.id])
-  }
-
-  return {
-    ...state,
-    requests: {
-      ...state.requests,
-      toggleTodoDone,
-    },
-  }
-}
-
-function deleteTodoRequested(state: AppState, action: actions.DeleteTodoRequested) {
-  return {
-    ...state,
-    requests: {
-      ...state.requests,
-      deleteTodo: {
-        ...state.requests.deleteTodo,
-        [action.payload.id]: {
-          requesting: true,
-          error: null,
-        },
-      },
-    },
-  }
-}
-
-function deleteTodoReceived(state: AppState, action: actions.DeleteTodoReceived) {
-  let deleteTodo
-  if (action.payload instanceof actions.IdentifiableError) {
-    deleteTodo = {
-      ...state.requests.deleteTodo,
-      [action.payload.targetId]: {
-        requesting: false,
-        error: action.payload,
-      },
-    }
-  } else {
-    deleteTodo = _.omit(state.requests.updateTodo, [action.payload.id])
-  }
-
-  return {
-    ...state,
-    requests: {
-      ...state.requests,
-      deleteTodo,
+      [target]: table,
     },
   }
 }
@@ -207,21 +108,21 @@ export default function appReducer(state: AppState = initialState, action: actio
     case 'SELECT_ORDER':
       return selectOrder(state, action)
     case 'ADD_TODO:REQUESTED':
-      return addTodoRequested(state, action)
+      return handleRequested('addTodo', state, action)
     case 'ADD_TODO:RECEIVED':
-      return addTodoReceived(state, action)
+      return handleReceived('addTodo', state, action)
     case 'UPDATE_TODO:REQUESTED':
-      return updateTodoRequested(state, action)
+      return handleRequested('updateTodo', state, action)
     case 'UPDATE_TODO:RECEIVED':
-      return updateTodoReceived(state, action)
+      return handleReceived('updateTodo', state, action)
     case 'TOGGLE_TODO_DONE:REQUESTED':
-      return toggleTodoDoneRequested(state, action)
+      return handleRequested('toggleTodoDone', state, action)
     case 'TOGGLE_TODO_DONE:RECEIVED':
-      return toggleTodoDoneReceived(state, action)
+      return handleReceived('toggleTodoDone', state, action)
     case 'DELETE_TODO:REQUESTED':
-      return deleteTodoRequested(state, action)
+      return handleRequested('deleteTodo', state, action)
     case 'DELETE_TODO:RECEIVED':
-      return deleteTodoReceived(state, action)
+      return handleReceived('deleteTodo', state, action)
     default:
       return state
   }

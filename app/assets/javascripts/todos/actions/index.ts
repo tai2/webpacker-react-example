@@ -1,4 +1,4 @@
-import { SortBy, SortOrder } from '../reducers/app'
+import { SINGLETON_ID, SortBy, SortOrder } from '../reducers/app'
 import { Todo } from '../webApi'
 
 interface FluxActionMinimal<T> {
@@ -15,6 +15,11 @@ interface FluxActionResult<T, P, E = Error> {
   payload: P | E
 }
 
+interface Request<T> {
+  requestId: number
+  item: T
+}
+
 export class IdentifiableError extends Error {
   constructor(readonly targetId: number, message?: string) {
     super(message)
@@ -23,28 +28,24 @@ export class IdentifiableError extends Error {
   }
 }
 
-export type AddTodoRequested = FluxActionWithPayload<'ADD_TODO:REQUESTED', {
+export type AddTodoRequested = FluxActionWithPayload<'ADD_TODO:REQUESTED', Request<{
   content: string,
   dueDate: string,
-}>
-export type AddTodoReceived = FluxActionResult<'ADD_TODO:RECEIVED', Todo>
+}>>
+export type AddTodoReceived = FluxActionResult<'ADD_TODO:RECEIVED', Request<Todo>, IdentifiableError>
 
-export type UpdateTodoRequested = FluxActionWithPayload<'UPDATE_TODO:REQUESTED', {
+export type UpdateTodoRequested = FluxActionWithPayload<'UPDATE_TODO:REQUESTED', Request<{
   id: number,
   content: string,
   dueDate: string,
-}>
-export type UpdateTodoReceived = FluxActionResult<'UPDATE_TODO:RECEIVED', Todo, IdentifiableError>
+}>>
+export type UpdateTodoReceived = FluxActionResult<'UPDATE_TODO:RECEIVED', Request<Todo>, IdentifiableError>
 
-export type ToggleTodoDoneRequested = FluxActionWithPayload<'TOGGLE_TODO_DONE:REQUESTED', {
-  id: number,
-}>
-export type ToggleTodoDoneReceived = FluxActionResult<'TOGGLE_TODO_DONE:RECEIVED', Todo, IdentifiableError>
+export type ToggleTodoDoneRequested = FluxActionWithPayload<'TOGGLE_TODO_DONE:REQUESTED', Request<{ id: number }>>
+export type ToggleTodoDoneReceived = FluxActionResult<'TOGGLE_TODO_DONE:RECEIVED', Request<Todo>, IdentifiableError>
 
-export type DeleteTodoRequested = FluxActionWithPayload<'DELETE_TODO:REQUESTED', {
-  id: number,
-}>
-export type DeleteTodoReceived = FluxActionResult<'DELETE_TODO:RECEIVED', { id: number }, IdentifiableError>
+export type DeleteTodoRequested = FluxActionWithPayload<'DELETE_TODO:REQUESTED', Request<{ id: number }>>
+export type DeleteTodoReceived = FluxActionResult<'DELETE_TODO:RECEIVED', Request<{ id: number }>, IdentifiableError>
 
 export type ToggleDoneFilter = FluxActionMinimal<'TOGGLE_DONE_FILTER'>
 
@@ -65,11 +66,14 @@ export type Action =
 export function addTodoRequested(content: string, dueDate: string): AddTodoRequested {
   return {
     type: 'ADD_TODO:REQUESTED',
-    payload: { content, dueDate },
+    payload: {
+      requestId: SINGLETON_ID,
+      item: { content, dueDate },
+    },
   }
 }
 
-export function addTodoReceived(payload: Todo | Error): AddTodoReceived {
+export function addTodoReceived(payload: Request<Todo> | IdentifiableError): AddTodoReceived {
   return {
     type: 'ADD_TODO:RECEIVED',
     payload,
@@ -79,11 +83,14 @@ export function addTodoReceived(payload: Todo | Error): AddTodoReceived {
 export function updateTodoRequested(id: number, content: string, dueDate: string): UpdateTodoRequested {
   return {
     type: 'UPDATE_TODO:REQUESTED',
-    payload: { id, content, dueDate },
+    payload: {
+      requestId: id,
+      item: { id, content, dueDate },
+    },
   }
 }
 
-export function updateTodoReceived(payload: Todo | IdentifiableError): UpdateTodoReceived {
+export function updateTodoReceived(payload: Request<Todo> | IdentifiableError): UpdateTodoReceived {
   return {
     type: 'UPDATE_TODO:RECEIVED',
     payload,
@@ -93,11 +100,14 @@ export function updateTodoReceived(payload: Todo | IdentifiableError): UpdateTod
 export function toggleTodoDoneRequested(id: number): ToggleTodoDoneRequested {
   return {
     type: 'TOGGLE_TODO_DONE:REQUESTED',
-    payload: { id },
+    payload: {
+      requestId: id,
+      item: { id },
+    },
   }
 }
 
-export function toggleTodoDoneReceived(payload: Todo | IdentifiableError): ToggleTodoDoneReceived {
+export function toggleTodoDoneReceived(payload: Request<Todo> | IdentifiableError): ToggleTodoDoneReceived {
   return {
     type: 'TOGGLE_TODO_DONE:RECEIVED',
     payload,
@@ -107,11 +117,14 @@ export function toggleTodoDoneReceived(payload: Todo | IdentifiableError): Toggl
 export function deleteTodoRequested(id: number): DeleteTodoRequested {
   return {
     type: 'DELETE_TODO:REQUESTED',
-    payload: { id },
+    payload: {
+      requestId: id,
+      item: { id },
+    },
   }
 }
 
-export function deleteTodoReceived(payload: { id: number } | IdentifiableError): DeleteTodoReceived {
+export function deleteTodoReceived(payload: Request<{ id: number }> | IdentifiableError): DeleteTodoReceived {
   return {
     type: 'DELETE_TODO:RECEIVED',
     payload,

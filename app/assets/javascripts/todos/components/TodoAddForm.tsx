@@ -4,7 +4,7 @@ import * as React from 'react'
 import * as DateTime from 'react-datetime'
 import { connect, Dispatch } from 'react-redux'
 import { Action, addTodoRequested } from '../actions'
-import { Request, StoreState } from '../reducers'
+import { Request, SINGLETON_ID, StoreState } from '../reducers'
 import styles from './TodoAddForm.scss'
 
 interface StateProps {
@@ -81,7 +81,7 @@ class TodoAddForm extends React.Component<Props, State> {
 
 export default connect<StateProps, DispatchProps>(
   ({ app: { requests } }: StoreState) => ({
-    addTodoRequest: requests.addTodo,
+    addTodoRequest: requests.addTodo[SINGLETON_ID] || { requesting: false, error: null },
   }),
   (dispatch: Dispatch<Action>) => ({
     onAddTodo(content: string, dueDate: Date) {

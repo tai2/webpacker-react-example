@@ -79,7 +79,11 @@ class TodoItem extends React.Component<Props, State> {
           <input type="checkbox" checked={todo.done} disabled={updateRequest.requesting} onChange={onCheckboxChange}/>
           {todo.content}
         </label>
-        <EditButton className={styles.editButton} disabled={updateRequest.requesting} onClick={this.handleContentClick} />
+        <EditButton
+          className={styles.editButton}
+          disabled={updateRequest.requesting}
+          onClick={this.handleContentClick}
+        />
       </div>
     )
   }
@@ -99,7 +103,11 @@ class TodoItem extends React.Component<Props, State> {
     return (
       <div>
         {moment(todo.dueDate).local().toString()}
-        <EditButton className={styles.editButton} disabled={updateRequest.requesting} onClick={this.handleDueDateClick} />
+        <EditButton
+          className={styles.editButton}
+          disabled={updateRequest.requesting}
+          onClick={this.handleDueDateClick}
+        />
       </div>
     )
   }
@@ -110,7 +118,15 @@ class TodoItem extends React.Component<Props, State> {
         <td className={styles.contentCol}>{this.renderContent()}</td>
         <td className={styles.dueDateCol}>{this.renderDueDate()}</td>
         <td>
-          <button className="btn btn-default" disabled={deleteRequest.requesting} onClick={onDestroyClick}>Destroy</button>
+
+          <button
+            className="btn btn-default"
+            disabled={deleteRequest.requesting}
+            onClick={onDestroyClick}
+          >
+            Destroy
+          </button>
+
           {updateRequest.error && <span className={styles.error}>Update todo failed</span>}
           {deleteRequest.error && <span className={styles.error}>Delete todo failed</span>}
         </td>
