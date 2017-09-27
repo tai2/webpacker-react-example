@@ -69,6 +69,7 @@ class TodoAddForm extends React.Component<Props, State> {
         <button
           className={classNames('btn btn-default', styles.item)}
           onClick={this.handleAddTodo}
+          disabled={addTodoRequest.requesting}
         >
           Create Todo
         </button>
