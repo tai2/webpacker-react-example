@@ -29,7 +29,7 @@ export interface AppState {
   }
 }
 
-export const initialState: AppState = {
+export const initialAppState: AppState = {
   doneFilter: false,
   sortBy: 'dueDate',
   sortOrder: 'desc',
@@ -101,7 +101,7 @@ function handleReceived(target: keyof AppState['requests'], state: AppState, act
   }
 }
 
-export default function appReducer(state: AppState = initialState, action: actions.Action): AppState {
+export default function appReducer(state: AppState = initialAppState, action: actions.Action): AppState {
   switch (action.type) {
     case 'TOGGLE_DONE_FILTER':
       return toggleDoneFilter(state)

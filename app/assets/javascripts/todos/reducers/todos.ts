@@ -19,7 +19,7 @@ export interface TodosState {
   readonly ids: number[]
 }
 
-const initialState: TodosState = {
+export const initialTodosState: TodosState = {
   byId: {},
   ids: [],
 }
@@ -89,7 +89,7 @@ function deleteTodoReceived(state: TodosState, action: DeleteTodoReceived) {
   }
 }
 
-export default function todosReducer(state: TodosState = initialState, action: Action): TodosState {
+export default function todosReducer(state: TodosState = initialTodosState, action: Action): TodosState {
   switch (action.type) {
     case 'ADD_TODO:RECEIVED':
       return addTodoReceived(state, action)

@@ -2,7 +2,7 @@ import * as assert from 'assert'
 import * as _ from 'lodash'
 import 'mocha'
 import * as actions from '../../actions'
-import appReducer, { AppState, initialState, SINGLETON_ID } from '../app'
+import appReducer, { AppState, initialAppState, SINGLETON_ID } from '../app'
 
 function todoItem() {
   return {
@@ -18,15 +18,15 @@ function todoItem() {
 describe('App reducer', () => {
   describe('ToggleDoneFilter Action', () => {
     it('should toggles doneFilter state', () => {
-      const newState = appReducer(initialState, actions.toggleDoneFilter())
-      assert.notEqual(newState.doneFilter, initialState.doneFilter)
+      const newState = appReducer(initialAppState, actions.toggleDoneFilter())
+      assert.notEqual(newState.doneFilter, initialAppState.doneFilter)
     })
   })
 
   describe('SelectOrder Action', () => {
     it('should set sortBy and sortOrder state', () => {
       const state: AppState = {
-        ...initialState,
+        ...initialAppState,
         sortBy: 'createdAt',
         sortOrder: 'asc',
       }
@@ -38,7 +38,7 @@ describe('App reducer', () => {
 
   describe('AddTodoRequested Action', () => {
     it('should set requesting to true and error to null', () => {
-      const newState = appReducer(initialState, actions.addTodoRequested('todo', '2017-09-30T07:32:08.591Z'))
+      const newState = appReducer(initialAppState, actions.addTodoRequested('todo', '2017-09-30T07:32:08.591Z'))
       assert.deepEqual(newState.requests.addTodo[SINGLETON_ID]!, {
         requesting: true,
         error: null,
@@ -48,7 +48,7 @@ describe('App reducer', () => {
 
   describe('AddTodoReceived Action', () => {
     it('should remove requests entry', () => {
-      const state: AppState = _.set(initialState, 'requests.addTodo', {
+      const state: AppState = _.set(initialAppState, 'requests.addTodo', {
         [SINGLETON_ID]: {
           requesting: true,
           error: null,

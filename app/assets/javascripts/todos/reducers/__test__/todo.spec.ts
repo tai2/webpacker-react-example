@@ -3,7 +3,7 @@ import * as _ from 'lodash'
 import 'mocha'
 import * as actions from '../../actions'
 import appReducer, { SINGLETON_ID } from '../app'
-import todosReducer, { initialState, TodoState } from '../todos'
+import todosReducer, { initialTodosState, TodosState } from '../todos'
 
 function todoItem() {
   return {
@@ -19,7 +19,7 @@ function todoItem() {
 describe('Todo reducer', () => {
   describe('AddTodoReceived Action', () => {
     it('should add an element to ids', () => {
-      const newState = todosReducer(initialState, actions.addTodoReceived({
+      const newState = todosReducer(initialTodosState, actions.addTodoReceived({
         requestId: SINGLETON_ID,
         item: todoItem(),
       }))
@@ -27,11 +27,47 @@ describe('Todo reducer', () => {
     })
 
     it('should add an element to byId', () => {
-      const newState = todosReducer(initialState, actions.addTodoReceived({
+      const newState = todosReducer(initialTodosState, actions.addTodoReceived({
         requestId: SINGLETON_ID,
         item: todoItem(),
       }))
       assert.deepEqual(newState.byId, { 1: todoItem() })
+    })
+  })
+
+  describe('UpdateTodoReceived Action', () => {
+    let state: TodosState
+
+    beforeEach(() => {
+      state = {
+        ...initialTodosState,
+        ids: [1],
+        byId: {
+          1: todoItem(),
+        },
+      }
+    })
+
+    it('should keep ids', () => {
+      const newState = todosReducer(state, actions.updateTodoReceived({
+        requestId: 1,
+        item: {
+          ...todoItem(),
+          done: true,
+        },
+      }))
+      assert.deepEqual(newState.ids, [1])
+    })
+
+    it('should update item', () => {
+      const newState = todosReducer(state, actions.updateTodoReceived({
+        requestId: 1,
+        item: {
+          ...todoItem(),
+          done: true,
+        },
+      }))
+      assert.equal(newState.byId[1].done, true)
     })
   })
 })
