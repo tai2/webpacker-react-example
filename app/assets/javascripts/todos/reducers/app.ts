@@ -5,12 +5,12 @@ export type SortBy = 'dueDate' | 'createdAt'
 export type SortOrder = 'asc' | 'desc'
 
 export interface Request {
-  requesting: boolean
-  error: Error | null
+  readonly requesting: boolean
+  readonly error: Error | null
 }
 
 interface RequestTable {
-  [id: number]: Request | undefined,
+  readonly [id: number]: Request | undefined,
 }
 
 export const SINGLETON_ID = 0
@@ -22,10 +22,10 @@ export interface AppState {
     // If a request is for creation, which means id doesn't exist yet, the index of table should be 0.
     // In this case, RequestTable would be a singleton.
     // This convention increases code reuse between reducers below requests.
-    addTodo: RequestTable,
-    updateTodo: RequestTable,
-    toggleTodoDone: RequestTable,
-    deleteTodo: RequestTable,
+    readonly addTodo: RequestTable,
+    readonly updateTodo: RequestTable,
+    readonly toggleTodoDone: RequestTable,
+    readonly deleteTodo: RequestTable,
   }
 }
 
