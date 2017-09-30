@@ -9,7 +9,7 @@
   },
   "include": [
     "./app/assets/javascripts/**/*",
-    "./app/assets/packs/**/*",
+    "./app/assets/packs/**/*"
   ],
   "awesomeTypescriptLoaderOptions": {
     "useBabel": true,

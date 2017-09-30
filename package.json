@@ -3,7 +3,11 @@
   "private": true,
   "scripts": {
     "lint": "tslint -c tslint.json 'app/**/*.ts' 'app/**/*.tsx'",
-    "lint:fix": "tslint -c tslint.json 'app/**/*.ts' 'app/**/*.tsx' --fix"
+    "lint:fix": "tslint -c tslint.json 'app/**/*.ts' '**/*.tsx' --fix",
+    "test": "mocha --require espower-typescript/guess **/*.spec.{ts,tsx}"
+  },
+  "directories": {
+    "test": "**/__test__/"
   },
   "dependencies": {
     "@types/classnames": "^2.2.3",
@@ -62,6 +66,10 @@
     "webpack-merge": "^4.1.0"
   },
   "devDependencies": {
+    "@types/mocha": "^2.2.43",
+    "espower-typescript": "^8.1.1",
+    "mocha": "^3.5.3",
+    "power-assert": "^1.4.4",
     "tslint": "^5.7.0",
     "tslint-eslint-rules": "^4.1.1",
     "tslint-react": "^3.2.0",

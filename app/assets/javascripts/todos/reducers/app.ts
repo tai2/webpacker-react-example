@@ -29,7 +29,7 @@ export interface AppState {
   }
 }
 
-const initialState: AppState = {
+export const initialState: AppState = {
   doneFilter: false,
   sortBy: 'dueDate',
   sortOrder: 'desc',
