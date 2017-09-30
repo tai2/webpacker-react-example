@@ -70,4 +70,40 @@ describe('Todo reducer', () => {
       assert.equal(newState.byId[1].done, true)
     })
   })
+
+  describe('ToggleTodoDoneReceived Action', () => {
+    let state: TodosState
+
+    beforeEach(() => {
+      state = {
+        ...initialTodosState,
+        ids: [1],
+        byId: {
+          1: todoItem(),
+        },
+      }
+    })
+
+    it('should keep ids', () => {
+      const newState = todosReducer(state, actions.toggleTodoDoneReceived({
+        requestId: 1,
+        item: {
+          ...todoItem(),
+          done: true,
+        },
+      }))
+      assert.deepEqual(newState.ids, [1])
+    })
+
+    it('should update item', () => {
+      const newState = todosReducer(state, actions.toggleTodoDoneReceived({
+        requestId: 1,
+        item: {
+          ...todoItem(),
+          done: true,
+        },
+      }))
+      assert.equal(newState.byId[1].done, true)
+    })
+  })
 })
