@@ -106,4 +106,34 @@ describe('Todo reducer', () => {
       assert.equal(newState.byId[1].done, true)
     })
   })
+
+  describe('DeleteTodoReceived Action', () => {
+    let state: TodosState
+
+    beforeEach(() => {
+      state = {
+        ...initialTodosState,
+        ids: [1],
+        byId: {
+          1: todoItem(),
+        },
+      }
+    })
+
+    it('should delete an item from ids', () => {
+      const newState = todosReducer(state, actions.deleteTodoReceived({
+        requestId: 1,
+        item: { id: 1 },
+      }))
+      assert.deepEqual(newState.ids, [])
+    })
+
+    it('should delete an item from byId', () => {
+      const newState = todosReducer(state, actions.deleteTodoReceived({
+        requestId: 1,
+        item: { id: 1 },
+      }))
+      assert.deepEqual(newState.byId, {})
+    })
+  })
 })
