@@ -1,27 +1,27 @@
 
 declare module '*.svg' {
   const content: string
-  export default content
+  export = content
 }
 
 declare module '*.png' {
   const content: string
-  export default content
+  export = content
 }
 
 declare module '*.gif' {
   const content: string
-  export default content
+  export = content
 }
 
 declare module '*.jpeg' {
   const content: string
-  export default content
+  export = content
 }
 
 declare module '*.jpg' {
   const content: string
-  export default content
+  export = content
 }
 
 interface StringMap {
@@ -30,12 +30,12 @@ interface StringMap {
 
 declare module '*.css' {
   const content: StringMap
-  export default content
+  export = content
 }
 
 declare module '*.scss' {
   const content: StringMap
-  export default content
+  export = content
 }
 
 declare module '*.sass' {

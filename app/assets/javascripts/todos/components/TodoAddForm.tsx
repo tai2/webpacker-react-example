@@ -5,7 +5,7 @@ import * as DateTime from 'react-datetime'
 import { connect, Dispatch } from 'react-redux'
 import { Action, addTodoRequested } from '../actions'
 import { Request, SINGLETON_ID, StoreState } from '../reducers'
-import styles from './TodoAddForm.scss'
+import * as styles from './TodoAddForm.scss'
 
 interface StateProps {
   addTodoRequest: Request
@@ -22,7 +22,7 @@ interface State {
   readonly dueDate: Date
 }
 
-class TodoAddForm extends React.Component<Props, State> {
+export class TodoAddForm extends React.Component<Props, State> {
   constructor() {
     super()
     this.state = {

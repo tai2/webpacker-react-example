@@ -13,7 +13,7 @@ import {
 } from '../actions'
 
 import EditButton from './EditButton'
-import styles from './TodoItem.scss'
+import * as styles from './TodoItem.scss'
 
 interface StateProps {
   todo: Todo

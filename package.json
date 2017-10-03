@@ -4,7 +4,7 @@
   "scripts": {
     "lint": "tslint -c tslint.json 'app/**/*.ts' 'app/**/*.tsx'",
     "lint:fix": "tslint -c tslint.json 'app/**/*.ts' '**/*.tsx' --fix",
-    "test": "mocha --require espower-typescript/guess **/*.spec.{ts,tsx}"
+    "test": "mocha --require ./config/espower-typescript.js **/*.spec.{ts,tsx}"
   },
   "directories": {
     "test": "**/__test__/"
@@ -12,6 +12,7 @@
   "dependencies": {
     "@types/classnames": "^2.2.3",
     "@types/lodash": "^4.14.74",
+    "@types/node": "^8.0.31",
     "@types/query-string": "^5.0.0",
     "@types/react": "^16.0.5",
     "@types/react-dom": "^15.5.4",
@@ -49,7 +50,7 @@
     "query-string": "^4.3.4",
     "rails-erb-loader": "^5.0.2",
     "rails-ujs": "^5.1.1",
-    "react": "^15.6.1",
+    "react": "^15.6.2",
     "react-datetime": "^2.9.0",
     "react-dom": "^15.6.1",
     "react-redux": "^5.0.5",
@@ -66,10 +67,15 @@
     "webpack-merge": "^4.1.0"
   },
   "devDependencies": {
+    "@types/enzyme": "^2.8.9",
     "@types/mocha": "^2.2.43",
+    "enzyme": "^3.0.0",
+    "enzyme-adapter-react-15": "^1.0.0",
     "espower-typescript": "^8.1.1",
+    "ignore-styles": "^5.0.1",
     "mocha": "^3.5.3",
     "power-assert": "^1.4.4",
+    "react-test-renderer": "^15.5.0",
     "tslint": "^5.7.0",
     "tslint-eslint-rules": "^4.1.1",
     "tslint-react": "^3.2.0",
