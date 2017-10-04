@@ -1,18 +1,6 @@
 {
+  "extends": "./tsconfig.json",
   "compilerOptions": {
-    "sourceMap": true,
-    "noImplicitAny": true,
-    "strictNullChecks": true,
-    "target": "es2017",
-    "moduleResolution": "node",
     "jsx": "react"
-  },
-  "include": [
-    "./app/assets/javascripts/**/*",
-    "./app/assets/packs/**/*"
-  ],
-  "awesomeTypescriptLoaderOptions": {
-    "useBabel": true,
-    "useCache": true
   }
 }
