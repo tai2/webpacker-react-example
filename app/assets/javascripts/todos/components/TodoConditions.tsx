@@ -49,7 +49,7 @@ export default connect<StateProps, DispatchProps>(
     sortOrder: state.app.sortOrder,
     doneFilter: state.app.doneFilter,
   }),
-  (dispatch: Dispatch<Action>, ownProps: Props) => ({
+  (dispatch: Dispatch<Action>) => ({
     onOrderChange(ev: React.ChangeEvent<HTMLSelectElement> | React.FocusEvent<HTMLSelectElement>) {
       const [prop, order] = ev.currentTarget.value.split('-')
       dispatch(selectOrder(prop as SortBy, order as SortOrder))

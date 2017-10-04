@@ -28,16 +28,18 @@ interface DispatchProps {
   onDestroyClick: () => void
 }
 
-type Props = {
-  id: number,
-} & StateProps & DispatchProps
+interface OwnProps {
+  id: number
+}
+
+type Props = OwnProps & StateProps & DispatchProps
 
 interface State {
   readonly contentEditing: boolean
   readonly dueDateEditing: boolean
 }
 
-class TodoItem extends React.Component<Props, State> {
+export class TodoItem extends React.Component<Props, State> {
   constructor() {
     super()
     this.state = {
@@ -136,7 +138,7 @@ class TodoItem extends React.Component<Props, State> {
 }
 
 export default connect<StateProps, DispatchProps>(
-  (state: StoreState, ownProps: Props) => ({
+  (state: StoreState, ownProps: OwnProps) => ({
     todo: state.todos.byId[ownProps.id],
     updateRequest: state.app.requests.updateTodo[ownProps.id]
       || state.app.requests.toggleTodoDone[ownProps.id]
@@ -144,7 +146,7 @@ export default connect<StateProps, DispatchProps>(
     deleteRequest: state.app.requests.deleteTodo[ownProps.id]
       || { requesting: false, error: null },
   }),
-  (dispatch: Dispatch<Action>, ownProps: Props) => ({
+  (dispatch: Dispatch<Action>, ownProps: OwnProps) => ({
     onCheckboxChange() {
       dispatch(toggleTodoDoneRequested(ownProps.id))
     },
