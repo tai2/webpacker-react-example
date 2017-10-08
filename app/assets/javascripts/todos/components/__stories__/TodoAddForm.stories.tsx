@@ -20,6 +20,15 @@ const loadingRequest: Request = {
 }
 
 storiesOf('TodoAddForm', module)
-  .add('typical', () => <TodoAddForm addTodoRequest={succeededRequest} onAddTodo={action('added')}/>)
-  .add('while adding', () => <TodoAddForm addTodoRequest={loadingRequest} onAddTodo={action('added')}/>)
-  .add('adding error', () => <TodoAddForm addTodoRequest={errorRequest} onAddTodo={action('added')}/>)
+  .add('typical', () => (
+    <TodoAddForm
+      addTodoRequest={succeededRequest}
+      onAddTodo={action('added')}
+    />
+  ))
+  .add('while adding', () => (
+    <TodoAddForm addTodoRequest={loadingRequest} onAddTodo={action('added')} />
+  ))
+  .add('adding error', () => (
+    <TodoAddForm addTodoRequest={errorRequest} onAddTodo={action('added')} />
+  ))

@@ -19,18 +19,24 @@ function todoItem() {
 describe('Todo reducer', () => {
   describe('AddTodoReceived Action', () => {
     it('should add an element to ids', () => {
-      const newState = todosReducer(initialTodosState, actions.addTodoReceived({
-        requestId: SINGLETON_ID,
-        item: todoItem(),
-      }))
+      const newState = todosReducer(
+        initialTodosState,
+        actions.addTodoReceived({
+          requestId: SINGLETON_ID,
+          item: todoItem(),
+        }),
+      )
       assert.deepEqual(newState.ids, [1])
     })
 
     it('should add an element to byId', () => {
-      const newState = todosReducer(initialTodosState, actions.addTodoReceived({
-        requestId: SINGLETON_ID,
-        item: todoItem(),
-      }))
+      const newState = todosReducer(
+        initialTodosState,
+        actions.addTodoReceived({
+          requestId: SINGLETON_ID,
+          item: todoItem(),
+        }),
+      )
       assert.deepEqual(newState.byId, { 1: todoItem() })
     })
   })
@@ -49,24 +55,30 @@ describe('Todo reducer', () => {
     })
 
     it('should keep ids', () => {
-      const newState = todosReducer(state, actions.updateTodoReceived({
-        requestId: 1,
-        item: {
-          ...todoItem(),
-          done: true,
-        },
-      }))
+      const newState = todosReducer(
+        state,
+        actions.updateTodoReceived({
+          requestId: 1,
+          item: {
+            ...todoItem(),
+            done: true,
+          },
+        }),
+      )
       assert.deepEqual(newState.ids, [1])
     })
 
     it('should update item', () => {
-      const newState = todosReducer(state, actions.updateTodoReceived({
-        requestId: 1,
-        item: {
-          ...todoItem(),
-          done: true,
-        },
-      }))
+      const newState = todosReducer(
+        state,
+        actions.updateTodoReceived({
+          requestId: 1,
+          item: {
+            ...todoItem(),
+            done: true,
+          },
+        }),
+      )
       assert.equal(newState.byId[1].done, true)
     })
   })
@@ -85,24 +97,30 @@ describe('Todo reducer', () => {
     })
 
     it('should keep ids', () => {
-      const newState = todosReducer(state, actions.toggleTodoDoneReceived({
-        requestId: 1,
-        item: {
-          ...todoItem(),
-          done: true,
-        },
-      }))
+      const newState = todosReducer(
+        state,
+        actions.toggleTodoDoneReceived({
+          requestId: 1,
+          item: {
+            ...todoItem(),
+            done: true,
+          },
+        }),
+      )
       assert.deepEqual(newState.ids, [1])
     })
 
     it('should update item', () => {
-      const newState = todosReducer(state, actions.toggleTodoDoneReceived({
-        requestId: 1,
-        item: {
-          ...todoItem(),
-          done: true,
-        },
-      }))
+      const newState = todosReducer(
+        state,
+        actions.toggleTodoDoneReceived({
+          requestId: 1,
+          item: {
+            ...todoItem(),
+            done: true,
+          },
+        }),
+      )
       assert.equal(newState.byId[1].done, true)
     })
   })
@@ -121,18 +139,24 @@ describe('Todo reducer', () => {
     })
 
     it('should delete an item from ids', () => {
-      const newState = todosReducer(state, actions.deleteTodoReceived({
-        requestId: 1,
-        item: { id: 1 },
-      }))
+      const newState = todosReducer(
+        state,
+        actions.deleteTodoReceived({
+          requestId: 1,
+          item: { id: 1 },
+        }),
+      )
       assert.deepEqual(newState.ids, [])
     })
 
     it('should delete an item from byId', () => {
-      const newState = todosReducer(state, actions.deleteTodoReceived({
-        requestId: 1,
-        item: { id: 1 },
-      }))
+      const newState = todosReducer(
+        state,
+        actions.deleteTodoReceived({
+          requestId: 1,
+          item: { id: 1 },
+        }),
+      )
       assert.deepEqual(newState.byId, {})
     })
   })

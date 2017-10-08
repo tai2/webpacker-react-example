@@ -1,7 +1,13 @@
 /* tslint:disable:ordered-imports */
 import register from 'ignore-styles'
-register(undefined, (module) => {
-  const styles = ['contentLabel', 'editButton', 'contentCol', 'dueDateCol', 'error']
+register(undefined, module => {
+  const styles = [
+    'contentLabel',
+    'editButton',
+    'contentCol',
+    'dueDateCol',
+    'error',
+  ]
   module.exports = _.zipObject(styles, styles)
 })
 /* tslint:enable:ordered-imports */
@@ -17,7 +23,6 @@ import './setup'
 
 describe('<TodoItem />', () => {
   describe('display errors', () => {
-
     function item(updateRequest: Request, deleteRequest: Request) {
       const todo = {
         id: 1,

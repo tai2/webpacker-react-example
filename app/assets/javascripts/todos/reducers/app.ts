@@ -10,7 +10,7 @@ export interface Request {
 }
 
 interface RequestTable {
-  readonly [id: number]: Request | undefined,
+  readonly [id: number]: Request | undefined
 }
 
 export const SINGLETON_ID = 0
@@ -22,10 +22,10 @@ export interface AppState {
     // If a request is for creation, which means id doesn't exist yet, the index of table should be 0.
     // In this case, RequestTable would be a singleton.
     // This convention increases code reuse between reducers below requests.
-    readonly addTodo: RequestTable,
-    readonly updateTodo: RequestTable,
-    readonly toggleTodoDone: RequestTable,
-    readonly deleteTodo: RequestTable,
+    readonly addTodo: RequestTable
+    readonly updateTodo: RequestTable
+    readonly toggleTodoDone: RequestTable
+    readonly deleteTodo: RequestTable
   }
 }
 
@@ -59,7 +59,11 @@ function selectOrder(state: AppState, action: actions.SelectOrder) {
 interface RequestedAction {
   payload: { requestId: number }
 }
-function handleRequested(target: keyof AppState['requests'], state: AppState, action: RequestedAction) {
+function handleRequested(
+  target: keyof AppState['requests'],
+  state: AppState,
+  action: RequestedAction,
+) {
   return {
     ...state,
     requests: {
@@ -78,7 +82,11 @@ function handleRequested(target: keyof AppState['requests'], state: AppState, ac
 interface ReceivedAction {
   payload: { requestId: number } | actions.IdentifiableError
 }
-function handleReceived(target: keyof AppState['requests'], state: AppState, action: ReceivedAction) {
+function handleReceived(
+  target: keyof AppState['requests'],
+  state: AppState,
+  action: ReceivedAction,
+) {
   let table
   if (action.payload instanceof actions.IdentifiableError) {
     table = {
@@ -101,7 +109,10 @@ function handleReceived(target: keyof AppState['requests'], state: AppState, act
   }
 }
 
-export default function appReducer(state: AppState = initialAppState, action: actions.Action): AppState {
+export default function appReducer(
+  state: AppState = initialAppState,
+  action: actions.Action,
+): AppState {
   switch (action.type) {
     case 'TOGGLE_DONE_FILTER':
       return toggleDoneFilter(state)

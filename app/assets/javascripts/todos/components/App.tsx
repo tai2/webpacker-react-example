@@ -22,8 +22,6 @@ function App({ todos }: Props) {
   )
 }
 
-export default connect<Props>(
-  ({ todos, app }: StoreState) => ({
-    todos: visibleTodos(todos, app.sortBy, app.sortOrder, app.doneFilter),
-  }),
-)(App)
+export default connect<Props>(({ todos, app }: StoreState) => ({
+  todos: visibleTodos(todos, app.sortBy, app.sortOrder, app.doneFilter),
+}))(App)

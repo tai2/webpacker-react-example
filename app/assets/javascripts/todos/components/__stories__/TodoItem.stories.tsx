@@ -5,7 +5,11 @@ import { Request } from '../../reducers'
 import { Todo } from '../../webApi'
 import { TodoItem } from '../TodoItem'
 
-function todoItemHelper(todo: Todo, updateRequest: Request, deleteRequest: Request) {
+function todoItemHelper(
+  todo: Todo,
+  updateRequest: Request,
+  deleteRequest: Request,
+) {
   return (
     <TodoItem
       id={1}
@@ -45,8 +49,18 @@ const loadingRequest: Request = {
 }
 
 storiesOf('TodoItem', module)
-  .add('typical', () => todoItemHelper(typicalTodo, succeededRequest, succeededRequest))
-  .add('while updating', () => todoItemHelper(typicalTodo, loadingRequest, succeededRequest))
-  .add('while deleting', () => todoItemHelper(typicalTodo, succeededRequest, loadingRequest))
-  .add('updating error', () => todoItemHelper(typicalTodo, errorRequest, succeededRequest))
-  .add('deleting error', () => todoItemHelper(typicalTodo, succeededRequest, errorRequest))
+  .add('typical', () =>
+    todoItemHelper(typicalTodo, succeededRequest, succeededRequest),
+  )
+  .add('while updating', () =>
+    todoItemHelper(typicalTodo, loadingRequest, succeededRequest),
+  )
+  .add('while deleting', () =>
+    todoItemHelper(typicalTodo, succeededRequest, loadingRequest),
+  )
+  .add('updating error', () =>
+    todoItemHelper(typicalTodo, errorRequest, succeededRequest),
+  )
+  .add('deleting error', () =>
+    todoItemHelper(typicalTodo, succeededRequest, errorRequest),
+  )

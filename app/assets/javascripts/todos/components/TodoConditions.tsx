@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { connect, Dispatch } from 'react-redux'
 import { Action, selectOrder, toggleDoneFilter } from '../actions'
-import { SortBy, SortOrder, StoreState} from '../reducers'
+import { SortBy, SortOrder, StoreState } from '../reducers'
 
 interface StateProps {
   sortBy: SortBy
@@ -10,17 +10,28 @@ interface StateProps {
 }
 
 interface DispatchProps {
-  onOrderChange: (ev: React.ChangeEvent<HTMLSelectElement> | React.FocusEvent<HTMLSelectElement>) => void
+  onOrderChange: (
+    ev:
+      | React.ChangeEvent<HTMLSelectElement>
+      | React.FocusEvent<HTMLSelectElement>,
+  ) => void
   onDoneFilterChange: () => void
 }
 
 type Props = StateProps & DispatchProps
 
-export function TodoConditions({ sortBy, sortOrder, doneFilter, onOrderChange, onDoneFilterChange }: Props) {
+export function TodoConditions({
+  sortBy,
+  sortOrder,
+  doneFilter,
+  onOrderChange,
+  onDoneFilterChange,
+}: Props) {
   return (
     <div className="form-inline">
       <div className="form-group">
-        <label>sort by:&nbsp;
+        <label>
+          sort by:&nbsp;
           <select
             className="form-control"
             value={`${sortBy}-${sortOrder}`}
@@ -35,8 +46,13 @@ export function TodoConditions({ sortBy, sortOrder, doneFilter, onOrderChange, o
         </label>
       </div>&nbsp;
       <div className="form-group">
-        <label>done:&nbsp;
-          <input type="checkbox" checked={doneFilter} onChange={onDoneFilterChange}/>
+        <label>
+          done:&nbsp;
+          <input
+            type="checkbox"
+            checked={doneFilter}
+            onChange={onDoneFilterChange}
+          />
         </label>
       </div>
     </div>
@@ -50,7 +66,11 @@ export default connect<StateProps, DispatchProps>(
     doneFilter: state.app.doneFilter,
   }),
   (dispatch: Dispatch<Action>) => ({
-    onOrderChange(ev: React.ChangeEvent<HTMLSelectElement> | React.FocusEvent<HTMLSelectElement>) {
+    onOrderChange(
+      ev:
+        | React.ChangeEvent<HTMLSelectElement>
+        | React.FocusEvent<HTMLSelectElement>,
+    ) {
       const [prop, order] = ev.currentTarget.value.split('-')
       dispatch(selectOrder(prop as SortBy, order as SortOrder))
     },

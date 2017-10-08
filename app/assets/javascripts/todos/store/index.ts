@@ -6,15 +6,9 @@ import rootSaga from '../sagas'
 
 export default function createAppStore(preloadedState: Partial<StoreState>) {
   const sagaMiddleware = createSagaMiddleware()
-  const enhancer = composeWithDevTools(
-    applyMiddleware(sagaMiddleware),
-  )
+  const enhancer = composeWithDevTools(applyMiddleware(sagaMiddleware))
 
-  const store = createStore(
-    reducers,
-    preloadedState,
-    enhancer,
-  )
+  const store = createStore(reducers, preloadedState, enhancer)
 
   sagaMiddleware.run(rootSaga)
 

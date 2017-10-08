@@ -7,7 +7,11 @@ export interface Props {
   onClick: (e: React.MouseEvent<HTMLInputElement>) => void
 }
 
-export default function EditButton({ className, disabled = false, onClick }: Props) {
+export default function EditButton({
+  className,
+  disabled = false,
+  onClick,
+}: Props) {
   return (
     <button
       type="button"

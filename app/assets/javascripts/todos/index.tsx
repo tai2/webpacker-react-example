@@ -9,12 +9,12 @@ import { Todo } from './webApi'
 
 interface ServerState {
   todos: Array<{
-    id: number,
-    content: string,
-    done: boolean,
-    due_date: string,
-    created_at: string,
-    updated_at: string,
+    id: number
+    content: string
+    done: boolean
+    due_date: string
+    created_at: string
+    updated_at: string
   }>
 }
 
@@ -24,7 +24,7 @@ function convert(state: ServerState): Partial<StoreState> {
     prev[curr.id] = camelCaseKeys(curr) as Todo
     return prev
   }, accumulator)
-  const ids = state.todos.map((todo) => todo.id)
+  const ids = state.todos.map(todo => todo.id)
 
   return {
     todos: {

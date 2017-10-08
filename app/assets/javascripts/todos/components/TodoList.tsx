@@ -12,12 +12,10 @@ export default function TodoList({ todos }: Props) {
         <tr>
           <th>Content</th>
           <th>Due date</th>
-          <th/>
+          <th />
         </tr>
       </thead>
-      <tbody>
-        {todos.map((id) => <TodoItem key={id} id={id} />)}
-      </tbody>
+      <tbody>{todos.map(id => <TodoItem key={id} id={id} />)}</tbody>
     </table>
   )
 }

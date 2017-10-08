@@ -28,31 +28,62 @@ export class IdentifiableError extends Error {
   }
 }
 
-export type AddTodoRequested = FluxActionWithPayload<'ADD_TODO:REQUESTED', Request<{
-  content: string,
-  dueDate: string,
-}>>
-export type AddTodoReceived = FluxActionResult<'ADD_TODO:RECEIVED', Request<Todo>, IdentifiableError>
+export type AddTodoRequested = FluxActionWithPayload<
+  'ADD_TODO:REQUESTED',
+  Request<{
+    content: string
+    dueDate: string
+  }>
+>
+export type AddTodoReceived = FluxActionResult<
+  'ADD_TODO:RECEIVED',
+  Request<Todo>,
+  IdentifiableError
+>
 
-export type UpdateTodoRequested = FluxActionWithPayload<'UPDATE_TODO:REQUESTED', Request<{
-  id: number,
-  content: string,
-  dueDate: string,
-}>>
-export type UpdateTodoReceived = FluxActionResult<'UPDATE_TODO:RECEIVED', Request<Todo>, IdentifiableError>
+export type UpdateTodoRequested = FluxActionWithPayload<
+  'UPDATE_TODO:REQUESTED',
+  Request<{
+    id: number
+    content: string
+    dueDate: string
+  }>
+>
+export type UpdateTodoReceived = FluxActionResult<
+  'UPDATE_TODO:RECEIVED',
+  Request<Todo>,
+  IdentifiableError
+>
 
-export type ToggleTodoDoneRequested = FluxActionWithPayload<'TOGGLE_TODO_DONE:REQUESTED', Request<{ id: number }>>
-export type ToggleTodoDoneReceived = FluxActionResult<'TOGGLE_TODO_DONE:RECEIVED', Request<Todo>, IdentifiableError>
+export type ToggleTodoDoneRequested = FluxActionWithPayload<
+  'TOGGLE_TODO_DONE:REQUESTED',
+  Request<{ id: number }>
+>
+export type ToggleTodoDoneReceived = FluxActionResult<
+  'TOGGLE_TODO_DONE:RECEIVED',
+  Request<Todo>,
+  IdentifiableError
+>
 
-export type DeleteTodoRequested = FluxActionWithPayload<'DELETE_TODO:REQUESTED', Request<{ id: number }>>
-export type DeleteTodoReceived = FluxActionResult<'DELETE_TODO:RECEIVED', Request<{ id: number }>, IdentifiableError>
+export type DeleteTodoRequested = FluxActionWithPayload<
+  'DELETE_TODO:REQUESTED',
+  Request<{ id: number }>
+>
+export type DeleteTodoReceived = FluxActionResult<
+  'DELETE_TODO:RECEIVED',
+  Request<{ id: number }>,
+  IdentifiableError
+>
 
 export type ToggleDoneFilter = FluxActionMinimal<'TOGGLE_DONE_FILTER'>
 
-export type SelectOrder = FluxActionWithPayload<'SELECT_ORDER', { sortBy: SortBy, sortOrder: SortOrder }>
+export type SelectOrder = FluxActionWithPayload<
+  'SELECT_ORDER',
+  { sortBy: SortBy; sortOrder: SortOrder }
+>
 
 export type Action =
-    AddTodoRequested
+  | AddTodoRequested
   | AddTodoReceived
   | UpdateTodoRequested
   | UpdateTodoReceived
@@ -63,7 +94,10 @@ export type Action =
   | ToggleDoneFilter
   | SelectOrder
 
-export function addTodoRequested(content: string, dueDate: string): AddTodoRequested {
+export function addTodoRequested(
+  content: string,
+  dueDate: string,
+): AddTodoRequested {
   return {
     type: 'ADD_TODO:REQUESTED',
     payload: {
@@ -73,14 +107,20 @@ export function addTodoRequested(content: string, dueDate: string): AddTodoReque
   }
 }
 
-export function addTodoReceived(payload: Request<Todo> | IdentifiableError): AddTodoReceived {
+export function addTodoReceived(
+  payload: Request<Todo> | IdentifiableError,
+): AddTodoReceived {
   return {
     type: 'ADD_TODO:RECEIVED',
     payload,
   }
 }
 
-export function updateTodoRequested(id: number, content: string, dueDate: string): UpdateTodoRequested {
+export function updateTodoRequested(
+  id: number,
+  content: string,
+  dueDate: string,
+): UpdateTodoRequested {
   return {
     type: 'UPDATE_TODO:REQUESTED',
     payload: {
@@ -90,7 +130,9 @@ export function updateTodoRequested(id: number, content: string, dueDate: string
   }
 }
 
-export function updateTodoReceived(payload: Request<Todo> | IdentifiableError): UpdateTodoReceived {
+export function updateTodoReceived(
+  payload: Request<Todo> | IdentifiableError,
+): UpdateTodoReceived {
   return {
     type: 'UPDATE_TODO:RECEIVED',
     payload,
@@ -107,7 +149,9 @@ export function toggleTodoDoneRequested(id: number): ToggleTodoDoneRequested {
   }
 }
 
-export function toggleTodoDoneReceived(payload: Request<Todo> | IdentifiableError): ToggleTodoDoneReceived {
+export function toggleTodoDoneReceived(
+  payload: Request<Todo> | IdentifiableError,
+): ToggleTodoDoneReceived {
   return {
     type: 'TOGGLE_TODO_DONE:RECEIVED',
     payload,
@@ -124,7 +168,9 @@ export function deleteTodoRequested(id: number): DeleteTodoRequested {
   }
 }
 
-export function deleteTodoReceived(payload: Request<{ id: number }> | IdentifiableError): DeleteTodoReceived {
+export function deleteTodoReceived(
+  payload: Request<{ id: number }> | IdentifiableError,
+): DeleteTodoReceived {
   return {
     type: 'DELETE_TODO:RECEIVED',
     payload,

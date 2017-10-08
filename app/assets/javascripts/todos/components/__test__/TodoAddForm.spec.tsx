@@ -1,6 +1,6 @@
 /* tslint:disable:ordered-imports */
 import register from 'ignore-styles'
-register(undefined, (module) => {
+register(undefined, module => {
   const styles = ['item', 'content', 'dueDate', 'error']
   module.exports = _.zipObject(styles, styles)
 })
@@ -19,7 +19,9 @@ describe('<TodoAddForm />', () => {
     context('when request failed', () => {
       it('should render error message', () => {
         const request = { requesting: false, error: new Error('error') }
-        const wrapper = enzyme.shallow(<TodoAddForm addTodoRequest={request} onAddTodo={_.noop}/>)
+        const wrapper = enzyme.shallow(
+          <TodoAddForm addTodoRequest={request} onAddTodo={_.noop} />,
+        )
         assert(wrapper.find('.error').exists())
       })
     })
@@ -27,7 +29,9 @@ describe('<TodoAddForm />', () => {
     context('when request succeeded', () => {
       it('should not render error message', () => {
         const request = { requesting: false, error: null }
-        const wrapper = enzyme.shallow(<TodoAddForm addTodoRequest={request} onAddTodo={_.noop}/>)
+        const wrapper = enzyme.shallow(
+          <TodoAddForm addTodoRequest={request} onAddTodo={_.noop} />,
+        )
         assert(!wrapper.find('.error').exists())
       })
     })

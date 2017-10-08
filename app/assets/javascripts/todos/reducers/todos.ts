@@ -37,7 +37,7 @@ function addTodoReceived(state: TodosState, action: AddTodoReceived) {
       ...state.byId,
       [newTodo.id]: newTodo,
     },
-    ids: [ ...state.ids, newTodo.id ],
+    ids: [...state.ids, newTodo.id],
   }
 }
 
@@ -57,7 +57,10 @@ function updateTodoReceived(state: TodosState, action: UpdateTodoReceived) {
   }
 }
 
-function toggleTodoDoneReceived(state: TodosState, action: ToggleTodoDoneReceived) {
+function toggleTodoDoneReceived(
+  state: TodosState,
+  action: ToggleTodoDoneReceived,
+) {
   if (action.payload instanceof Error) {
     return state
   }
@@ -80,7 +83,7 @@ function deleteTodoReceived(state: TodosState, action: DeleteTodoReceived) {
 
   const { id } = action.payload.item
   const byId: TodoMap = _.omit(state.byId, [id])
-  const ids = state.ids.filter((item) => item !== id)
+  const ids = state.ids.filter(item => item !== id)
 
   return {
     ...state,
@@ -89,7 +92,10 @@ function deleteTodoReceived(state: TodosState, action: DeleteTodoReceived) {
   }
 }
 
-export default function todosReducer(state: TodosState = initialTodosState, action: Action): TodosState {
+export default function todosReducer(
+  state: TodosState = initialTodosState,
+  action: Action,
+): TodosState {
   switch (action.type) {
     case 'ADD_TODO:RECEIVED':
       return addTodoReceived(state, action)
@@ -111,9 +117,7 @@ export function visibleTodos(
   done: boolean,
 ): number[] {
   // When done is required, return all todos including done.
-  const ids = done
-    ? state.ids
-    : state.ids.filter((id) => !state.byId[id].done)
+  const ids = done ? state.ids : state.ids.filter(id => !state.byId[id].done)
 
   const time = (id: number) => new Date(state.byId[id][prop]).getTime()
   return _.orderBy(ids, time, [order])

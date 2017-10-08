@@ -24,7 +24,10 @@ interface StateProps {
 interface DispatchProps {
   onCheckboxChange: () => void
   onContentBlur: (ev: React.FocusEvent<HTMLInputElement>, todo: Todo) => void
-  onDueDateBlur: (ev: React.FocusEvent<any> | moment.Moment | string, todo: Todo) => void
+  onDueDateBlur: (
+    ev: React.FocusEvent<any> | moment.Moment | string,
+    todo: Todo,
+  ) => void
   onDestroyClick: () => void
 }
 
@@ -78,7 +81,12 @@ export class TodoItem extends React.Component<Props, State> {
     return (
       <div>
         <label className={styles.contentLabel}>
-          <input type="checkbox" checked={todo.done} disabled={updateRequest.requesting} onChange={onCheckboxChange}/>
+          <input
+            type="checkbox"
+            checked={todo.done}
+            disabled={updateRequest.requesting}
+            onChange={onCheckboxChange}
+          />
           {todo.content}
         </label>
         <EditButton
@@ -104,7 +112,9 @@ export class TodoItem extends React.Component<Props, State> {
 
     return (
       <div>
-        {moment(todo.dueDate).local().toString()}
+        {moment(todo.dueDate)
+          .local()
+          .toString()}
         <EditButton
           className={styles.editButton}
           disabled={updateRequest.requesting}
@@ -120,7 +130,6 @@ export class TodoItem extends React.Component<Props, State> {
         <td className={styles.contentCol}>{this.renderContent()}</td>
         <td className={styles.dueDateCol}>{this.renderDueDate()}</td>
         <td>
-
           <button
             className="btn btn-default"
             disabled={deleteRequest.requesting}
@@ -129,8 +138,12 @@ export class TodoItem extends React.Component<Props, State> {
             Destroy
           </button>
 
-          {updateRequest.error && <span className={styles.error}>Update todo failed</span>}
-          {deleteRequest.error && <span className={styles.error}>Delete todo failed</span>}
+          {updateRequest.error && (
+            <span className={styles.error}>Update todo failed</span>
+          )}
+          {deleteRequest.error && (
+            <span className={styles.error}>Delete todo failed</span>
+          )}
         </td>
       </tr>
     )
@@ -140,22 +153,33 @@ export class TodoItem extends React.Component<Props, State> {
 export default connect<StateProps, DispatchProps>(
   (state: StoreState, ownProps: OwnProps) => ({
     todo: state.todos.byId[ownProps.id],
-    updateRequest: state.app.requests.updateTodo[ownProps.id]
-      || state.app.requests.toggleTodoDone[ownProps.id]
-      || { requesting: false, error: null },
-    deleteRequest: state.app.requests.deleteTodo[ownProps.id]
-      || { requesting: false, error: null },
+    updateRequest: state.app.requests.updateTodo[ownProps.id] ||
+      state.app.requests.toggleTodoDone[ownProps.id] || {
+        requesting: false,
+        error: null,
+      },
+    deleteRequest: state.app.requests.deleteTodo[ownProps.id] || {
+      requesting: false,
+      error: null,
+    },
   }),
   (dispatch: Dispatch<Action>, ownProps: OwnProps) => ({
     onCheckboxChange() {
       dispatch(toggleTodoDoneRequested(ownProps.id))
     },
     onContentBlur(ev: React.FocusEvent<HTMLInputElement>, todo: Todo) {
-      dispatch(updateTodoRequested(ownProps.id, ev.currentTarget.value, todo.dueDate))
+      dispatch(
+        updateTodoRequested(ownProps.id, ev.currentTarget.value, todo.dueDate),
+      )
     },
-    onDueDateBlur(ev: React.FocusEvent<any> | moment.Moment | string, todo: Todo) {
+    onDueDateBlur(
+      ev: React.FocusEvent<any> | moment.Moment | string,
+      todo: Todo,
+    ) {
       if (moment.isMoment(ev)) {
-        dispatch(updateTodoRequested(ownProps.id, todo.content, ev.toISOString()))
+        dispatch(
+          updateTodoRequested(ownProps.id, todo.content, ev.toISOString()),
+        )
       }
     },
     onDestroyClick() {

@@ -37,7 +37,9 @@ export class TodoAddForm extends React.Component<Props, State> {
   handleChangeContent = (ev: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({ content: ev.currentTarget.value })
   }
-  handleChangeDueDate = (dt: React.ChangeEvent<any> | moment.Moment | string) => {
+  handleChangeDueDate = (
+    dt: React.ChangeEvent<any> | moment.Moment | string,
+  ) => {
     if (moment.isMoment(dt)) {
       this.setState({ dueDate: dt.toDate() })
     }
@@ -48,7 +50,8 @@ export class TodoAddForm extends React.Component<Props, State> {
     return (
       <div className="form-inline">
         <div className={classNames('form-group', styles.item)}>
-          <label>Content:&nbsp;
+          <label>
+            Content:&nbsp;
             <input
               className={styles.content}
               type="text"
@@ -58,7 +61,8 @@ export class TodoAddForm extends React.Component<Props, State> {
           </label>
         </div>
         <div className={classNames('form-group', styles.item)}>
-          <label>DueDate:&nbsp;
+          <label>
+            DueDate:&nbsp;
             <DateTime
               className={styles.dueDate}
               value={this.state.dueDate}
@@ -73,7 +77,9 @@ export class TodoAddForm extends React.Component<Props, State> {
         >
           Create Todo
         </button>
-        {addTodoRequest.error && <span className={styles.error}>Create Todo Failed</span>}
+        {addTodoRequest.error && (
+          <span className={styles.error}>Create Todo Failed</span>
+        )}
       </div>
     )
   }
@@ -81,7 +87,10 @@ export class TodoAddForm extends React.Component<Props, State> {
 
 export default connect<StateProps, DispatchProps>(
   ({ app: { requests } }: StoreState) => ({
-    addTodoRequest: requests.addTodo[SINGLETON_ID] || { requesting: false, error: null },
+    addTodoRequest: requests.addTodo[SINGLETON_ID] || {
+      requesting: false,
+      error: null,
+    },
   }),
   (dispatch: Dispatch<Action>) => ({
     onAddTodo(content: string, dueDate: Date) {

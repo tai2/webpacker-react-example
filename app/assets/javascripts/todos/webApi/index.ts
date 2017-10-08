@@ -4,7 +4,10 @@ import * as request from 'superagent'
 import { camelCaseKeys, snakeCaseKeys } from '../../lib/case-util'
 
 function error(res: request.Response): Error {
-  return new Error((res && res.body && res.body.data && res.body.data.message) || 'unexpected error')
+  return new Error(
+    (res && res.body && res.body.data && res.body.data.message) ||
+      'unexpected error',
+  )
 }
 
 export interface Todo {
@@ -16,14 +19,19 @@ export interface Todo {
   updatedAt: string
 }
 
-export function addTodo(content: string, dueDate: string, done: boolean): Promise<Todo> {
+export function addTodo(
+  content: string,
+  dueDate: string,
+  done: boolean,
+): Promise<Todo> {
   return new Promise((resolve, reject) => {
     const data = {
       content,
       dueDate,
       done,
     }
-    request.post('/todos.json')
+    request
+      .post('/todos.json')
       .send(snakeCaseKeys(data))
       .set('X-CSRF-Token', csrfToken()!)
       .end((err, res) => {
@@ -36,14 +44,23 @@ export function addTodo(content: string, dueDate: string, done: boolean): Promis
   })
 }
 
-export function updateTodo(id: number, content?: string, dueDate?: string, done?: boolean): Promise<Todo> {
+export function updateTodo(
+  id: number,
+  content?: string,
+  dueDate?: string,
+  done?: boolean,
+): Promise<Todo> {
   return new Promise((resolve, reject) => {
-    const data = _.omitBy({
-      content,
-      dueDate,
-      done,
-    }, _.isUndefined)
-    request.put(`/todos/${id}.json`)
+    const data = _.omitBy(
+      {
+        content,
+        dueDate,
+        done,
+      },
+      _.isUndefined,
+    )
+    request
+      .put(`/todos/${id}.json`)
       .send(snakeCaseKeys(data))
       .set('X-CSRF-Token', csrfToken()!)
       .end((err, res) => {
@@ -58,7 +75,8 @@ export function updateTodo(id: number, content?: string, dueDate?: string, done?
 
 export function deleteTodo(id: number): Promise<void> {
   return new Promise((resolve, reject) => {
-    request.delete(`/todos/${id}.json`)
+    request
+      .delete(`/todos/${id}.json`)
       .set('X-CSRF-Token', csrfToken()!)
       .end((err, res) => {
         if (err) {
