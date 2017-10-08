@@ -18,7 +18,7 @@ import * as _ from 'lodash'
 import 'mocha'
 import * as React from 'react'
 import { Request } from '../../reducers'
-import { TodoItem } from '../TodoItem'
+import TodoItem from '../TodoItem/render'
 import './setup'
 
 describe('<TodoItem />', () => {

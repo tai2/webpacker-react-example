@@ -6,7 +6,8 @@
     "lint:fix": "tslint -c tslint.json 'app/**/*.ts' '**/*.tsx' --fix",
     "test": "mocha --require ./config/espower-typescript.js **/*.spec.{ts,tsx}",
     "storybook": "start-storybook -p 6006",
-    "prettier": "prettier --single-quote --trailing-comma=es5 --no-semi --write '**/*.ts' --write '**/*.tsx'"
+    "prettier": "prettier --single-quote --trailing-comma=es5 --no-semi --write '**/*.ts' --write '**/*.tsx'",
+    "precommit-check": "npm run prettier && npm run lint && npm run test"
   },
   "directories": {
     "test": "**/__test__/"

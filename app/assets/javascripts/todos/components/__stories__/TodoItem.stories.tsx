@@ -3,7 +3,7 @@ import { storiesOf } from '@storybook/react'
 import * as React from 'react'
 import { Request } from '../../reducers'
 import { Todo } from '../../types'
-import { TodoItem } from '../TodoItem'
+import TodoItem from '../TodoItem/render'
 
 function todoItemHelper(
   todo: Todo,

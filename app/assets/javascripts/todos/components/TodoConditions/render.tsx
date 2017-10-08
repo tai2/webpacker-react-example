@@ -1,15 +1,10 @@
 import * as React from 'react'
-import { connect, Dispatch } from 'react-redux'
-import { Action, selectOrder, toggleDoneFilter } from '../actions'
-import { SortBy, SortOrder, StoreState } from '../reducers'
+import { SortBy, SortOrder } from '../../reducers'
 
-interface StateProps {
+export interface Props {
   sortBy: SortBy
   sortOrder: SortOrder
   doneFilter: boolean
-}
-
-interface DispatchProps {
   onOrderChange: (
     ev:
       | React.ChangeEvent<HTMLSelectElement>
@@ -18,9 +13,7 @@ interface DispatchProps {
   onDoneFilterChange: () => void
 }
 
-type Props = StateProps & DispatchProps
-
-export function TodoConditions({
+export default function TodoConditions({
   sortBy,
   sortOrder,
   doneFilter,
@@ -58,24 +51,3 @@ export function TodoConditions({
     </div>
   )
 }
-
-export default connect<StateProps, DispatchProps>(
-  (state: StoreState) => ({
-    sortBy: state.app.sortBy,
-    sortOrder: state.app.sortOrder,
-    doneFilter: state.app.doneFilter,
-  }),
-  (dispatch: Dispatch<Action>) => ({
-    onOrderChange(
-      ev:
-        | React.ChangeEvent<HTMLSelectElement>
-        | React.FocusEvent<HTMLSelectElement>
-    ) {
-      const [prop, order] = ev.currentTarget.value.split('-')
-      dispatch(selectOrder(prop as SortBy, order as SortOrder))
-    },
-    onDoneFilterChange() {
-      dispatch(toggleDoneFilter())
-    },
-  })
-)(TodoConditions)

@@ -2,7 +2,7 @@ import { action } from '@storybook/addon-actions'
 import { storiesOf } from '@storybook/react'
 import * as React from 'react'
 import { Request } from '../../reducers'
-import { TodoAddForm } from '../TodoAddForm'
+import TodoAddForm from '../TodoAddForm/render'
 
 const succeededRequest: Request = {
   requesting: false,

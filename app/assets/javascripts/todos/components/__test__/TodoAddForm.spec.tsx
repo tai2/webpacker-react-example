@@ -11,7 +11,7 @@ import * as enzyme from 'enzyme'
 import * as _ from 'lodash'
 import 'mocha'
 import * as React from 'react'
-import { TodoAddForm } from '../TodoAddForm'
+import TodoAddForm from '../TodoAddForm/render'
 import './setup'
 
 describe('<TodoAddForm />', () => {
