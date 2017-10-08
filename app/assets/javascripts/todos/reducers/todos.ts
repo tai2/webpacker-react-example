@@ -8,7 +8,7 @@ import {
 
 import * as _ from 'lodash'
 import { SortBy, SortOrder } from '../reducers/app'
-import { Todo } from '../webApi'
+import { Todo } from '../types'
 
 export interface TodoMap {
   readonly [id: number]: Readonly<Todo>

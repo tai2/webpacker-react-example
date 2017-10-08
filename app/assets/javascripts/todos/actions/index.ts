@@ -1,5 +1,5 @@
 import { SINGLETON_ID, SortBy, SortOrder } from '../reducers/app'
-import { Todo } from '../webApi'
+import { Todo } from '../types'
 
 interface FluxActionMinimal<T> {
   type: T

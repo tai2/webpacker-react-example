@@ -5,7 +5,7 @@ import { camelCaseKeys, snakeCaseKeys } from '../lib/case-util'
 import App from './components/App'
 import { StoreState } from './reducers'
 import createAppStore from './store'
-import { Todo } from './webApi'
+import { Todo } from './types'
 
 interface ServerState {
   todos: Array<{

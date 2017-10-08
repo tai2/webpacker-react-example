@@ -2,7 +2,7 @@ import { action } from '@storybook/addon-actions'
 import { storiesOf } from '@storybook/react'
 import * as React from 'react'
 import { Request } from '../../reducers'
-import { Todo } from '../../webApi'
+import { Todo } from '../../types'
 import { TodoItem } from '../TodoItem'
 
 function todoItemHelper(

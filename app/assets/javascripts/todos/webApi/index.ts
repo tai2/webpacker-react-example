@@ -2,21 +2,13 @@ import * as _ from 'lodash'
 import { csrfToken } from 'rails-ujs'
 import * as request from 'superagent'
 import { camelCaseKeys, snakeCaseKeys } from '../../lib/case-util'
+import { Todo } from '../types'
 
 function error(res: request.Response): Error {
   return new Error(
     (res && res.body && res.body.data && res.body.data.message) ||
       'unexpected error',
   )
-}
-
-export interface Todo {
-  id: number
-  content: string
-  done: boolean
-  dueDate: string
-  createdAt: string
-  updatedAt: string
 }
 
 export function addTodo(

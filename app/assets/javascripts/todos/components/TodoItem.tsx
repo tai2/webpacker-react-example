@@ -3,7 +3,7 @@ import * as React from 'react'
 import * as DateTime from 'react-datetime/DateTime'
 import { connect, Dispatch } from 'react-redux'
 import { Request, StoreState } from '../reducers'
-import { Todo } from '../webApi'
+import { Todo } from '../types'
 
 import {
   Action,
