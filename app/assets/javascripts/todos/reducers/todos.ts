@@ -59,7 +59,7 @@ function updateTodoReceived(state: TodosState, action: UpdateTodoReceived) {
 
 function toggleTodoDoneReceived(
   state: TodosState,
-  action: ToggleTodoDoneReceived,
+  action: ToggleTodoDoneReceived
 ) {
   if (action.payload instanceof Error) {
     return state
@@ -94,7 +94,7 @@ function deleteTodoReceived(state: TodosState, action: DeleteTodoReceived) {
 
 export default function todosReducer(
   state: TodosState = initialTodosState,
-  action: Action,
+  action: Action
 ): TodosState {
   switch (action.type) {
     case 'ADD_TODO:RECEIVED':
@@ -114,7 +114,7 @@ export function visibleTodos(
   state: TodosState,
   prop: SortBy,
   order: SortOrder,
-  done: boolean,
+  done: boolean
 ): number[] {
   // When done is required, return all todos including done.
   const ids = done ? state.ids : state.ids.filter(id => !state.byId[id].done)

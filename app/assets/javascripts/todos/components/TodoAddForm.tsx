@@ -38,7 +38,7 @@ export class TodoAddForm extends React.Component<Props, State> {
     this.setState({ content: ev.currentTarget.value })
   }
   handleChangeDueDate = (
-    dt: React.ChangeEvent<any> | moment.Moment | string,
+    dt: React.ChangeEvent<any> | moment.Moment | string
   ) => {
     if (moment.isMoment(dt)) {
       this.setState({ dueDate: dt.toDate() })
@@ -96,5 +96,5 @@ export default connect<StateProps, DispatchProps>(
     onAddTodo(content: string, dueDate: Date) {
       dispatch(addTodoRequested(content, dueDate.toISOString()))
     },
-  }),
+  })
 )(TodoAddForm)

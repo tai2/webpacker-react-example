@@ -24,7 +24,7 @@ describe('Todo reducer', () => {
         actions.addTodoReceived({
           requestId: SINGLETON_ID,
           item: todoItem(),
-        }),
+        })
       )
       assert.deepEqual(newState.ids, [1])
     })
@@ -35,7 +35,7 @@ describe('Todo reducer', () => {
         actions.addTodoReceived({
           requestId: SINGLETON_ID,
           item: todoItem(),
-        }),
+        })
       )
       assert.deepEqual(newState.byId, { 1: todoItem() })
     })
@@ -63,7 +63,7 @@ describe('Todo reducer', () => {
             ...todoItem(),
             done: true,
           },
-        }),
+        })
       )
       assert.deepEqual(newState.ids, [1])
     })
@@ -77,7 +77,7 @@ describe('Todo reducer', () => {
             ...todoItem(),
             done: true,
           },
-        }),
+        })
       )
       assert.equal(newState.byId[1].done, true)
     })
@@ -105,7 +105,7 @@ describe('Todo reducer', () => {
             ...todoItem(),
             done: true,
           },
-        }),
+        })
       )
       assert.deepEqual(newState.ids, [1])
     })
@@ -119,7 +119,7 @@ describe('Todo reducer', () => {
             ...todoItem(),
             done: true,
           },
-        }),
+        })
       )
       assert.equal(newState.byId[1].done, true)
     })
@@ -144,7 +144,7 @@ describe('Todo reducer', () => {
         actions.deleteTodoReceived({
           requestId: 1,
           item: { id: 1 },
-        }),
+        })
       )
       assert.deepEqual(newState.ids, [])
     })
@@ -155,7 +155,7 @@ describe('Todo reducer', () => {
         actions.deleteTodoReceived({
           requestId: 1,
           item: { id: 1 },
-        }),
+        })
       )
       assert.deepEqual(newState.byId, {})
     })

@@ -62,7 +62,7 @@ interface RequestedAction {
 function handleRequested(
   target: keyof AppState['requests'],
   state: AppState,
-  action: RequestedAction,
+  action: RequestedAction
 ) {
   return {
     ...state,
@@ -85,7 +85,7 @@ interface ReceivedAction {
 function handleReceived(
   target: keyof AppState['requests'],
   state: AppState,
-  action: ReceivedAction,
+  action: ReceivedAction
 ) {
   let table
   if (action.payload instanceof actions.IdentifiableError) {
@@ -111,7 +111,7 @@ function handleReceived(
 
 export default function appReducer(
   state: AppState = initialAppState,
-  action: actions.Action,
+  action: actions.Action
 ): AppState {
   switch (action.type) {
     case 'TOGGLE_DONE_FILTER':

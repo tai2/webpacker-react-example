@@ -40,7 +40,7 @@ describe('App reducer', () => {
     it('should set requesting to true and error to null', () => {
       const newState = appReducer(
         initialAppState,
-        actions.addTodoRequested('todo', '2017-09-30T07:32:08.591Z'),
+        actions.addTodoRequested('todo', '2017-09-30T07:32:08.591Z')
       )
       assert.deepEqual(newState.requests.addTodo[SINGLETON_ID]!, {
         requesting: true,
@@ -62,7 +62,7 @@ describe('App reducer', () => {
         actions.addTodoReceived({
           requestId: SINGLETON_ID,
           item: todoItem(),
-        }),
+        })
       )
       assert.deepEqual(newState.requests.addTodo, {})
     })

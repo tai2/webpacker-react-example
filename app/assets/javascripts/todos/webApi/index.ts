@@ -7,14 +7,14 @@ import { Todo } from '../types'
 function error(res: request.Response): Error {
   return new Error(
     (res && res.body && res.body.data && res.body.data.message) ||
-      'unexpected error',
+      'unexpected error'
   )
 }
 
 export function addTodo(
   content: string,
   dueDate: string,
-  done: boolean,
+  done: boolean
 ): Promise<Todo> {
   return new Promise((resolve, reject) => {
     const data = {
@@ -40,7 +40,7 @@ export function updateTodo(
   id: number,
   content?: string,
   dueDate?: string,
-  done?: boolean,
+  done?: boolean
 ): Promise<Todo> {
   return new Promise((resolve, reject) => {
     const data = _.omitBy(
@@ -49,7 +49,7 @@ export function updateTodo(
         dueDate,
         done,
       },
-      _.isUndefined,
+      _.isUndefined
     )
     request
       .put(`/todos/${id}.json`)

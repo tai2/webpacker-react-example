@@ -8,7 +8,7 @@ import { TodoItem } from '../TodoItem'
 function todoItemHelper(
   todo: Todo,
   updateRequest: Request,
-  deleteRequest: Request,
+  deleteRequest: Request
 ) {
   return (
     <TodoItem
@@ -50,17 +50,17 @@ const loadingRequest: Request = {
 
 storiesOf('TodoItem', module)
   .add('typical', () =>
-    todoItemHelper(typicalTodo, succeededRequest, succeededRequest),
+    todoItemHelper(typicalTodo, succeededRequest, succeededRequest)
   )
   .add('while updating', () =>
-    todoItemHelper(typicalTodo, loadingRequest, succeededRequest),
+    todoItemHelper(typicalTodo, loadingRequest, succeededRequest)
   )
   .add('while deleting', () =>
-    todoItemHelper(typicalTodo, succeededRequest, loadingRequest),
+    todoItemHelper(typicalTodo, succeededRequest, loadingRequest)
   )
   .add('updating error', () =>
-    todoItemHelper(typicalTodo, errorRequest, succeededRequest),
+    todoItemHelper(typicalTodo, errorRequest, succeededRequest)
   )
   .add('deleting error', () =>
-    todoItemHelper(typicalTodo, succeededRequest, errorRequest),
+    todoItemHelper(typicalTodo, succeededRequest, errorRequest)
   )

@@ -11,8 +11,8 @@ function* addTodoRequested(action: actions.AddTodoRequested) {
   } catch (error) {
     yield put(
       actions.addTodoReceived(
-        new actions.IdentifiableError(SINGLETON_ID, error.message),
-      ),
+        new actions.IdentifiableError(SINGLETON_ID, error.message)
+      )
     )
   }
 }
@@ -25,8 +25,8 @@ function* updateTodoRequested(action: actions.UpdateTodoRequested) {
   } catch (error) {
     yield put(
       actions.updateTodoReceived(
-        new actions.IdentifiableError(requestId, error.message),
-      ),
+        new actions.IdentifiableError(requestId, error.message)
+      )
     )
   }
 }
@@ -40,8 +40,8 @@ function* toggleTodoDoneRequested(action: actions.ToggleTodoDoneRequested) {
   } catch (error) {
     yield put(
       actions.toggleTodoDoneReceived(
-        new actions.IdentifiableError(requestId, error.message),
-      ),
+        new actions.IdentifiableError(requestId, error.message)
+      )
     )
   }
 }
@@ -54,8 +54,8 @@ function* deleteTodoRequested(action: actions.DeleteTodoRequested) {
   } catch (error) {
     yield put(
       actions.deleteTodoReceived(
-        new actions.IdentifiableError(requestId, error.message),
-      ),
+        new actions.IdentifiableError(requestId, error.message)
+      )
     )
   }
 }

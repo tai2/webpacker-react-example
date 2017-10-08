@@ -20,7 +20,7 @@ describe('<TodoAddForm />', () => {
       it('should render error message', () => {
         const request = { requesting: false, error: new Error('error') }
         const wrapper = enzyme.shallow(
-          <TodoAddForm addTodoRequest={request} onAddTodo={_.noop} />,
+          <TodoAddForm addTodoRequest={request} onAddTodo={_.noop} />
         )
         assert(wrapper.find('.error').exists())
       })
@@ -30,7 +30,7 @@ describe('<TodoAddForm />', () => {
       it('should not render error message', () => {
         const request = { requesting: false, error: null }
         const wrapper = enzyme.shallow(
-          <TodoAddForm addTodoRequest={request} onAddTodo={_.noop} />,
+          <TodoAddForm addTodoRequest={request} onAddTodo={_.noop} />
         )
         assert(!wrapper.find('.error').exists())
       })

@@ -46,6 +46,6 @@ document.addEventListener('DOMContentLoaded', () => {
     <Provider store={store}>
       <App />
     </Provider>,
-    document.getElementById('todo-app'),
+    document.getElementById('todo-app')
   )
 })

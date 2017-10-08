@@ -96,7 +96,7 @@ export type Action =
 
 export function addTodoRequested(
   content: string,
-  dueDate: string,
+  dueDate: string
 ): AddTodoRequested {
   return {
     type: 'ADD_TODO:REQUESTED',
@@ -108,7 +108,7 @@ export function addTodoRequested(
 }
 
 export function addTodoReceived(
-  payload: Request<Todo> | IdentifiableError,
+  payload: Request<Todo> | IdentifiableError
 ): AddTodoReceived {
   return {
     type: 'ADD_TODO:RECEIVED',
@@ -119,7 +119,7 @@ export function addTodoReceived(
 export function updateTodoRequested(
   id: number,
   content: string,
-  dueDate: string,
+  dueDate: string
 ): UpdateTodoRequested {
   return {
     type: 'UPDATE_TODO:REQUESTED',
@@ -131,7 +131,7 @@ export function updateTodoRequested(
 }
 
 export function updateTodoReceived(
-  payload: Request<Todo> | IdentifiableError,
+  payload: Request<Todo> | IdentifiableError
 ): UpdateTodoReceived {
   return {
     type: 'UPDATE_TODO:RECEIVED',
@@ -150,7 +150,7 @@ export function toggleTodoDoneRequested(id: number): ToggleTodoDoneRequested {
 }
 
 export function toggleTodoDoneReceived(
-  payload: Request<Todo> | IdentifiableError,
+  payload: Request<Todo> | IdentifiableError
 ): ToggleTodoDoneReceived {
   return {
     type: 'TOGGLE_TODO_DONE:RECEIVED',
@@ -169,7 +169,7 @@ export function deleteTodoRequested(id: number): DeleteTodoRequested {
 }
 
 export function deleteTodoReceived(
-  payload: Request<{ id: number }> | IdentifiableError,
+  payload: Request<{ id: number }> | IdentifiableError
 ): DeleteTodoReceived {
   return {
     type: 'DELETE_TODO:RECEIVED',

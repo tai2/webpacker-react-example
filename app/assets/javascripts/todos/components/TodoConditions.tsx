@@ -13,7 +13,7 @@ interface DispatchProps {
   onOrderChange: (
     ev:
       | React.ChangeEvent<HTMLSelectElement>
-      | React.FocusEvent<HTMLSelectElement>,
+      | React.FocusEvent<HTMLSelectElement>
   ) => void
   onDoneFilterChange: () => void
 }
@@ -69,7 +69,7 @@ export default connect<StateProps, DispatchProps>(
     onOrderChange(
       ev:
         | React.ChangeEvent<HTMLSelectElement>
-        | React.FocusEvent<HTMLSelectElement>,
+        | React.FocusEvent<HTMLSelectElement>
     ) {
       const [prop, order] = ev.currentTarget.value.split('-')
       dispatch(selectOrder(prop as SortBy, order as SortOrder))
@@ -77,5 +77,5 @@ export default connect<StateProps, DispatchProps>(
     onDoneFilterChange() {
       dispatch(toggleDoneFilter())
     },
-  }),
+  })
 )(TodoConditions)

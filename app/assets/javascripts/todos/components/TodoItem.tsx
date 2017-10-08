@@ -26,7 +26,7 @@ interface DispatchProps {
   onContentBlur: (ev: React.FocusEvent<HTMLInputElement>, todo: Todo) => void
   onDueDateBlur: (
     ev: React.FocusEvent<any> | moment.Moment | string,
-    todo: Todo,
+    todo: Todo
   ) => void
   onDestroyClick: () => void
 }
@@ -169,16 +169,16 @@ export default connect<StateProps, DispatchProps>(
     },
     onContentBlur(ev: React.FocusEvent<HTMLInputElement>, todo: Todo) {
       dispatch(
-        updateTodoRequested(ownProps.id, ev.currentTarget.value, todo.dueDate),
+        updateTodoRequested(ownProps.id, ev.currentTarget.value, todo.dueDate)
       )
     },
     onDueDateBlur(
       ev: React.FocusEvent<any> | moment.Moment | string,
-      todo: Todo,
+      todo: Todo
     ) {
       if (moment.isMoment(ev)) {
         dispatch(
-          updateTodoRequested(ownProps.id, todo.content, ev.toISOString()),
+          updateTodoRequested(ownProps.id, todo.content, ev.toISOString())
         )
       }
     },
@@ -187,5 +187,5 @@ export default connect<StateProps, DispatchProps>(
         dispatch(deleteTodoRequested(ownProps.id))
       }
     },
-  }),
+  })
 )(TodoItem)

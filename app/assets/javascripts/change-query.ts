@@ -2,7 +2,7 @@ import * as queryString from 'query-string'
 
 function prepereSelectElems(): void {
   const doms = document.querySelectorAll(
-    'select[data-change-query]',
+    'select[data-change-query]'
   ) as NodeListOf<HTMLSelectElement>
   const query = queryString.parse(location.search)
 
@@ -19,7 +19,7 @@ function prepereSelectElems(): void {
 
 function prepereCheckboxElems(): void {
   const doms = document.querySelectorAll(
-    'input[type=checkbox][data-change-query]',
+    'input[type=checkbox][data-change-query]'
   ) as NodeListOf<HTMLInputElement>
   const query = queryString.parse(location.search)
 

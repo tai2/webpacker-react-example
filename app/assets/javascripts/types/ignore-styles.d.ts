@@ -15,6 +15,6 @@ declare module 'ignore-styles' {
 
   export default function register(
     extensions?: string[],
-    handler?: Handler,
+    handler?: Handler
   ): void
 }
