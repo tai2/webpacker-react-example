@@ -16,7 +16,7 @@ interface DispatchProps {
 
 type Props = StateProps & DispatchProps
 
-function TodoConditions({ sortBy, sortOrder, doneFilter, onOrderChange, onDoneFilterChange }: Props) {
+export function TodoConditions({ sortBy, sortOrder, doneFilter, onOrderChange, onDoneFilterChange }: Props) {
   return (
     <div className="form-inline">
       <div className="form-group">
