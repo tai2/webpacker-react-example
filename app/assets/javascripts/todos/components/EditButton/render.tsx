@@ -2,13 +2,13 @@ import * as classNames from 'classnames'
 import * as React from 'react'
 
 export interface Props {
-  className: string
+  className?: string
   disabled?: boolean
   onClick: (e: React.MouseEvent<HTMLInputElement>) => void
 }
 
 export default function EditButton({
-  className,
+  className = '',
   disabled = false,
   onClick,
 }: Props) {
