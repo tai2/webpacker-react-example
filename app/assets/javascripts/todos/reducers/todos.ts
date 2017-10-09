@@ -1,10 +1,4 @@
-import {
-  Action,
-  AddTodoReceived,
-  DeleteTodoReceived,
-  ToggleTodoDoneReceived,
-  UpdateTodoReceived,
-} from '../actions'
+import * as actions from '../actions'
 
 import * as _ from 'lodash'
 import { SortBy, SortOrder } from '../reducers/app'
@@ -24,7 +18,7 @@ export const initialTodosState: TodosState = {
   ids: [],
 }
 
-function addTodoReceived(state: TodosState, action: AddTodoReceived) {
+function addTodoReceived(state: TodosState, action: actions.AddTodoReceived) {
   if (action.payload instanceof Error) {
     return state
   }
@@ -41,7 +35,10 @@ function addTodoReceived(state: TodosState, action: AddTodoReceived) {
   }
 }
 
-function updateTodoReceived(state: TodosState, action: UpdateTodoReceived) {
+function updateTodoReceived(
+  state: TodosState,
+  action: actions.UpdateTodoReceived
+) {
   if (action.payload instanceof Error) {
     return state
   }
@@ -59,7 +56,7 @@ function updateTodoReceived(state: TodosState, action: UpdateTodoReceived) {
 
 function toggleTodoDoneReceived(
   state: TodosState,
-  action: ToggleTodoDoneReceived
+  action: actions.ToggleTodoDoneReceived
 ) {
   if (action.payload instanceof Error) {
     return state
@@ -76,7 +73,10 @@ function toggleTodoDoneReceived(
   }
 }
 
-function deleteTodoReceived(state: TodosState, action: DeleteTodoReceived) {
+function deleteTodoReceived(
+  state: TodosState,
+  action: actions.DeleteTodoReceived
+) {
   if (action.payload instanceof Error) {
     return state
   }
@@ -94,16 +94,16 @@ function deleteTodoReceived(state: TodosState, action: DeleteTodoReceived) {
 
 export default function todosReducer(
   state: TodosState = initialTodosState,
-  action: Action
+  action: actions.Action
 ): TodosState {
   switch (action.type) {
-    case 'ADD_TODO:RECEIVED':
+    case actions.ADD_TODO_RECEIVED:
       return addTodoReceived(state, action)
-    case 'UPDATE_TODO:RECEIVED':
+    case actions.UPDATE_TODO_RECEIVED:
       return updateTodoReceived(state, action)
-    case 'TOGGLE_TODO_DONE:RECEIVED':
+    case actions.TOGGLE_TODO_DONE_RECEIVED:
       return toggleTodoDoneReceived(state, action)
-    case 'DELETE_TODO:RECEIVED':
+    case actions.DELETE_TODO_RECEIVED:
       return deleteTodoReceived(state, action)
     default:
       return state

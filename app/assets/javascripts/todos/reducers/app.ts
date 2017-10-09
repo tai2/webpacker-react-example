@@ -114,25 +114,25 @@ export default function appReducer(
   action: actions.Action
 ): AppState {
   switch (action.type) {
-    case 'TOGGLE_DONE_FILTER':
+    case actions.TOGGLE_DONE_FILTER:
       return toggleDoneFilter(state)
-    case 'SELECT_ORDER':
+    case actions.SELECT_ORDER:
       return selectOrder(state, action)
-    case 'ADD_TODO:REQUESTED':
+    case actions.ADD_TODO_REQUESTED:
       return handleRequested('addTodo', state, action)
-    case 'ADD_TODO:RECEIVED':
+    case actions.ADD_TODO_RECEIVED:
       return handleReceived('addTodo', state, action)
-    case 'UPDATE_TODO:REQUESTED':
+    case actions.UPDATE_TODO_REQUESTED:
       return handleRequested('updateTodo', state, action)
-    case 'UPDATE_TODO:RECEIVED':
+    case actions.UPDATE_TODO_RECEIVED:
       return handleReceived('updateTodo', state, action)
-    case 'TOGGLE_TODO_DONE:REQUESTED':
+    case actions.TOGGLE_TODO_DONE_REQUESTED:
       return handleRequested('toggleTodoDone', state, action)
-    case 'TOGGLE_TODO_DONE:RECEIVED':
+    case actions.TOGGLE_TODO_DONE_RECEIVED:
       return handleReceived('toggleTodoDone', state, action)
-    case 'DELETE_TODO:REQUESTED':
+    case actions.DELETE_TODO_REQUESTED:
       return handleRequested('deleteTodo', state, action)
-    case 'DELETE_TODO:RECEIVED':
+    case actions.DELETE_TODO_RECEIVED:
       return handleReceived('deleteTodo', state, action)
     default:
       return state
