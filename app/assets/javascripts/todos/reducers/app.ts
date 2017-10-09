@@ -1,5 +1,6 @@
 import * as _ from 'lodash'
 import * as actions from '../actions'
+import { IdentifiableError } from '../types'
 
 export type SortBy = 'dueDate' | 'createdAt'
 export type SortOrder = 'asc' | 'desc'
@@ -80,7 +81,7 @@ function handleRequested(
 }
 
 interface ReceivedAction {
-  payload: { requestId: number } | actions.IdentifiableError
+  payload: { requestId: number } | IdentifiableError
 }
 function handleReceived(
   target: keyof AppState['requests'],
@@ -88,7 +89,7 @@ function handleReceived(
   action: ReceivedAction
 ) {
   let table
-  if (action.payload instanceof actions.IdentifiableError) {
+  if (action.payload instanceof IdentifiableError) {
     table = {
       ...state.requests[target],
       [action.payload.targetId]: {

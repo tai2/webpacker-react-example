@@ -4,19 +4,11 @@
  */
 
 import { SINGLETON_ID, SortBy, SortOrder } from '../reducers/app'
-import { Todo } from '../types'
+import { IdentifiableError, Todo } from '../types'
 
 interface Request<T> {
   requestId: number
   item: T
-}
-
-export class IdentifiableError extends Error {
-  constructor(readonly targetId: number, message?: string) {
-    super(message)
-    Object.setPrototypeOf(this, new.target.prototype)
-    this.name = 'IdentifiableError'
-  }
 }
 
 export const ADD_TODO_REQUESTED = 'ADD_TODO:REQUESTED'

@@ -1,6 +1,7 @@
 import { call, put, select, takeEvery, takeLatest } from 'redux-saga/effects'
 import * as actions from '../actions'
 import { SINGLETON_ID, StoreState } from '../reducers'
+import { IdentifiableError } from '../types'
 import * as webApi from '../webApi'
 
 function* addTodoRequested(action: actions.AddTodoRequested) {
@@ -11,7 +12,7 @@ function* addTodoRequested(action: actions.AddTodoRequested) {
   } catch (error) {
     yield put(
       actions.addTodoReceived(
-        new actions.IdentifiableError(SINGLETON_ID, error.message)
+        new IdentifiableError(SINGLETON_ID, error.message)
       )
     )
   }
@@ -25,7 +26,7 @@ function* updateTodoRequested(action: actions.UpdateTodoRequested) {
   } catch (error) {
     yield put(
       actions.updateTodoReceived(
-        new actions.IdentifiableError(requestId, error.message)
+        new IdentifiableError(requestId, error.message)
       )
     )
   }
@@ -40,7 +41,7 @@ function* toggleTodoDoneRequested(action: actions.ToggleTodoDoneRequested) {
   } catch (error) {
     yield put(
       actions.toggleTodoDoneReceived(
-        new actions.IdentifiableError(requestId, error.message)
+        new IdentifiableError(requestId, error.message)
       )
     )
   }
@@ -54,7 +55,7 @@ function* deleteTodoRequested(action: actions.DeleteTodoRequested) {
   } catch (error) {
     yield put(
       actions.deleteTodoReceived(
-        new actions.IdentifiableError(requestId, error.message)
+        new IdentifiableError(requestId, error.message)
       )
     )
   }
