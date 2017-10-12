@@ -6,7 +6,11 @@
 // When you add this file, we won't add the default configurations which is similar
 // to "React Create App". This only has babel loader to load JavaScript.
 const { resolve } = require('path');
-const { settings } = require('../config/webpack/configuration.js')
+const { safeLoad } = require('js-yaml')
+const { readFileSync } = require('fs')
+
+const filePath = resolve('config', 'webpacker.yml')
+const config = safeLoad(readFileSync(filePath), 'utf8')[process.env.NODE_ENV]
 
 function sassLoaders(modules) {
   return [
@@ -15,7 +19,7 @@ function sassLoaders(modules) {
       loader: 'css-loader',
       options: {
         modules,
-        localIdentName: '[path][name]__[local]--[hash:base64:5]',
+        localIdentName: '[name]__[local]--[hash:base64:5]',
       }
     },
     { loader: 'postcss-loader', options: { sourceMap: true } },
@@ -59,7 +63,7 @@ function extraRules() {
 module.exports = (storybookBaseConfig, configType) => {
   storybookBaseConfig.module.rules.push(...extraRules())
   storybookBaseConfig.resolve.extensions.push('.ts', '.tsx', 'scss');
-  storybookBaseConfig.resolve.modules.unshift(resolve(settings.source_path))
+  storybookBaseConfig.resolve.modules.unshift(resolve(config.source_path))
   return storybookBaseConfig
 }
 

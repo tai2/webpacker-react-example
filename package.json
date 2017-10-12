@@ -4,7 +4,7 @@
   "scripts": {
     "lint": "tslint -c tslint.json 'app/**/*.ts' 'app/**/*.tsx'",
     "lint:fix": "tslint -c tslint.json 'app/**/*.ts' '**/*.tsx' --fix",
-    "test": "mocha --require ./config/espower-typescript.js **/*.spec.{ts,tsx}",
+    "test": "mocha --require espower-typescript/guess **/*.spec.{ts,tsx}",
     "storybook": "start-storybook -p 6006",
     "prettier": "prettier --single-quote --trailing-comma=es5 --no-semi --write '**/*.ts' --write '**/*.tsx'",
     "precommit-check": "npm run prettier && npm run lint && npm run test"
@@ -29,6 +29,7 @@
     "bootstrap": "^3.3.7",
     "classnames": "^2.2.5",
     "coffeescript": "^2.0.1",
+    "core-js": "^2.5.1",
     "lodash": "^4.17.4",
     "moment": "^2.18.1",
     "query-string": "^4.3.4",
