@@ -1,3 +1,8 @@
 declare module 'rails-ujs' {
-  export function csrfToken(): string | undefined
+  const Rails: {
+    start(): void
+    csrfToken(): string | undefined
+  }
+
+  export = Rails
 }
