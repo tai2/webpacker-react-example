@@ -20,7 +20,10 @@ function enableCssModules(cssLoader) {
 environment.loaders.set('typescript', {
   test: /\.tsx?$/,
   exclude: /node_modules/,
-  loader: 'awesome-typescript-loader'
+  loader: [
+    'react-hot-loader/webpack',
+    'awesome-typescript-loader'
+  ]
 })
 
 // Limit this loader to specific paths

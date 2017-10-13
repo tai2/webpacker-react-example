@@ -1,5 +1,5 @@
 import 'core-js/shim'
 import 'javascripts/change-query'
-import Rails = require('rails-ujs')
+import * as Rails from 'rails-ujs'
 
 Rails.start()

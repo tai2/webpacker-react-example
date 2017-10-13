@@ -9,4 +9,4 @@ export interface StoreState {
 
 export * from './todos'
 export * from './app'
-export default combineReducers({ todos, app })
+export default combineReducers<StoreState>({ todos, app })
