@@ -12,56 +12,19 @@ const { readFileSync } = require('fs')
 const filePath = resolve('config', 'webpacker.yml')
 const config = safeLoad(readFileSync(filePath), 'utf8')[process.env.NODE_ENV]
 
-function sassLoaders(modules) {
-  return [
-    { loader: 'style-loader' },
-    {
-      loader: 'css-loader',
-      options: {
-        modules,
-        localIdentName: '[name]__[local]--[hash:base64:5]',
-      }
-    },
-    { loader: 'postcss-loader', options: { sourceMap: true } },
-    'resolve-url-loader',
-    { loader: 'sass-loader', options: { sourceMap: true } }
-  ]
-}
-
-function extraRules() {
-  const tsRule = {
-    test: /\.tsx?$/,
-    exclude: /node_modules/,
-    loader: 'awesome-typescript-loader'
-  }
-  const moduleSassRule = {
-    test: /\.(scss|sass)$/i,
-    exclude: [
-      resolve('app/assets/stylesheets'),
-      resolve('node_modules'),
-    ],
-    use: sassLoaders(true),
-  }
-  const sassRule = {
-    test: /\.(scss|sass)$/i,
-    include: [
-      resolve('app/assets/stylesheets'),
-      resolve('node_modules'),
-    ],
-    use: sassLoaders(false),
-  }
-  const assetsRule = {
-    test: /\.(jpg|jpeg|png|gif|svg|eot|ttf|woff|woff2)$/i,
-    use: [{
-      loader: 'file-loader',
-    }]
-  }
-
-  return [tsRule, moduleSassRule, sassRule, assetsRule]
-}
+const environment = require('../config/webpack/environment')
 
 module.exports = (storybookBaseConfig, configType) => {
-  storybookBaseConfig.module.rules.push(...extraRules())
+  // Here reusing webpacker's style rules. It needs setting hmr config true in
+  // webpacker.yml. Otherwise ExtractTextPlugin will be used and result in runtime
+  // errors in storybook.
+  const rules = [
+    environment.loaders.get('style'),
+    environment.loaders.get('moduleStyle'),
+    environment.loaders.get('typescript'),
+    environment.loaders.get('file'),
+  ]
+  storybookBaseConfig.module.rules.push(...rules)
   storybookBaseConfig.resolve.extensions.push('.ts', '.tsx', 'scss');
   storybookBaseConfig.resolve.modules.unshift(resolve(config.source_path))
   return storybookBaseConfig

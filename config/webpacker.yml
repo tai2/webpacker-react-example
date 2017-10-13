@@ -40,7 +40,7 @@ development:
     host: localhost
     port: 3035
     public: localhost:3035
-    hmr: false
+    hmr: true # hmr should be set to true for storybook
     # Inline should be set to true if using HMR
     inline: true
     overlay: true
