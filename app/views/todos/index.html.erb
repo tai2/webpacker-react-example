@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<img class="logo" src="<%= asset_pack_path 'rails.svg' %>" />
+<img class="logo" src="<%= asset_pack_path 'images/rails.svg' %>" />
 
 <form class="form-inline">
   <div class="form-group">
@@ -33,9 +33,9 @@
       <tr>
         <td>
           <% if todo.done %>
-            <img class="check" src="<%= asset_pack_path 'check-square-o.svg' %>" />
+            <img class="check" src="<%= asset_pack_path 'images/check-square-o.svg' %>" />
           <% else %>
-            <img class="check" src="<%= asset_pack_path 'square-o.svg' %>" />
+            <img class="check" src="<%= asset_pack_path 'images/square-o.svg' %>" />
           <% end %>
           <%= todo.content %>
         </td>
