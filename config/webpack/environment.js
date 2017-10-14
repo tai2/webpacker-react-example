@@ -1,6 +1,7 @@
 const { environment } = require('@rails/webpacker')
 const merge = require('webpack-merge')
 const { resolve } = require('path')
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const globalStylePaths = [
   resolve('app/assets/stylesheets'),
@@ -36,5 +37,14 @@ const moduleStyleLoader = require('@rails/webpacker/package/loaders/style')
 moduleStyleLoader.exclude = globalStylePaths
 enableCssModules(moduleStyleLoader.use.find(el => el.loader === 'css-loader'))
 environment.loaders.set('moduleStyle', moduleStyleLoader)
+
+// Add bundle analyzer
+environment.plugins.set(
+  'Analyzer',
+  new BundleAnalyzerPlugin({
+    analyzerMode: 'static',
+    openAnalyzer: false,
+  })
+)
 
 module.exports = environment
