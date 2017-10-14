@@ -1,3 +1,3 @@
 import 'javascripts/application'
 import 'stylesheets/application'
-require.context('images', false, /\.(png|jpg|jpeg|svg)$/)
+require.context('images', true, /\.(png|jpg|jpeg|svg)$/)
