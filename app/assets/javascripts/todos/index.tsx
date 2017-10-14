@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 if (module.hot) {
   module.hot.accept('./components/App', () => {
-    const NextApp = require<{ default: typeof App }>('./components/App').default
+    const NextApp = require('./components/App').default
     render(NextApp)
   })
 }
