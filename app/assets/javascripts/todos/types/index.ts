@@ -10,7 +10,7 @@ export interface Todo {
 export class IdentifiableError extends Error {
   constructor(readonly targetId: number, message?: string) {
     super(message)
-    Object.setPrototypeOf(this, new.target.prototype)
+    Object.setPrototypeOf(this, this.constructor.prototype) // restore prototype chain
     this.name = 'IdentifiableError'
   }
 }

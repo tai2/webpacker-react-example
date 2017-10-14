@@ -3,16 +3,16 @@
     "sourceMap": true,
     "noImplicitAny": true,
     "strictNullChecks": true,
-    "target": "es5",
+    "target": "esnext",
     "moduleResolution": "node",
-    "jsx": "react",
-    "lib": ["dom", "es6"]
+    "jsx": "preserve"
   },
   "include": [
     "./app/assets/javascripts/**/*",
     "./app/assets/packs/**/*"
   ],
   "awesomeTypescriptLoaderOptions": {
+    "useBabel": true,
     "useCache": true
   }
 }

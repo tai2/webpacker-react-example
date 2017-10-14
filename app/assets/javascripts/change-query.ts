@@ -6,7 +6,7 @@ function prepereSelectElems(): void {
   ) as NodeListOf<HTMLSelectElement>
   const query = queryString.parse(location.search)
 
-  for (const select of Array.from(doms)) {
+  for (const select of doms) {
     if (query.sort_by) {
       select.value = query.sort_by
     }
@@ -23,7 +23,7 @@ function prepereCheckboxElems(): void {
   ) as NodeListOf<HTMLInputElement>
   const query = queryString.parse(location.search)
 
-  for (const checkbox of Array.from(doms)) {
+  for (const checkbox of doms) {
     checkbox.checked = query.done && query.done !== 'false'
     checkbox.addEventListener('change', () => {
       query.done = checkbox.checked
