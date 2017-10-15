@@ -22,7 +22,7 @@
 * Automatic code formatting using [pretteir](https://github.com/prettier/prettier)
 * Static code analysis using [TSLint](https://palantir.github.io/tslint/)
 * Code size analysis using [webpack-bundle-analyzer](https://github.com/webpack-contrib/webpack-bundle-analyzer).
-* Using [lodash](https://lodash.com/) only actually imported functions are bundled by webpack's tree-shaking.
+* Using [lodash](https://lodash.com/) and just actually imported functions are bundled by webpack's tree-shaking.
 * Using [Babel](https://babeljs.io/) to  transpile esnext.
 * [Hot Module Replacement](https://webpack.js.org/guides/hot-module-replacement/) for development.
 
