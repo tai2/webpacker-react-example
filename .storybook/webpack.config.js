@@ -6,12 +6,8 @@
 // When you add this file, we won't add the default configurations which is similar
 // to "React Create App". This only has babel loader to load JavaScript.
 const { resolve } = require('path');
-const { safeLoad } = require('js-yaml')
-const { readFileSync } = require('fs')
 
-const filePath = resolve('config', 'webpacker.yml')
-const config = safeLoad(readFileSync(filePath), 'utf8')[process.env.NODE_ENV]
-
+const config = require('@rails/webpacker/package/config');
 const environment = require('../config/webpack/environment')
 
 module.exports = (storybookBaseConfig, configType) => {
