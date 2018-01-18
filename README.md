@@ -48,7 +48,7 @@ Then open http://localhost:3000/
 Run webpacker to build.
 
 ```
-NODE_ENV=production bin/rails webpacker:compile
+RAILS_ENV=production bin/rails webpacker:compile
 ```
 
 Then compiled assets will be generated to `public/packs/`.
