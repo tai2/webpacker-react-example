@@ -34,7 +34,7 @@
 ## How to run
 
 ```
-npm install
+yarn install
 bundle install
 bin/rails db:setup
 bin/rails db:migrate
@@ -57,25 +57,25 @@ Copy these files to public directory and run server.
 ## Run client side unit tests
 
 ```
-npm test
+yarn test
 ```
 
 ## Show storybook client UI catalog
 
 ```
-npm run storybook
+yarn storybook
 ```
 
 ## Run client code formatting
 
 ```
-npm run prettier
+yarn prettier
 ```
 
 ## Run client code lint
 
 ```
-npm run lint
+yarn lint
 ```
 
 ## Bundle size analysis
