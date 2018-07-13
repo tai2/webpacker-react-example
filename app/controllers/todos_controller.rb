@@ -1,5 +1,5 @@
 class TodosController < ApplicationController
-  before_action :set_todo, only: [:show, :edit, :update, :destroy]
+  before_action :set_todo, only: %i[show edit update destroy]
   before_action :new_todo, only: [:create]
 
   # GET /todos
@@ -10,8 +10,7 @@ class TodosController < ApplicationController
 
   # GET /todos/1
   # GET /todos/1.json
-  def show
-  end
+  def show; end
 
   # GET /todos/new
   def new
@@ -19,8 +18,7 @@ class TodosController < ApplicationController
   end
 
   # GET /todos/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /todos
   # POST /todos.json
