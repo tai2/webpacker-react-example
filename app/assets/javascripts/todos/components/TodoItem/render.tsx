@@ -115,7 +115,7 @@ export default class TodoItem extends React.Component<Props, State> {
         <td className={styles.dueDateCol}>{this.renderDueDate()}</td>
         <td>
           <button
-            className="btn btn-default"
+            className="btn btn-secondary"
             disabled={deleteRequest.requesting}
             onClick={onDestroyClick}
           >

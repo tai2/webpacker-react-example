@@ -21,12 +21,12 @@ export default function TodoConditions({
   onDoneFilterChange,
 }: Props) {
   return (
-    <div className="form-inline">
+    <div className="form-inline my-2">
       <div className="form-group">
         <label>
           sort by:&nbsp;
           <select
-            className="form-control"
+            className="form-control mx-2"
             value={`${sortBy}-${sortOrder}`}
             onChange={onOrderChange}
             onBlur={onOrderChange}

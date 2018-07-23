@@ -12,21 +12,21 @@
   <% end %>
 
   <div class="field form-group">
-    <%= form.label :content %>
+    <%= form.label :content, for: :todo_content %>
     <%= form.text_field :content, id: :todo_content, class: 'form-control' %>
   </div>
 
   <div class="field form-group">
-    <%= form.label :due_date %>
+    <%= form.label :due_date, for: :todo_due_date_1i %>
     <%= form.datetime_select :due_date, id: :todo_due_date, class: 'form-control' %>
   </div>
 
-  <div class="field">
-    <%= form.label :done %>
+  <div class="field form-group">
+    <%= form.label :done, for: :todo_done %>
     <%= form.check_box :done, id: :todo_done %>
   </div>
 
   <div class="actions">
-    <%= form.submit class: 'btn btn-default' %>
+    <%= form.submit class: 'btn btn-secondary' %>
   </div>
 <% end %>

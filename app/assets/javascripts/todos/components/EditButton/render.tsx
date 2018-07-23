@@ -15,7 +15,7 @@ export default function EditButton({
   return (
     <button
       type="button"
-      className={classNames('btn btn-default btn-xs', className)}
+      className={classNames('btn btn-secondary', className)}
       disabled={disabled}
       aria-label="Edit"
       onClick={onClick}

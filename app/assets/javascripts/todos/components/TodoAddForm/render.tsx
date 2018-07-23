@@ -64,7 +64,7 @@ export default class TodoAddForm extends React.Component<Props, State> {
           </label>
         </div>
         <button
-          className={classNames('btn btn-default', styles.item)}
+          className={classNames('btn btn-secondary', styles.item)}
           onClick={this.handleAddTodo}
           disabled={addTodoRequest.requesting}
         >

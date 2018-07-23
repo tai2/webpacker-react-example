@@ -2,11 +2,11 @@
 
 <img class="logo" src="<%= asset_pack_path 'images/rails.svg' %>" />
 
-<form class="form-inline">
+<form class="form-inline my-2">
   <div class="form-group">
     <label>
       sort by:
-      <select class="form-control" data-change-query="sort_by">
+      <select class="form-control mx-2" data-change-query="sort_by">
         <option value="due_date_asc">due date(asc)</option>
         <option value="due_date_desc">due date(desc)</option>
         <option value="created_at_asc">created at(asc)</option>
@@ -40,9 +40,9 @@
           <%= todo.content %>
         </td>
         <td><%= todo.due_date %></td>
-        <td><%= link_to 'Show', todo, class: 'btn btn-default' %></td>
-        <td><%= link_to 'Edit', edit_todo_path(todo), class: 'btn btn-default' %></td>
-        <td><%= link_to 'Destroy', todo, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-default' %></td>
+        <td><%= link_to 'Show', todo, class: 'btn btn-secondary' %></td>
+        <td><%= link_to 'Edit', edit_todo_path(todo), class: 'btn btn-secondary' %></td>
+        <td><%= link_to 'Destroy', todo, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-secondary' %></td>
       </tr>
     <% end %>
   </tbody>
@@ -50,4 +50,4 @@
 
 <br>
 
-<%= link_to 'New Todo', new_todo_path, class: 'btn btn-default' %>
+<%= link_to 'New Todo', new_todo_path, class: 'btn btn-secondary' %>
