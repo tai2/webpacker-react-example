@@ -15,12 +15,12 @@ export default function EditButton({
   return (
     <button
       type="button"
-      className={classNames('btn btn-secondary', className)}
+      className={classNames('btn btn-secondary btn-sm', className)}
       disabled={disabled}
       aria-label="Edit"
       onClick={onClick}
     >
-      <span className="glyphicon glyphicon-edit" aria-hidden="true" />
+      <i className="far fa-edit" aria-hidden="true" />
     </button>
   )
 }
