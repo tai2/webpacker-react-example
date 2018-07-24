@@ -15,8 +15,10 @@ module.exports = (storybookBaseConfig, configType) => {
   // webpacker.yml. Otherwise ExtractTextPlugin will be used and result in runtime
   // errors in storybook.
   const rules = [
-    environment.loaders.get('style'),
-    environment.loaders.get('moduleStyle'),
+    environment.loaders.get('css'),
+    environment.loaders.get('sass'),
+    environment.loaders.get('moduleCss'),
+    environment.loaders.get('moduleSass'),
     environment.loaders.get('typescript'),
     environment.loaders.get('file'),
   ]

@@ -5,7 +5,7 @@ import { Request } from '../../reducers'
 import { Todo } from '../../types'
 
 import EditButton from '../EditButton'
-import * as styles from './styles.scss'
+import * as styles from './styles.module.scss'
 
 export interface Props {
   id: number

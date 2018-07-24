@@ -3,7 +3,7 @@
 ## Dependency
 
 * [Rails 5.2](http://guides.rubyonrails.org/5_2_release_notes.html)
-* [Webpacker 3](http://weblog.rubyonrails.org/2017/8/30/webpacker-3-0/)
+* [Webpacker 3.5.5](http://weblog.rubyonrails.org/2017/8/30/webpacker-3-0/)
 
 ## Features
 

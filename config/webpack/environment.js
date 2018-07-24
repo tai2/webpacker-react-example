@@ -3,40 +3,26 @@ const merge = require('webpack-merge')
 const { resolve } = require('path')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
-const globalStylePaths = [
-  resolve('app/assets/stylesheets'),
-  resolve('node_modules')
-]
-
-function enableCssModules(cssLoader) {
-  const cssModuleOptions = {
-    modules: true,
-    sourceMap: true,
-    localIdentName: '[name]__[local]___[hash:base64:5]'
-  }
-  cssLoader.options = merge(cssLoader.options, cssModuleOptions)
-}
-
 // Replace ts-loader with awesome-typescript-loader
-environment.loaders.set('typescript', {
+environment.loaders.append('typescript', {
   test: /\.tsx?$/,
   exclude: /node_modules/,
   loader: 'awesome-typescript-loader'
 })
 
-// Limit this loader to specific paths
-const styleLoader = environment.loaders.get('style')
-styleLoader.include = globalStylePaths
-
-// Add modularized css loader for client components
-delete require.cache[require.resolve('@rails/webpacker/package/loaders/style')]
-const moduleStyleLoader = require('@rails/webpacker/package/loaders/style')
-moduleStyleLoader.exclude = globalStylePaths
-enableCssModules(moduleStyleLoader.use.find(el => el.loader === 'css-loader'))
-environment.loaders.set('moduleStyle', moduleStyleLoader)
+// Add resolve-url-loader
+// see: https://github.com/rails/webpacker/blob/master/docs/css.md#resolve-url-loader
+const resolveUrlLoader = {
+  loader: 'resolve-url-loader',
+  options: {
+    attempts: 1
+  }
+}
+environment.loaders.get('sass').use.splice(-1, 0, resolveUrlLoader)
+environment.loaders.get('moduleSass').use.splice(-1, 0, resolveUrlLoader)
 
 // Add bundle analyzer
-environment.plugins.set(
+environment.plugins.append(
   'Analyzer',
   new BundleAnalyzerPlugin({
     analyzerMode: 'static',

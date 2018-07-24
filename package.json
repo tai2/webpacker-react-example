@@ -5,7 +5,7 @@
     "lint": "tslint -c tslint.json 'app/**/*.ts' 'app/**/*.tsx'",
     "lint:fix": "tslint -c tslint.json 'app/**/*.ts' '**/*.tsx' --fix",
     "test": "mocha --require ./config/espower-typescript.js **/*.spec.{ts,tsx}",
-    "storybook": "start-storybook -p 6006",
+    "storybook": "RAILS_ENV=development start-storybook -p 6006 webpack-dev-server",
     "prettier": "prettier --single-quote --trailing-comma=es5 --no-semi --write 'app/**/*.{ts,tsx,css,scss}'",
     "precommit-check": "npm run prettier && npm run lint && npm run test"
   },
@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.1.1",
-    "@rails/webpacker": "^3.0.2",
+    "@rails/webpacker": "^3.5.5",
     "@types/classnames": "^2.2.3",
     "@types/lodash": "^4.14.74",
     "@types/node": "^8.0.31",
@@ -42,6 +42,7 @@
     "redux": "^3.7.2",
     "redux-devtools-extension": "^2.13.2",
     "redux-saga": "^0.15.6",
+    "resolve-url-loader": "^2.3.0",
     "superagent": "^3.5.2",
     "typescript": "^2.5.2",
     "webpack-merge": "^4.1.0"
@@ -70,6 +71,6 @@
     "tslint-eslint-rules": "^4.1.1",
     "tslint-react": "^3.2.0",
     "webpack-bundle-analyzer": "^2.9.0",
-    "webpack-dev-server": "^2.9.1"
+    "webpack-dev-server": "^2.11.1"
   }
 }

@@ -3,7 +3,7 @@ import * as moment from 'moment'
 import * as React from 'react'
 import * as DateTime from 'react-datetime'
 import { Request } from '../../reducers'
-import * as styles from './styles.scss'
+import * as styles from './styles.module.scss'
 
 export interface Props {
   addTodoRequest: Request
