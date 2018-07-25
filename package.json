@@ -1,5 +1,5 @@
 {
-  "name": "webpakcer-react-exampl",
+  "name": "webpacker-react-example",
   "private": true,
   "scripts": {
     "lint": "tslint -c tslint.json 'app/**/*.ts' 'app/**/*.tsx'",
