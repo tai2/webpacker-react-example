@@ -21,6 +21,13 @@ const resolveUrlLoader = {
 environment.loaders.get('sass').use.splice(-1, 0, resolveUrlLoader)
 environment.loaders.get('moduleSass').use.splice(-1, 0, resolveUrlLoader)
 
+// Clearer generated classnames
+for (const ruleName of ['moduleCss', 'moduleSass']) {
+  environment.loaders.get(ruleName).use
+    .find(rule => rule.loader === 'css-loader')
+    .options.localIdentName = '[folder]-[local]--[hash:base64:5]'
+}
+
 // Add bundle analyzer
 environment.plugins.append(
   'Analyzer',
