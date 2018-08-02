@@ -7,7 +7,7 @@
     "test": "mocha --require ./config/espower-typescript.js **/*.spec.{ts,tsx}",
     "storybook": "RAILS_ENV=development start-storybook -p 6006 webpack-dev-server",
     "prettier": "prettier --single-quote --trailing-comma=es5 --no-semi --write 'app/**/*.{ts,tsx,css,scss}'",
-    "precommit-check": "npm run prettier && npm run lint && npm run test"
+    "precommit-check": "yarn prettier && yarn lint && yarn test"
   },
   "directories": {
     "test": "**/__test__/"
