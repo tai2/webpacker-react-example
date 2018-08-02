@@ -12,6 +12,10 @@
   "directories": {
     "test": "**/__test__/"
   },
+  "resolutions": {
+    "**/@types/node": "^8.0.31",
+    "**/@types/react": "^15.6.2"
+  },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.1.1",
     "@rails/webpacker": "^3.5.5",
@@ -19,10 +23,10 @@
     "@types/lodash": "^4.14.74",
     "@types/node": "^8.0.31",
     "@types/query-string": "^5.0.0",
-    "@types/react": "^16.0.5",
+    "@types/react": "^15.6.2",
     "@types/react-dom": "^15.5.4",
-    "@types/react-hot-loader": "^3.0.4",
-    "@types/react-redux": "^5.0.9",
+    "@types/react-hot-loader": "^4.1.0",
+    "@types/react-redux": "^5.0.7",
     "@types/superagent": "^3.5.5",
     "autoprefixer": "^7.1.1",
     "awesome-typescript-loader": "^3.2.3",
@@ -39,14 +43,14 @@
     "react": "^15.6.2",
     "react-datetime": "^2.9.0",
     "react-dom": "^15.6.1",
-    "react-hot-loader": "^3.0.0",
-    "react-redux": "^5.0.5",
+    "react-hot-loader": "^4.3.4",
+    "react-redux": "^5.0.7",
     "redux": "^3.7.2",
     "redux-devtools-extension": "^2.13.2",
     "redux-saga": "^0.15.6",
     "resolve-url-loader": "^2.3.0",
     "superagent": "^3.5.2",
-    "typescript": "^2.5.2",
+    "typescript": "^3.0.1",
     "webpack-merge": "^4.1.0"
   },
   "devDependencies": {
@@ -66,7 +70,7 @@
     "power-assert": "^1.4.4",
     "prettier": "^1.7.4",
     "react-test-renderer": "^15.5.0",
-    "tslint": "^5.7.0",
+    "tslint": "^5.11.0",
     "tslint-config-prettier": "^1.5.0",
     "tslint-eslint-rules": "^4.1.1",
     "tslint-react": "^3.2.0",

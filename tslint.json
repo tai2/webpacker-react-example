@@ -13,6 +13,7 @@
       "object-literal-sort-keys": false,
       "no-submodule-imports": false,
       "member-access": [true, "no-public"],
-      "jsx-boolean-value": [true, "never"]
+      "jsx-boolean-value": [true, "never"],
+      "no-implicit-dependencies": false
     }
 }

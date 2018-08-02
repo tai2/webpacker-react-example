@@ -1,10 +1,5 @@
-/* tslint:disable:ordered-imports */
-import 'react-hot-loader/patch'
-/* tslint:enable:ordered-imports */
-
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
-import { AppContainer } from 'react-hot-loader'
 import { Provider } from 'react-redux'
 import { Store } from 'redux'
 import { camelCaseKeys, snakeCaseKeys } from '../lib/case-util'
@@ -40,31 +35,17 @@ function convert(state: ServerState): Partial<StoreState> {
   }
 }
 
-let store: Store<StoreState>
-
-function render(Component: any) {
-  ReactDOM.render(
-    <AppContainer>
-      <Provider store={store}>
-        <Component />
-      </Provider>
-    </AppContainer>,
-    document.getElementById('todo-app')
-  )
-}
-
 function getPreloadedState() {
   const node = document.getElementById('todos-data')!
   return convert(JSON.parse(node.getAttribute('data')!) as ServerState)
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  store = createAppStore(getPreloadedState())
-  render(App)
+  const store = createAppStore(getPreloadedState())
+  ReactDOM.render(
+    <Provider store={store}>
+      <App />
+    </Provider>,
+    document.getElementById('todo-app')
+  )
 })
-
-if (module.hot) {
-  module.hot.accept('./components/App', () => {
-    render(App)
-  })
-}
