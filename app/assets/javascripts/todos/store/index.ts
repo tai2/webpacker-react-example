@@ -10,11 +10,7 @@ export default function createAppStore(
   const sagaMiddleware = createSagaMiddleware()
   const enhancer = composeWithDevTools(applyMiddleware(sagaMiddleware))
 
-  const store = createStore(
-    reducers,
-    preloadedState as StoreState,
-    enhancer
-  )
+  const store = createStore(reducers, preloadedState as StoreState, enhancer)
 
   sagaMiddleware.run(rootSaga)
 
