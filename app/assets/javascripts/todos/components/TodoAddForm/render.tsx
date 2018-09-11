@@ -16,8 +16,8 @@ interface State {
 }
 
 export default class TodoAddForm extends React.Component<Props, State> {
-  constructor() {
-    super()
+  constructor(props: Props) {
+    super(props)
     this.state = {
       content: '',
       dueDate: new Date(),

@@ -27,8 +27,8 @@ interface State {
 }
 
 export default class TodoItem extends React.Component<Props, State> {
-  constructor() {
-    super()
+  constructor(props: Props) {
+    super(props)
     this.state = {
       contentEditing: false,
       dueDateEditing: false,
