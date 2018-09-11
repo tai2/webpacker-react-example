@@ -26,6 +26,53 @@ interface State {
   readonly dueDateEditing: boolean
 }
 
+interface ContentProps {
+  todo: Todo
+  disabled: boolean
+  editing: boolean
+  onCheckboxChange: () => void
+  onEditClick: () => void
+  onContentBlur: (ev: React.FocusEvent<HTMLInputElement>) => void
+}
+function Content({
+  todo,
+  disabled,
+  editing,
+  onCheckboxChange,
+  onEditClick,
+  onContentBlur,
+}: ContentProps) {
+  if (editing) {
+    return (
+      <input
+        type="text"
+        defaultValue={todo.content}
+        autoFocus
+        onBlur={onContentBlur}
+      />
+    )
+  }
+
+  return (
+    <div>
+      <label className={styles.contentLabel}>
+        <input
+          type="checkbox"
+          checked={todo.done}
+          disabled={disabled}
+          onChange={onCheckboxChange}
+        />
+        {todo.content}
+      </label>
+      <EditButton
+        className={styles.editButton}
+        disabled={disabled}
+        onClick={onEditClick}
+      />
+    </div>
+  )
+}
+
 export default class TodoItem extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props)
@@ -47,39 +94,6 @@ export default class TodoItem extends React.Component<Props, State> {
   handleDueDateBlur = (ev: React.FocusEvent<any> | moment.Moment | string) => {
     this.setState({ dueDateEditing: false })
     this.props.onDueDateBlur(ev, this.props.todo)
-  }
-  renderContent() {
-    const { todo, updateRequest, onCheckboxChange } = this.props
-
-    if (this.state.contentEditing) {
-      return (
-        <input
-          type="text"
-          defaultValue={todo.content}
-          autoFocus
-          onBlur={this.handleContentBlur}
-        />
-      )
-    }
-
-    return (
-      <div>
-        <label className={styles.contentLabel}>
-          <input
-            type="checkbox"
-            checked={todo.done}
-            disabled={updateRequest.requesting}
-            onChange={onCheckboxChange}
-          />
-          {todo.content}
-        </label>
-        <EditButton
-          className={styles.editButton}
-          disabled={updateRequest.requesting}
-          onClick={this.handleContentClick}
-        />
-      </div>
-    )
   }
   renderDueDate() {
     const { todo, updateRequest } = this.props
@@ -108,10 +122,26 @@ export default class TodoItem extends React.Component<Props, State> {
     )
   }
   render() {
-    const { todo, updateRequest, deleteRequest, onDestroyClick } = this.props
+    const {
+      todo,
+      updateRequest,
+      deleteRequest,
+      onCheckboxChange,
+      onDestroyClick,
+    } = this.props
+
     return (
       <tr key={todo.id}>
-        <td className={styles.contentCol}>{this.renderContent()}</td>
+        <td className={styles.contentCol}>
+          <Content
+            todo={todo}
+            disabled={updateRequest.requesting}
+            editing={this.state.contentEditing}
+            onCheckboxChange={onCheckboxChange}
+            onEditClick={this.handleContentClick}
+            onContentBlur={this.handleContentBlur}
+          />
+        </td>
         <td className={styles.dueDateCol}>{this.renderDueDate()}</td>
         <td>
           <button
