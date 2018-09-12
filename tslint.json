@@ -14,6 +14,7 @@
       "no-submodule-imports": false,
       "member-access": [true, "no-public"],
       "jsx-boolean-value": [true, "never"],
+      "jsx-no-lambda": false,
       "no-implicit-dependencies": false
     }
 }

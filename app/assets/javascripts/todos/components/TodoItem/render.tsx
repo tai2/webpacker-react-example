@@ -7,32 +7,13 @@ import { Todo } from '../../types'
 import EditButton from '../EditButton'
 import * as styles from './styles.module.scss'
 
-export interface Props {
-  id: number
-  todo: Todo
-  updateRequest: Request
-  deleteRequest: Request
-  onCheckboxChange: () => void
-  onContentBlur: (ev: React.FocusEvent<HTMLInputElement>, todo: Todo) => void
-  onDueDateBlur: (
-    ev: React.FocusEvent<any> | moment.Moment | string,
-    todo: Todo
-  ) => void
-  onDestroyClick: () => void
-}
-
-interface State {
-  readonly contentEditing: boolean
-  readonly dueDateEditing: boolean
-}
-
 interface ContentProps {
   todo: Todo
   disabled: boolean
   editing: boolean
   onCheckboxChange: () => void
   onEditClick: () => void
-  onInputBlur: (ev: React.FocusEvent<HTMLInputElement>) => void
+  onInputBlur: (ev: React.FocusEvent<HTMLInputElement>, todo: Todo) => void
 }
 function Content({
   todo,
@@ -48,7 +29,7 @@ function Content({
         type="text"
         defaultValue={todo.content}
         autoFocus
-        onBlur={onInputBlur}
+        onBlur={ev => onInputBlur(ev, todo)}
       />
     )
   }
@@ -78,7 +59,10 @@ interface DueDateProps {
   disabled: boolean
   editing: boolean
   onEditClick: () => void
-  onInputBlur: (ev: React.FocusEvent<any> | moment.Moment | string) => void
+  onInputBlur: (
+    ev: React.FocusEvent<any> | moment.Moment | string,
+    todo: Todo
+  ) => void
 }
 function DueDate({
   todo,
@@ -92,7 +76,7 @@ function DueDate({
       <DateTime
         defaultValue={new Date(todo.dueDate)}
         inputProps={{ autoFocus: true }}
-        onBlur={onInputBlur}
+        onBlur={ev => onInputBlur(ev, todo)}
       />
     )
   }
@@ -111,75 +95,74 @@ function DueDate({
   )
 }
 
-export default class TodoItem extends React.Component<Props, State> {
-  constructor(props: Props) {
-    super(props)
-    this.state = {
-      contentEditing: false,
-      dueDateEditing: false,
-    }
-  }
-  handleContentClick = () => {
-    this.setState({ contentEditing: true })
-  }
-  handleContentBlur = (ev: React.FocusEvent<HTMLInputElement>) => {
-    this.setState({ contentEditing: false })
-    this.props.onContentBlur(ev, this.props.todo)
-  }
-  handleDueDateClick = () => {
-    this.setState({ dueDateEditing: true })
-  }
-  handleDueDateBlur = (ev: React.FocusEvent<any> | moment.Moment | string) => {
-    this.setState({ dueDateEditing: false })
-    this.props.onDueDateBlur(ev, this.props.todo)
-  }
-  render() {
-    const {
-      todo,
-      updateRequest,
-      deleteRequest,
-      onCheckboxChange,
-      onDestroyClick,
-    } = this.props
+export interface Props {
+  id: number
+  todo: Todo
+  contentEditing: boolean
+  dueDateEditing: boolean
+  updateRequest: Request
+  deleteRequest: Request
+  onCheckboxChange: () => void
+  onContentClick: () => void
+  onContentBlur: (ev: React.FocusEvent<HTMLInputElement>, todo: Todo) => void
+  onDueDateClick: () => void
+  onDueDateBlur: (
+    ev: React.FocusEvent<any> | moment.Moment | string,
+    todo: Todo
+  ) => void
+  onDestroyClick: () => void
+}
 
-    return (
-      <tr key={todo.id}>
-        <td className={styles.contentCol}>
-          <Content
-            todo={todo}
-            disabled={updateRequest.requesting}
-            editing={this.state.contentEditing}
-            onCheckboxChange={onCheckboxChange}
-            onEditClick={this.handleContentClick}
-            onInputBlur={this.handleContentBlur}
-          />
-        </td>
-        <td className={styles.dueDateCol}>
-          <DueDate
-            todo={todo}
-            disabled={updateRequest.requesting}
-            editing={this.state.dueDateEditing}
-            onEditClick={this.handleDueDateClick}
-            onInputBlur={this.handleDueDateBlur}
-          />
-        </td>
-        <td>
-          <button
-            className="btn btn-secondary"
-            disabled={deleteRequest.requesting}
-            onClick={onDestroyClick}
-          >
-            Destroy
-          </button>
+export default function TodoItem({
+  todo,
+  contentEditing,
+  dueDateEditing,
+  updateRequest,
+  deleteRequest,
+  onCheckboxChange,
+  onContentClick,
+  onContentBlur,
+  onDueDateClick,
+  onDueDateBlur,
+  onDestroyClick,
+}: Props) {
+  return (
+    <tr key={todo.id}>
+      <td className={styles.contentCol}>
+        <Content
+          todo={todo}
+          disabled={updateRequest.requesting}
+          editing={contentEditing}
+          onCheckboxChange={onCheckboxChange}
+          onEditClick={onContentClick}
+          onInputBlur={onContentBlur}
+        />
+      </td>
+      <td className={styles.dueDateCol}>
+        <DueDate
+          todo={todo}
+          disabled={updateRequest.requesting}
+          editing={dueDateEditing}
+          onEditClick={onDueDateClick}
+          onInputBlur={onDueDateBlur}
+        />
+      </td>
+      <td>
+        <button
+          className="btn btn-secondary"
+          disabled={deleteRequest.requesting}
+          onClick={onDestroyClick}
+        >
+          Destroy
+        </button>
 
-          {updateRequest.error && (
-            <span className={styles.error}>Update todo failed</span>
-          )}
-          {deleteRequest.error && (
-            <span className={styles.error}>Delete todo failed</span>
-          )}
-        </td>
-      </tr>
-    )
-  }
+        {updateRequest.error && (
+          <span className={styles.error}>Update todo failed</span>
+        )}
+        {deleteRequest.error && (
+          <span className={styles.error}>Delete todo failed</span>
+        )}
+      </td>
+    </tr>
+  )
 }

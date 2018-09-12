@@ -36,10 +36,14 @@ describe('<TodoItem />', () => {
         <TodoItem
           id={1}
           todo={todo}
+          contentEditing={false}
+          dueDateEditing={false}
           updateRequest={updateRequest}
           deleteRequest={deleteRequest}
           onCheckboxChange={_.noop}
+          onContentClick={_.noop}
           onContentBlur={_.noop}
+          onDueDateClick={_.noop}
           onDueDateBlur={_.noop}
           onDestroyClick={_.noop}
         />

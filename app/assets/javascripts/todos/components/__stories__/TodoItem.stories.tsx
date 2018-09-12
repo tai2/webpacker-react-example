@@ -7,17 +7,30 @@ import TodoItem from '../TodoItem/render'
 
 function todoItemHelper(
   todo: Todo,
-  updateRequest: Request,
-  deleteRequest: Request
+  {
+    updateRequest,
+    deleteRequest,
+    contentEditing = false,
+    dueDateEditing = false,
+  }: {
+    updateRequest: Request
+    deleteRequest: Request
+    contentEditing?: boolean
+    dueDateEditing?: boolean
+  }
 ) {
   return (
     <TodoItem
       id={1}
       todo={todo}
+      contentEditing={contentEditing}
+      dueDateEditing={dueDateEditing}
       updateRequest={updateRequest}
       deleteRequest={deleteRequest}
       onCheckboxChange={action('checked')}
+      onContentClick={action('click content')}
       onContentBlur={action('blur from content')}
+      onDueDateClick={action('click dueDate')}
       onDueDateBlur={action('blur from dueDate')}
       onDestroyClick={action('deleted')}
     />
@@ -50,17 +63,46 @@ const loadingRequest: Request = {
 
 storiesOf('TodoItem', module)
   .add('typical', () =>
-    todoItemHelper(typicalTodo, succeededRequest, succeededRequest)
+    todoItemHelper(typicalTodo, {
+      updateRequest: succeededRequest,
+      deleteRequest: succeededRequest,
+    })
   )
   .add('while updating', () =>
-    todoItemHelper(typicalTodo, loadingRequest, succeededRequest)
+    todoItemHelper(typicalTodo, {
+      updateRequest: loadingRequest,
+      deleteRequest: succeededRequest,
+    })
   )
   .add('while deleting', () =>
-    todoItemHelper(typicalTodo, succeededRequest, loadingRequest)
+    todoItemHelper(typicalTodo, {
+      updateRequest: succeededRequest,
+      deleteRequest: loadingRequest,
+    })
   )
   .add('updating error', () =>
-    todoItemHelper(typicalTodo, errorRequest, succeededRequest)
+    todoItemHelper(typicalTodo, {
+      updateRequest: errorRequest,
+      deleteRequest: succeededRequest,
+    })
   )
   .add('deleting error', () =>
-    todoItemHelper(typicalTodo, succeededRequest, errorRequest)
+    todoItemHelper(typicalTodo, {
+      updateRequest: succeededRequest,
+      deleteRequest: errorRequest,
+    })
+  )
+  .add('content editing', () =>
+    todoItemHelper(typicalTodo, {
+      updateRequest: succeededRequest,
+      deleteRequest: succeededRequest,
+      contentEditing: true,
+    })
+  )
+  .add('dueDate editing', () =>
+    todoItemHelper(typicalTodo, {
+      updateRequest: succeededRequest,
+      deleteRequest: succeededRequest,
+      dueDateEditing: true,
+    })
   )
