@@ -4,6 +4,19 @@ import * as React from 'react'
 import { Request } from '../../reducers'
 import TodoAddForm from '../TodoAddForm/render'
 
+function todoAddFormHelper({ addTodoRequest }: { addTodoRequest: Request }) {
+  return (
+    <TodoAddForm
+      content="todo item"
+      dueDate={new Date()}
+      addTodoRequest={succeededRequest}
+      onAddTodo={action('added')}
+      onChangeContent={action('change content')}
+      onChangeDueDate={action('change dueDate')}
+    />
+  )
+}
+
 const succeededRequest: Request = {
   requesting: false,
   error: null,
@@ -20,15 +33,18 @@ const loadingRequest: Request = {
 }
 
 storiesOf('TodoAddForm', module)
-  .add('typical', () => (
-    <TodoAddForm
-      addTodoRequest={succeededRequest}
-      onAddTodo={action('added')}
-    />
-  ))
-  .add('while adding', () => (
-    <TodoAddForm addTodoRequest={loadingRequest} onAddTodo={action('added')} />
-  ))
-  .add('adding error', () => (
-    <TodoAddForm addTodoRequest={errorRequest} onAddTodo={action('added')} />
-  ))
+  .add('typical', () =>
+    todoAddFormHelper({
+      addTodoRequest: succeededRequest,
+    })
+  )
+  .add('while adding', () =>
+    todoAddFormHelper({
+      addTodoRequest: loadingRequest,
+    })
+  )
+  .add('adding error', () =>
+    todoAddFormHelper({
+      addTodoRequest: errorRequest,
+    })
+  )
